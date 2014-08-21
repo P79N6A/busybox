@@ -1,0 +1,82 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+# Start bash_completion
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    . /etc/bash_completion
+fi
+
+# User specific aliases and functions
+alias vi='vim'
+alias ls='ls --color=auto --group-directories-first'
+alias ll='ls -l'
+alias la='ls -A'
+alias l.='ls -d .*'
+alias lsd='ls -d */'
+alias l='ls -CF'
+alias mv='mv -iv'
+alias cp='cp -iv'
+alias del='\rm -iv'
+#alias rm='mv -t ~/.local/share/Trash/files --backup=t'
+alias rm='trash-put'
+alias rmls='trash-list'
+alias rrm='restore-trash'
+alias rm_clean='trash-empty'
+alias cdtrash='cd ~/.local/share/Trash/files'
+alias grep='grep -i'
+#alias tee='tee -a'
+alias top='top -s'
+alias diff='diff -b -B'
+#alias apt='apt-get -o Acquire::http::proxy="http://127.0.0.1:8087/"'
+
+#--------------------------------------------------------------
+
+alias as='as -gstabs'
+alias cc='gcc -ansi -pedantic -Wall -Wextra -Wc++-compat -Wconversion -g3'
+alias ccp='g++ -ansi -pedantic -Wall -Wextra -Wc++0x-compat -Wconversion -g3'
+alias ar='ar crv'
+alias ctags='ctags --c++-kinds=+p --fields=+iaS --extra=+q+f --tag-relative=yes --language-force=C++'
+
+#alias gdb='gdb | tee ~/temp/gdb.out'
+# the other way to make gdb log:
+# set set logging on
+# set set logging off
+# set set logging file FILE
+
+#--------------------------------------------------------------
+
+# Set dir_colors
+eval $(dircolors ~/.dir_colors)
+
+# specified environment variable
+export HISTCONTROL=erasedups
+export HISTTIMEFORMAT='%F %T '
+export TIMEFORMAT=$'\nRealTime=%3lR  UserTime=%3lU  SysTime=%3lS  CPU=%P%%'
+export LD_LIBRARY_PATH='./'
+
+# DIY bash prompt
+# export PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$'	# default of PS1
+# $LINES: 当前终端行数	$COLUMNS: 当前终端列数
+ip=`ifconfig | grep -A1 "eth0\|wlan0" | fgrep inet | cut -d ":" -f 2 | cut -d " " -f 1`
+ip=${ip:=0.0.0.0}
+if [ $LANG = 'en_US.UTF-8' ]; then
+	export PS1='\[\e[36m\]╔════\[\e[37m\](`echo -n "$ip"`)\[\e[36m\]══`for((i=0;i<$COLUMNS-39-${#ip};++i));do echo -n ═;done` \[\e[1m\e[33m\]$(date +"%a %F %T")\[\e[0m\e[36m\] ════╗\n\[\e[36m\]╠\[\e[0m\]\w\$ '
+else
+	export PS1='\[\e[36m\]|----\[\e[37m\](`echo -n "$ip"`)\[\e[36m\]--`for((i=0;i<$COLUMNS-39-${#ip};++i));do echo -n -;done` \[\e[1m\e[33m\]$(date +"%a %F %T")\[\e[0m\e[36m\] ----|\n\[\e[36m\]|\[\e[0m\]\w\$ '
+fi
+
+# set umask
+umask 027
+
+# others
+ulimit -c unlimited
+
+alias mplayer='mplayer -shuffle -loop 0'
+
+alias mntnfs='mount 192.168.32.164:/home/elwin/laptop /mnt/'
+
+alias update='source ~/.bashrc'

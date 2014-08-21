@@ -1,0 +1,36 @@
+[user]
+	name = Elwin.Gao
+	email = Elwin.Gao4444@gmail.com
+[core]
+	editor = vim
+[alias]
+	st = status -s
+	ci = commit
+	ciall = commit -a
+	reci = commit --amend
+	br = branch
+	brd = branch -d
+	brn = checkout -b
+	co = checkout
+	df = diff
+	dfch = diff --cached
+	undo = checkout --
+	save = stage
+	unsave = reset HEAD --
+	log- = log --oneline --abbrev-commit --decorate --graph
+	logs = log --name-status --abbrev-commit --relative-date --decorate --graph
+	last = log --name-status --abbrev-commit --relative-date --decorate -4 HEAD
+[http]
+#	proxy = 127.0.0.1:8087
+	sslVerify = false
+[https]
+#	proxy = 127.0.0.1:8087
+	sslVerify = false
+[merge]
+	tool = vimdiff
+[color]
+	ui = true
+	status = auto
+	branch = auto
+	interactive = auto
+	diff = auto
