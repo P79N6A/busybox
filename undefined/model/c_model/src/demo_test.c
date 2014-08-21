@@ -3,7 +3,7 @@
  *
  *       Filename:  demo_test.c
  *
- *    Description:  对demo的测试程序源代码
+ *    Description:  瀵筪emo鐨勬祴璇曠▼搴忔簮浠ｇ爜
  *
  *        Version:  1.0
  *        Created:  01/10/2013 03:28:58 PM

@@ -3,7 +3,7 @@
  *
  *       Filename:  reader&writer_2.c
  *
- *    Description:  说明：读写锁的使用需要gnu标准的支持，单纯的C标准将导致读写锁无法使用
+ *    Description:  璇存槑锛氳鍐欓攣鐨勪娇鐢ㄩ渶瑕乬nu鏍囧噯鐨勬敮鎸侊紝鍗曠函鐨凜鏍囧噯灏嗗鑷磋鍐欓攣鏃犳硶浣跨敤
  *
  *        Version:  1.0
  *        Created:  07/05/2012 03:46:16 PM

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
-# ¸Ã½Å±¾´ÓbingµÄrssÎÄ¼þÖÐ»ñÈ¡±³¾°Í¼Æ¬µÄURL£¬²¢½«ÆäÏÂÔØµ½±¾µØ
-# ÓÉÓÚ¸ÃrssµÄµØÖ·±»Ç½£¬ËùÒÔÐèÒª´úÀíµÄ°ïÖú
+# è¯¥è„šæœ¬ä»Žbingçš„rssæ–‡ä»¶ä¸­èŽ·å–èƒŒæ™¯å›¾ç‰‡çš„URLï¼Œå¹¶å°†å…¶ä¸‹è½½åˆ°æœ¬åœ°
+# ç”±äºŽè¯¥rssçš„åœ°å€è¢«å¢™ï¼Œæ‰€ä»¥éœ€è¦ä»£ç†çš„å¸®åŠ©
 
 import sys
 import re

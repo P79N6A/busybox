@@ -3,7 +3,7 @@
  *
  *       Filename:  demo_test.h
  *
- *    Description:  对demo的测试程序头文件
+ *    Description:  瀵筪emo鐨勬祴璇曠▼搴忓ご鏂囦欢
  *
  *        Version:  1.0
  *        Created:  01/10/2013 03:28:40 PM

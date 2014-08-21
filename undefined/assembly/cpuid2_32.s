@@ -1,15 +1,15 @@
 #cpuid2.d view the cpuid vendor id string using c library calls
 
-.section .data	# Êı¾İ¶ÎÉùÃ÷
-	msg : .asciz "the processor vendor id is '%s'\n"	# Óëascii²»Í¬µÄÊÇasciz»áÔÚ×îºóÌí¼Ó¡®\0¡¯
+.section .data	# æ•°æ®æ®µå£°æ˜
+	msg : .asciz "the processor vendor id is '%s'\n"	# ä¸asciiä¸åŒçš„æ˜¯ascizä¼šåœ¨æœ€åæ·»åŠ â€˜\0â€™
 
 .section .bss
 	.lcomm buf, 12
 
-.section .text	# ´úÂë¶ÎÉùÃ÷
-.global main	# Ö¸¶¨Èë¿Úº¯Êı
+.section .text	# ä»£ç æ®µå£°æ˜
+.global main	# æŒ‡å®šå…¥å£å‡½æ•°
 
-main:		# Ê¹ÓÃC¿âº¯Êı½øĞĞ´òÓ¡Êä³ö
+main:		# ä½¿ç”¨Cåº“å‡½æ•°è¿›è¡Œæ‰“å°è¾“å‡º
 
 	movl $0, %eax
 	cpuid
@@ -18,13 +18,13 @@ main:		# Ê¹ÓÃC¿âº¯Êı½øĞĞ´òÓ¡Êä³ö
 	movl %edx, 4(%edi)
 	movl %ecx, 8(%edi)
 
-	pushl $buf	# Ñ¹Õ»Ë³ĞòÓë
-	pushl $msg	# ²ÎÊıË³ĞòÏà·´
+	pushl $buf	# å‹æ ˆé¡ºåºä¸
+	pushl $msg	# å‚æ•°é¡ºåºç›¸å
 	call printf
 
-	addl $8, %esp	# ÓÃÓÚÇå¿ÕprintfÈëÕ»µÄ²ÎÊı
+	addl $8, %esp	# ç”¨äºæ¸…ç©ºprintfå…¥æ ˆçš„å‚æ•°
 	pushl $0
 	call exit
 
-# Èç¹ûÖ±½ÓÓÃgcc±àÒë£¬Ôò²»ÓÃ¿¼ÂÇÁ´½ÓC¿âµÄÎÊÌâ
-# Èç¹û½«main¸ÄÎª_start£¬²ÉÓÃas+ldµÄ±àÒë·½Ê½£¬ÔòĞèÒªÔÚldÊ±Ìí¼Ó-lc²ÎÊıÁ´½ÓC¿â
+# å¦‚æœç›´æ¥ç”¨gccç¼–è¯‘ï¼Œåˆ™ä¸ç”¨è€ƒè™‘é“¾æ¥Cåº“çš„é—®é¢˜
+# å¦‚æœå°†mainæ”¹ä¸º_startï¼Œé‡‡ç”¨as+ldçš„ç¼–è¯‘æ–¹å¼ï¼Œåˆ™éœ€è¦åœ¨ldæ—¶æ·»åŠ -lcå‚æ•°é“¾æ¥Cåº“

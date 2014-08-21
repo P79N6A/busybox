@@ -3,8 +3,8 @@
 // 
 //       Filename:  demo.cpp
 // 
-//    Description:  ½éÉÜboost(tr1)ÖĞshared_ptrµÄÓÃ·¨
-//    ²Î¿¼£ºhttp://euyuil.com/2344/note-about-shared-ptr-in-cpp1x/
+//    Description:  ä»‹ç»boost(tr1)ä¸­shared_ptrçš„ç”¨æ³•
+//    å‚è€ƒï¼šhttp://euyuil.com/2344/note-about-shared-ptr-in-cpp1x/
 // 
 //        Version:  1.0
 //        Created:  10/10/2012 07:57:33 PM
@@ -29,7 +29,7 @@
 */
 int main(int argc, char *argv[])
 {
-	/* ÓÉÓÚ²Î¿¼ÎÄµµµÄËµÃ÷ºÜÇå³ş£¬ÕâÀï¾Í²»ÔÙ×¸Êö */
+	/* ç”±äºå‚è€ƒæ–‡æ¡£çš„è¯´æ˜å¾ˆæ¸…æ¥šï¼Œè¿™é‡Œå°±ä¸å†èµ˜è¿° */
 	std::tr1::shared_ptr<int> sp(new int(0));
 	std::cout << "Hello World" << std::endl;
 	return EXIT_SUCCESS;

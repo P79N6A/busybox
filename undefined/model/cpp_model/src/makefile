@@ -1,38 +1,38 @@
-#---------------- ±àÒëÂ·¾¶  ----------------
+#---------------- ç¼–è¯‘è·¯å¾„  ----------------
 BIN_DIR		=.
 SRC_DIR		=.
 THIRD_LIB	=../third_party_lib
 
-# ËµÃ÷£ºÈç¹ûÔÚ±àÒëÊ±£¬Ô´ÎÄ¼ş²»ÔÚµ±Ç°Â·¾¶£¬ÔòÔÚÊ¹ÓÃgcovÊ±ĞèÒªÊ¹ÓÃ-o²ÎÊıÀ´Ö¸¶¨Ô´ÎÄ¼şÂ·¾¶
-#       ÁíÍâ£¬gcovÖ»ÄÜÔÚµ±Ç°Â·¾¶ÏÂÉú³É.gcovÎÄ¼ş£¬¶øÎŞ·¨Ö¸¶¨Éú³ÉÎÄ¼şµÄÂ·¾¶
-#       ËùÒÔÔÚ¿ª·¢Ê±£¬ÎªÁË·½±ãµ÷ÊÔºÍ²âÊÔ£¬Ó¦¸Ã½«makefileÎÄ¼ş¸´ÖÆÓÚsrcÂ·¾¶ÏÂ£¬²¢ÏàÓ¦ĞŞ¸ÄÂ·¾¶
+# è¯´æ˜ï¼šå¦‚æœåœ¨ç¼–è¯‘æ—¶ï¼Œæºæ–‡ä»¶ä¸åœ¨å½“å‰è·¯å¾„ï¼Œåˆ™åœ¨ä½¿ç”¨gcovæ—¶éœ€è¦ä½¿ç”¨-oå‚æ•°æ¥æŒ‡å®šæºæ–‡ä»¶è·¯å¾„
+#       å¦å¤–ï¼Œgcovåªèƒ½åœ¨å½“å‰è·¯å¾„ä¸‹ç”Ÿæˆ.gcovæ–‡ä»¶ï¼Œè€Œæ— æ³•æŒ‡å®šç”Ÿæˆæ–‡ä»¶çš„è·¯å¾„
+#       æ‰€ä»¥åœ¨å¼€å‘æ—¶ï¼Œä¸ºäº†æ–¹ä¾¿è°ƒè¯•å’Œæµ‹è¯•ï¼Œåº”è¯¥å°†makefileæ–‡ä»¶å¤åˆ¶äºsrcè·¯å¾„ä¸‹ï¼Œå¹¶ç›¸åº”ä¿®æ”¹è·¯å¾„
 
-#---------------- ±àÒëÁ´½Ó²ÎÊı  ----------------
+#---------------- ç¼–è¯‘é“¾æ¥å‚æ•°  ----------------
 CC = g++
 
-RELEASE	= $(CC)	# release°æ±¾»ù±¾±àÒëÃüÁî
-R_OPT	= -O2	# release°æ±¾ÓÅ»¯²ÎÊı
-R_WARN	= -Wall	# release°æ±¾¾¯¸æµÈ¼¶
-R_DEF	= # release°æ±¾±àÒëºê
-R_FLAG	= # release°æ±¾¸½¼Ó±àÒë²ÎÊı
+RELEASE	= $(CC)	# releaseç‰ˆæœ¬åŸºæœ¬ç¼–è¯‘å‘½ä»¤
+R_OPT	= -O2	# releaseç‰ˆæœ¬ä¼˜åŒ–å‚æ•°
+R_WARN	= -Wall	# releaseç‰ˆæœ¬è­¦å‘Šç­‰çº§
+R_DEF	= # releaseç‰ˆæœ¬ç¼–è¯‘å®
+R_FLAG	= # releaseç‰ˆæœ¬é™„åŠ ç¼–è¯‘å‚æ•°
 R_PARAM	= $(R_OPT) $(R_WARN) $(R_DEF) $(R_FLAG)
-R_LINK	= $(CC)	-o	# release°æ±¾Á´½Ó²ÎÊı
-R_SYS	= -lexpat	# release°æ±¾ÏµÍ³¶¯Ì¬¿â£¬ÀıÈç£º-lm, -rt, -ldl, -lpthreadµÈµÈ
+R_LINK	= $(CC)	-o	# releaseç‰ˆæœ¬é“¾æ¥å‚æ•°
+R_SYS	= -lexpat	# releaseç‰ˆæœ¬ç³»ç»ŸåŠ¨æ€åº“ï¼Œä¾‹å¦‚ï¼š-lm, -rt, -ldl, -lpthreadç­‰ç­‰
 
-DEBUG	= $(CC)	# debug°æ±¾»ù±¾±àÒëÃüÁî
-D_OPT	= -O0 -g3	# debug°æ±¾ÓÅ»¯²ÎÊı
-D_WARN	= -ansi -pedantic -Wall -Wextra -Wc++0x-compat -Wconversion	# debug°æ±¾¾¯¸æµÈ¼¶
-D_DEF	= -DPROJECT_DEBUG -DPROJECT_TEST	# debug°æ±¾±àÒëºê
-D_FLAG	= -fno-strict-aliasing -fprofile-arcs -ftest-coverage 	# debug°æ±¾¸½¼Ó±àÒë²ÎÊı
+DEBUG	= $(CC)	# debugç‰ˆæœ¬åŸºæœ¬ç¼–è¯‘å‘½ä»¤
+D_OPT	= -O0 -g3	# debugç‰ˆæœ¬ä¼˜åŒ–å‚æ•°
+D_WARN	= -ansi -pedantic -Wall -Wextra -Wc++0x-compat -Wconversion	# debugç‰ˆæœ¬è­¦å‘Šç­‰çº§
+D_DEF	= -DPROJECT_DEBUG -DPROJECT_TEST	# debugç‰ˆæœ¬ç¼–è¯‘å®
+D_FLAG	= -fno-strict-aliasing -fprofile-arcs -ftest-coverage 	# debugç‰ˆæœ¬é™„åŠ ç¼–è¯‘å‚æ•°
 D_PARAM	= $(D_OPT) $(D_WARN) $(D_DEF) $(D_FLAG)
-D_LINK	= $(CC) -o	# release°æ±¾Á´½Ó²ÎÊı
-D_SYS	= -lpthread -lgcov	# release°æ±¾ÏµÍ³¶¯Ì¬¿â£¬ÀıÈç£º-lm, -rt, -ldl, -lpthreadµÈµÈ
+D_LINK	= $(CC) -o	# releaseç‰ˆæœ¬é“¾æ¥å‚æ•°
+D_SYS	= -lpthread -lgcov	# releaseç‰ˆæœ¬ç³»ç»ŸåŠ¨æ€åº“ï¼Œä¾‹å¦‚ï¼š-lm, -rt, -ldl, -lpthreadç­‰ç­‰
 
-INCLUDE = -I $(THIRD_LIB)/cppunit-1.12.1/include -I $(THIRD_LIB)/log4cpp-1.1/include	# Í·ÎÄ¼şÂ·¾¶
+INCLUDE = -I $(THIRD_LIB)/cppunit-1.12.1/include -I $(THIRD_LIB)/log4cpp-1.1/include	# å¤´æ–‡ä»¶è·¯å¾„
 STATIC_LIB = $(THIRD_LIB)/cppunit-1.12.1/lib/libcppunit.a $(THIRD_LIB)/log4cpp-1.1/lib/liblog4cpp.a
 OBJECT = $(SRC_DIR)/test_driver.o $(SRC_DIR)/base.o $(SRC_DIR)/derived.o
 
-#---------------- make±êÇ©¼°ÒÀÀµ¹æÔò  ----------------
+#---------------- makeæ ‡ç­¾åŠä¾èµ–è§„åˆ™  ----------------
 all : debug
 
 $(SRC_DIR)/%.o : $(SRC_DIR)/%.cpp

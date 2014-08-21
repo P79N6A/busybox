@@ -41,7 +41,7 @@
    int mdns_open_socket(void){
    struct ip_mreq mreq;
    struct sockaddr_in sa;
-   int fd =-1,ttl,yes;//yesµØÖ·ÖØÓÃ
+   int fd =-1,ttl,yes;//yesåœ°å€é‡ç”¨
 
    mdns_mcast_group(&sa);
 
@@ -56,7 +56,7 @@ int main()
 	struct sockaddr_in local_addr;
 	int err = -1;
 	int loop = 1;
-	sock_fd = socket(AF_INET,SOCK_DGRAM,0);/* ½¨Á¢Ì×½Ó×Ö*/
+	sock_fd = socket(AF_INET,SOCK_DGRAM,0);/* å»ºç«‹å¥—æ¥å­—*/
 	if(sock_fd < 0){
 		perror("socket()");
 		exit(1);
@@ -66,7 +66,7 @@ int main()
 
 	memset(&local_addr,0,sizeof(local_addr));
 	local_addr.sin_family = AF_INET;
-	local_addr.sin_addr.s_addr = htonl(INADDR_ANY);//inet_addr(LOCAL_ADDR);htonl(INADDR_ANY);¹Ì¶¨Îªlocal_addrÔò½ÓÊÜ²»µ½
+	local_addr.sin_addr.s_addr = htonl(INADDR_ANY);//inet_addr(LOCAL_ADDR);htonl(INADDR_ANY);å›ºå®šä¸ºlocal_addråˆ™æ¥å—ä¸åˆ°
 	local_addr.sin_port = htons(LOCAL_PORT);
 	err = bind(sock_fd,(struct sockaddr *)&local_addr,sizeof(local_addr));
 	if(err < 0){

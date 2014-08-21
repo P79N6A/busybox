@@ -1,14 +1,14 @@
 #cpuid.d sample program to extract the processor vendor id
 
-.section .data	# Êı¾İ¶ÎÉùÃ÷
-	msg : .ascii "the processor vendor id is 'xxxxxxxxxxxx'\n"	# ÒªÊä³öµÄ×Ö·û´®
-	len = . - msg	# ×Ö´®³¤¶È
+.section .data	# æ•°æ®æ®µå£°æ˜
+	msg : .ascii "the processor vendor id is 'xxxxxxxxxxxx'\n"	# è¦è¾“å‡ºçš„å­—ç¬¦ä¸²
+	len = . - msg	# å­—ä¸²é•¿åº¦
 
-.section .text	# ´úÂë¶ÎÉùÃ÷
-.global _start	# Ö¸¶¨Èë¿Úº¯Êı
+.section .text	# ä»£ç æ®µå£°æ˜
+.global _start	# æŒ‡å®šå…¥å£å‡½æ•°
 
-_start:		# ÔÚÆÁÄ»ÉÏÏÔÊ¾Ò»¸ö×Ö·û´®
-	nop	# ½â¾öGDBÖĞ"b *_start"ÎŞ·¨Õı³£¶ÏµãµÄbug£¬´ËÊ±Ê¹ÓÃ"b *_start+1"¼´¿É
+_start:		# åœ¨å±å¹•ä¸Šæ˜¾ç¤ºä¸€ä¸ªå­—ç¬¦ä¸²
+	nop	# è§£å†³GDBä¸­"b *_start"æ— æ³•æ­£å¸¸æ–­ç‚¹çš„bugï¼Œæ­¤æ—¶ä½¿ç”¨"b *_start+1"å³å¯
 	
 	movl $0, %eax
 	cpuid
@@ -17,13 +17,13 @@ _start:		# ÔÚÆÁÄ»ÉÏÏÔÊ¾Ò»¸ö×Ö·û´®
 	movl %edx, 32(%edi)
 	movl %ecx, 36(%edi)
 	
-	movl $len, %edx	# ²ÎÊıÈı£º×Ö·û´®³¤¶È
-	movl $msg, %ecx	# ²ÎÊı¶ş£ºÒªÏÔÊ¾µÄ×Ö·û´®
-	movl $1, %ebx	# ²ÎÊıÒ»£ºÎÄ¼şÃèÊö·û(stdout) 
-	movl $4, %eax	# ÏµÍ³µ÷ÓÃºÅ(sys_write) 
-	int  $0x80	# µ÷ÓÃÄÚºË¹¦ÄÜ
+	movl $len, %edx	# å‚æ•°ä¸‰ï¼šå­—ç¬¦ä¸²é•¿åº¦
+	movl $msg, %ecx	# å‚æ•°äºŒï¼šè¦æ˜¾ç¤ºçš„å­—ç¬¦ä¸²
+	movl $1, %ebx	# å‚æ•°ä¸€ï¼šæ–‡ä»¶æè¿°ç¬¦(stdout) 
+	movl $4, %eax	# ç³»ç»Ÿè°ƒç”¨å·(sys_write) 
+	int  $0x80	# è°ƒç”¨å†…æ ¸åŠŸèƒ½
 	
-	# ÍË³ö³ÌĞò
-	movl $0,%ebx	# ²ÎÊıÒ»£ºÍË³ö´úÂë
-	movl $1,%eax	# ÏµÍ³µ÷ÓÃºÅ(sys_exit) 
-	int  $0x80	# µ÷ÓÃÄÚºË¹¦ÄÜ
+	# é€€å‡ºç¨‹åº
+	movl $0,%ebx	# å‚æ•°ä¸€ï¼šé€€å‡ºä»£ç 
+	movl $1,%eax	# ç³»ç»Ÿè°ƒç”¨å·(sys_exit) 
+	int  $0x80	# è°ƒç”¨å†…æ ¸åŠŸèƒ½

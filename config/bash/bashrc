@@ -27,7 +27,7 @@ alias rmls='trash-list'
 alias rrm='restore-trash'
 alias rm_clean='trash-empty'
 alias cdtrash='cd ~/.local/share/Trash/files'
-alias grep='grep -i'
+alias grep='grep --color -i'
 #alias tee='tee -a'
 alias top='top -s'
 alias diff='diff -b -B'
@@ -60,11 +60,11 @@ export LD_LIBRARY_PATH='./'
 
 # DIY bash prompt
 # export PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$'	# default of PS1
-# $LINES: µ±Ç°ÖÕ¶ËĞĞÊı	$COLUMNS: µ±Ç°ÖÕ¶ËÁĞÊı
-ip=`ifconfig | grep -A1 "eth0\|wlan0" | fgrep inet | cut -d ":" -f 2 | cut -d " " -f 1`
+# $LINES: å½“å‰ç»ˆç«¯è¡Œæ•°	$COLUMNS: å½“å‰ç»ˆç«¯åˆ—æ•°
+ip=`ifconfig | grep -A1 "eth0\|wlan0" | fgrep inet | cut -d ":" -f 2 | cut -d " " -f 1 | xargs | sed "s/ / \& /g"`
 ip=${ip:=0.0.0.0}
 if [ $LANG = 'en_US.UTF-8' ]; then
-	export PS1='\[\e[36m\]¨X¨T¨T¨T¨T\[\e[37m\](`echo -n "$ip"`)\[\e[36m\]¨T¨T`for((i=0;i<$COLUMNS-39-${#ip};++i));do echo -n ¨T;done` \[\e[1m\e[33m\]$(date +"%a %F %T")\[\e[0m\e[36m\] ¨T¨T¨T¨T¨[\n\[\e[36m\]¨d\[\e[0m\]\w\$ '
+	export PS1='\[\e[36m\]â•”â•â•â•â•\[\e[37m\](`echo -n "$ip"`)\[\e[36m\]â•â•`for((i=0;i<$COLUMNS-39-${#ip};++i));do echo -n â•;done` \[\e[1m\e[33m\]$(date +"%a %F %T")\[\e[0m\e[36m\] â•â•â•â•â•—\n\[\e[36m\]â• \[\e[0m\]\w\$ '
 else
 	export PS1='\[\e[36m\]|----\[\e[37m\](`echo -n "$ip"`)\[\e[36m\]--`for((i=0;i<$COLUMNS-39-${#ip};++i));do echo -n -;done` \[\e[1m\e[33m\]$(date +"%a %F %T")\[\e[0m\e[36m\] ----|\n\[\e[36m\]|\[\e[0m\]\w\$ '
 fi

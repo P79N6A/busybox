@@ -1,55 +1,55 @@
 "--------------------------------------------------------------------------
-"	È«¾ÖÉèÖÃ£¨:help£©
+"	å…¨å±€è®¾ç½®ï¼ˆ:helpï¼‰
 "--------------------------------------------------------------------------
-set nocompatible	" ²»ÒªvimÄ£·ÂviÄ£Ê½£¬½¨ÒéÉèÖÃ£¬·ñÔò»áÓĞºÜ¶à²»¼æÈİµÄÎÊÌâ
-set number		" ÏÔÊ¾ĞĞºÅ
-set nowrap		" ²»×Ô¶¯»»ĞĞ
-"set tabstop=4		" TAB¼üËù±íÊ¾µÄ¿Õ¸ñÊı
-"set shiftwidth=4	" Ëõ½øËù±íÊ¾µÄ¿Õ¸ñÊı£¨²»Í¬ÓÚTAB£¬ÊÇÀûÓÃ>>Ëõ½øµÄ´óĞ¡£¬×Ô¶¯Ëõ½øÒ²¿´Õâ¸öÖµ£©
-":set expandtab		" Ê¹ÓÃ¿Õ¸ñÌæ´útab
-":%retab!		" ½«tabÌæ»»Îª¿Õ¸ñ£¬²»¼Ó¡°£¡¡±±íÊ¾Ö»Ìæ»»ĞĞÊ×µÄtab
-set autoindent		" ÖÇÄÜ×Ô¶¯Ëõ½ø
-filetype on		" ¿ªÆôÎÄ¼şÀàĞÍÊ¶±ğ¹¦ÄÜ
-filetype plugin on	" ¸ù¾İÎÄ¼şÀàĞÍÔÊĞí²å¼şÎÄ¼şµÄÔØÈë
-filetype indent on	" ¸ù¾İÎÄ¼şÀàĞÍ×Ô¶¯Ëõ½ø
-"set cindent		" °´ÕÕC´úÂë·ç¸ñ½øĞĞ×Ô¶¯Ëõ½ø
-set incsearch		" ÔÚÊäÈëÒªËÑË÷µÄÎÄ×ÖÊ±£¬ÊµÊ±Æ¥Åä
-set hlsearch		" ¶Ô±»ËÑË÷µÄ±í´ïÊ½ÏÔÊ¾¸ßÁÁ
-syntax enable		" ÉèÖÃÓï·¨¸ßÁÁ¿ÉÓÃ
-syntax on		" ¿ªÆôÓï·¨¸ßÁÁ
-colorscheme desert	" ×Ô¶¨ÒåÑÕÉ«·½°¸£¨:help hi£©
-set fdm=syntax		" ÉèÖÃ°´ÕÕÓï·¨½øĞĞÕÛµş
-set cursorline		" ÉèÖÃ¹â±êËùÔÚĞĞµÄĞĞ±ê¼Ç
-"set cinoptions=>s,e0,n0,f0,{0,}0,^0,:s,=s,l0,gs,hs,ps,ts,+s,c3,C0,(2s,us,\U0,w0,m0,j0,)20,*30	" Ä¬ÈÏcinoptionÉèÖÃ
-set cinoptions=g0,:0,t0	" ÉèÖÃC++µÄpublic¡¢protectedºÍprivate¹Ø¼ü×Ö²»Ëõ½ø¡¢ÒÔ¼°case²»Ëõ½ø
-set ignorecase		" ²éÕÒÊ±ºöÂÔ´óĞ¡Ğ´£¬¼òĞ´Îªset ic
-"set noignorecase	" ²éÕÒÊ±Æ¥Åä´óĞ¡Ğ´£¬¼òĞ´Îªset noic
+set nocompatible	" ä¸è¦vimæ¨¡ä»¿viæ¨¡å¼ï¼Œå»ºè®®è®¾ç½®ï¼Œå¦åˆ™ä¼šæœ‰å¾ˆå¤šä¸å…¼å®¹çš„é—®é¢˜
+set number		" æ˜¾ç¤ºè¡Œå·
+set nowrap		" ä¸è‡ªåŠ¨æ¢è¡Œ
+"set tabstop=4		" TABé”®æ‰€è¡¨ç¤ºçš„ç©ºæ ¼æ•°
+"set shiftwidth=4	" ç¼©è¿›æ‰€è¡¨ç¤ºçš„ç©ºæ ¼æ•°ï¼ˆä¸åŒäºTABï¼Œæ˜¯åˆ©ç”¨>>ç¼©è¿›çš„å¤§å°ï¼Œè‡ªåŠ¨ç¼©è¿›ä¹Ÿçœ‹è¿™ä¸ªå€¼ï¼‰
+":set expandtab		" ä½¿ç”¨ç©ºæ ¼æ›¿ä»£tab
+":%retab!		" å°†tabæ›¿æ¢ä¸ºç©ºæ ¼ï¼Œä¸åŠ â€œï¼â€è¡¨ç¤ºåªæ›¿æ¢è¡Œé¦–çš„tab
+set autoindent		" æ™ºèƒ½è‡ªåŠ¨ç¼©è¿›
+filetype on		" å¼€å¯æ–‡ä»¶ç±»å‹è¯†åˆ«åŠŸèƒ½
+filetype plugin on	" æ ¹æ®æ–‡ä»¶ç±»å‹å…è®¸æ’ä»¶æ–‡ä»¶çš„è½½å…¥
+filetype indent on	" æ ¹æ®æ–‡ä»¶ç±»å‹è‡ªåŠ¨ç¼©è¿›
+"set cindent		" æŒ‰ç…§Cä»£ç é£æ ¼è¿›è¡Œè‡ªåŠ¨ç¼©è¿›
+set incsearch		" åœ¨è¾“å…¥è¦æœç´¢çš„æ–‡å­—æ—¶ï¼Œå®æ—¶åŒ¹é…
+set hlsearch		" å¯¹è¢«æœç´¢çš„è¡¨è¾¾å¼æ˜¾ç¤ºé«˜äº®
+syntax enable		" è®¾ç½®è¯­æ³•é«˜äº®å¯ç”¨
+syntax on		" å¼€å¯è¯­æ³•é«˜äº®
+colorscheme desert	" è‡ªå®šä¹‰é¢œè‰²æ–¹æ¡ˆï¼ˆ:help hiï¼‰
+set fdm=syntax		" è®¾ç½®æŒ‰ç…§è¯­æ³•è¿›è¡ŒæŠ˜å 
+set cursorline		" è®¾ç½®å…‰æ ‡æ‰€åœ¨è¡Œçš„è¡Œæ ‡è®°
+"set cinoptions=>s,e0,n0,f0,{0,}0,^0,:s,=s,l0,gs,hs,ps,ts,+s,c3,C0,(2s,us,\U0,w0,m0,j0,)20,*30	" é»˜è®¤cinoptionè®¾ç½®
+set cinoptions=g0,:0,t0	" è®¾ç½®C++çš„publicã€protectedå’Œprivateå…³é”®å­—ä¸ç¼©è¿›ã€ä»¥åŠcaseä¸ç¼©è¿›
+set ignorecase		" æŸ¥æ‰¾æ—¶å¿½ç•¥å¤§å°å†™ï¼Œç®€å†™ä¸ºset ic
+"set noignorecase	" æŸ¥æ‰¾æ—¶åŒ¹é…å¤§å°å†™ï¼Œç®€å†™ä¸ºset noic
 
 "--------------------------------------------------------------------------
-"	ÉèÖÃÈÈ¼ü
+"	è®¾ç½®çƒ­é”®
 "--------------------------------------------------------------------------
-"	ÉèÖÃF3ÔÚÈ¥³ı¸ßÁÁÈÈ¼ü
+"	è®¾ç½®F3åœ¨å»é™¤é«˜äº®çƒ­é”®
 map	<silent> <f3>	:noh<cr>
 imap	<silent> <f3>	<esc><f3>a
-"	ÉèÖÃF4Æô¶¯bash×Ó½ø³ÌÈÈ¼ü
+"	è®¾ç½®F4å¯åŠ¨bashå­è¿›ç¨‹çƒ­é”®
 map	<f4>	:!bash<cr>
 imap	<f4>	<esc><f4>
-"	ÉèÖÃF5½øÈë¶ş½øÖÆxxd±à¼­Ä£Ê½
+"	è®¾ç½®F5è¿›å…¥äºŒè¿›åˆ¶xxdç¼–è¾‘æ¨¡å¼
 map	<f5>	:%!xxd<cr>
 imap	<f5>	<esc><f5>a
-"	ÉèÖÃF6ÍË³ö¶ş½øÖÆxxd±à¼­Ä£Ê½
+"	è®¾ç½®F6é€€å‡ºäºŒè¿›åˆ¶xxdç¼–è¾‘æ¨¡å¼
 map	<f6>	:%!xxd -r<cr>
 imap	<f6>	<esc><f6>a
-"	ÉèÖÃµ÷Õû´°¿ÚsizeµÄÈÈ¼ü
+"	è®¾ç½®è°ƒæ•´çª—å£sizeçš„çƒ­é”®
 nmap	<A-LEFT>	<C-W><
 nmap	<A-RIGHT>	<C-W>>
 nmap	<A-UP>		<C-W>+
 nmap	<A-DOWN>	<C-W>-
-"	ÉèÖÃÒ»ĞĞÌ«³¤£¬²¢ÇÒwrap±»ÉèÖÃÊ±£¬°´ÊÓ¾õĞ§¹ûÉÏÏÂĞĞÒÆ¶¯£¬¶ø²»ÊÇ°´Êµ¼ÊĞĞ½øĞĞÒÆ¶¯
+"	è®¾ç½®ä¸€è¡Œå¤ªé•¿ï¼Œå¹¶ä¸”wrapè¢«è®¾ç½®æ—¶ï¼ŒæŒ‰è§†è§‰æ•ˆæœä¸Šä¸‹è¡Œç§»åŠ¨ï¼Œè€Œä¸æ˜¯æŒ‰å®é™…è¡Œè¿›è¡Œç§»åŠ¨
 "nmap	J	gj
 "nmap	K	gk
-"	ÉèÖÃ½«µ±Ç°wordÉèÖÃ¸ßÁÁ
-"	vimÖĞµÄ×óÓÒ×Ö·û±ß½çÎª£º\<ºÍ\>£¬¶ø²»ÊÇ±ê×¼ÕıÔòÖĞµÄ\b
+"	è®¾ç½®å°†å½“å‰wordè®¾ç½®é«˜äº®
+"	vimä¸­çš„å·¦å³å­—ç¬¦è¾¹ç•Œä¸ºï¼š\<å’Œ\>ï¼Œè€Œä¸æ˜¯æ ‡å‡†æ­£åˆ™ä¸­çš„\b
 nmap	<silent> mm	yiw:match WildMenu	/\<<C-r>0\>/<cr>
 nmap	<silent> m0	yiw:match Search	/\<<C-r>0\>/<cr>
 nmap	<silent> m9	yiw:match ErrorMsg	/\<<C-r>0\>/<cr>
@@ -58,16 +58,16 @@ nmap	<silent> m2	yiw:match IncSearch	/\<<C-r>0\>/<cr>
 nmap	<silent> m-	yiw:match Visual	/\<<C-r>0\>/<cr>
 nmap	<silent> m=	yiw:match StatusLine	/\<<C-r>0\>/<cr>
 nmap	<silent> mn	yiw:match none<cr>
-"	viÖĞµÄ²éÕÒÓĞÁ½ÖÖ·½Ê½£º
-"	Ò»£º/ºÍ?ĞèÒªÓÃ»§×Ô¼ºÊäÈë£¬²¢ÇÒ°´ÕÕÕıÔò½øĞĞÆ¥Åä£¬Ò»¸öÏòÏÂ²éÕÒ£¬Ò»¸öÏòÉÏ²éÕÒ
-"	¶ş£º*ºÍ#Ä¬ÈÏÆ¥Åäµ±Ç°µ¥´Ê£¬½øĞĞÑÏ¸ñÆ¥Åä£¬Ò»¸öÏòÉÏ²éÕÒ£¬Ò»¸öÏòÏÂ²éÕÒ¡£·ÇÑÏ¸ñÆ¥ÅäÊ¹ÓÃg*ºÍg#£¬·ÇÑÏ¸ñÆ¥ÅäÔÊĞí²¿·ÖÆ¥Åä
-"	¿ìËÙÑ¡ÖĞµ±Ç°´Ê£¬Ê¹ÓÃiwºÍÏà¹ØÃüÁî½øĞĞ×éºÏ£¬ÀıÈç£ºviw, yiw£¬iw±íÊ¾inner word£¬Ïê¼û£º:help iw
-"	ÓëiwÏà¹ØµÄ»¹ÓĞi[¡¢i(µÈµÈ£¬±íÊ¾Æ¥ÅäÔÚÀ¨ºÅÖ®ÄÚµÄËùÓĞÊı¾İ¡£ÔÚÀ¨ºÅ·¶Î§ÄÚ»¹¿ÉÒÔÊ¹ÓÃa(£¬ËüºÍi(µÄ²»Í¬ÊÇ£ºi(²¿°üº¬À¨ºÅ£¬¶øa(°üº¬À¨ºÅ
+"	viä¸­çš„æŸ¥æ‰¾æœ‰ä¸¤ç§æ–¹å¼ï¼š
+"	ä¸€ï¼š/å’Œ?éœ€è¦ç”¨æˆ·è‡ªå·±è¾“å…¥ï¼Œå¹¶ä¸”æŒ‰ç…§æ­£åˆ™è¿›è¡ŒåŒ¹é…ï¼Œä¸€ä¸ªå‘ä¸‹æŸ¥æ‰¾ï¼Œä¸€ä¸ªå‘ä¸ŠæŸ¥æ‰¾
+"	äºŒï¼š*å’Œ#é»˜è®¤åŒ¹é…å½“å‰å•è¯ï¼Œè¿›è¡Œä¸¥æ ¼åŒ¹é…ï¼Œä¸€ä¸ªå‘ä¸ŠæŸ¥æ‰¾ï¼Œä¸€ä¸ªå‘ä¸‹æŸ¥æ‰¾ã€‚éä¸¥æ ¼åŒ¹é…ä½¿ç”¨g*å’Œg#ï¼Œéä¸¥æ ¼åŒ¹é…å…è®¸éƒ¨åˆ†åŒ¹é…
+"	å¿«é€Ÿé€‰ä¸­å½“å‰è¯ï¼Œä½¿ç”¨iwå’Œç›¸å…³å‘½ä»¤è¿›è¡Œç»„åˆï¼Œä¾‹å¦‚ï¼šviw, yiwï¼Œiwè¡¨ç¤ºinner wordï¼Œè¯¦è§ï¼š:help iw
+"	ä¸iwç›¸å…³çš„è¿˜æœ‰i[ã€i(ç­‰ç­‰ï¼Œè¡¨ç¤ºåŒ¹é…åœ¨æ‹¬å·ä¹‹å†…çš„æ‰€æœ‰æ•°æ®ã€‚åœ¨æ‹¬å·èŒƒå›´å†…è¿˜å¯ä»¥ä½¿ç”¨a(ï¼Œå®ƒå’Œi(çš„ä¸åŒæ˜¯ï¼ši(éƒ¨åŒ…å«æ‹¬å·ï¼Œè€Œa(åŒ…å«æ‹¬å·
 
 nmap	<silent> <C-m>	<esc>:cw<cr>
 
 "--------------------------------------------------------------------------
-"	ÉèÖÃ×Ô¶¨ÒåÑÕÉ«£¨²»Ê¹ÓÃ×Ô¶¯ÃüÁîÎŞ·¨ÉúĞ§£©
+"	è®¾ç½®è‡ªå®šä¹‰é¢œè‰²ï¼ˆä¸ä½¿ç”¨è‡ªåŠ¨å‘½ä»¤æ— æ³•ç”Ÿæ•ˆï¼‰
 "--------------------------------------------------------------------------
 autocmd BufRead,BufNewFile *.[ch]* syntax keyword Typedef byte
 autocmd BufRead,BufNewFile *.[ch]* syntax keyword Typedef uchar
@@ -76,72 +76,72 @@ autocmd BufRead,BufNewFile *.[ch]* syntax keyword Typedef uint
 autocmd BufRead,BufNewFile *.[ch]* syntax keyword Typedef ulong
 
 "--------------------------------------------------------------------------
-"	ÉèÖÃctags
+"	è®¾ç½®ctags
 "--------------------------------------------------------------------------
 nmap <C-\> :tselect<cr>
-"ÈÃCTRL-]Ö»ÓĞÒ»¸öÑ¡ÔñÊ±×Ô¶¯Ìø×ª£¬¶à¸öÑ¡ÔñÊ±£¬³öÏÖÑ¡ÔñÁĞ±í
+"è®©CTRL-]åªæœ‰ä¸€ä¸ªé€‰æ‹©æ—¶è‡ªåŠ¨è·³è½¬ï¼Œå¤šä¸ªé€‰æ‹©æ—¶ï¼Œå‡ºç°é€‰æ‹©åˆ—è¡¨
 " map <C-]> :tselect <C-R>=expand("<cword>")<CR><CR>
 " map <C-]> g<C-]>
 
-"	ÉèÖÃTagList
+"	è®¾ç½®TagList
 "let Tlist_Ctags_Cmd = '/usr/bin/ctags'
-"let Tlist_Auto_Open=1    "ÔÚÆô¶¯ vim ºó£¬×Ô¶¯´ò¿ª taglist ´°¿Ú¡£
-"let Tlist_Use_Right_Window = 1 "ÔÚÓÒ²à´°¿ÚÖĞÏÔÊ¾ taglist ´°¿Ú
-let Tlist_Show_One_File=1 " ½öÏÔÊ¾µ±Ç°ÎÄ¼şµÄtagsÄ¿Â¼
-let Tlist_Exit_OnlyWindow=1 " µ±½öÊ£ÏÂtaglist´°¿ÚµÄÊ±ºòÆô¶¯¹Ø±Õ
+"let Tlist_Auto_Open=1    "åœ¨å¯åŠ¨ vim åï¼Œè‡ªåŠ¨æ‰“å¼€ taglist çª—å£ã€‚
+"let Tlist_Use_Right_Window = 1 "åœ¨å³ä¾§çª—å£ä¸­æ˜¾ç¤º taglist çª—å£
+let Tlist_Show_One_File=1 " ä»…æ˜¾ç¤ºå½“å‰æ–‡ä»¶çš„tagsç›®å½•
+let Tlist_Exit_OnlyWindow=1 " å½“ä»…å‰©ä¸‹taglistçª—å£çš„æ—¶å€™å¯åŠ¨å…³é—­
 
 "--------------------------------------------------------------------------
-"	ÉèÖÃCscope
+"	è®¾ç½®Cscope
 "--------------------------------------------------------------------------
-set cscopequickfix=s-,c-,d-,i-,t-,e- " Ê¹ÓÃ quickfix ´°¿ÚÀ´ÏÔÊ¾cscope½á¹û
+set cscopequickfix=s-,c-,d-,i-,t-,e- " ä½¿ç”¨ quickfix çª—å£æ¥æ˜¾ç¤ºcscopeç»“æœ
 
 "--------------------------------------------------------------------------
-"	ÉèÖÃc-support
+"	è®¾ç½®c-support
 "--------------------------------------------------------------------------
-"	ÉèÖÃc-supportµÄÃüÁî·û
+"	è®¾ç½®c-supportçš„å‘½ä»¤ç¬¦
 let g:C_MapLeader='@'
-"	ÉèÖÃc-support¸ù¾İÎÄ¼şÀ©Õ¹ÃûÊ¹ÓÃ²»Í¬µÄÄ£°å
+"	è®¾ç½®c-supportæ ¹æ®æ–‡ä»¶æ‰©å±•åä½¿ç”¨ä¸åŒçš„æ¨¡æ¿
 let g:C_Styles = { '*.c,*.h' : 'default', '*.cc,*.cpp,*.hpp' : 'CPP' }
 
 "--------------------------------------------------------------------------
-"	ÉèÖÃWinManager
+"	è®¾ç½®WinManager
 "--------------------------------------------------------------------------
-let g:winManagerWindowLayout='FileExplorer|TagList' " ÉèÖÃ´°¿Ú²¼¾Ö
+let g:winManagerWindowLayout='FileExplorer|TagList' " è®¾ç½®çª—å£å¸ƒå±€
 map	<silent> <f2>	:WMToggle<cr>
 imap	<silent> <f2>	<esc><f2>a
 
 "--------------------------------------------------------------------------
-"	ÉèÖÃMiniBufExplorer£¨ÀûÓÃctrl½øĞĞ´°¿ÚÇĞ»»£©
+"	è®¾ç½®MiniBufExplorerï¼ˆåˆ©ç”¨ctrlè¿›è¡Œçª—å£åˆ‡æ¢ï¼‰
 "--------------------------------------------------------------------------
-let g:miniBufExplMapCTabSwitchBufs = 1 " ¹©¹ıtabÇĞ»»´°¿Ú
-let g:miniBufExplMapWindowNavVim = 1 " Í¨¹ıh,j,k,lÇĞ»»´°¿Ú
-let g:miniBufExplMapWindowNavArrows = 1 " Í¨¹ı·½Ïò¼üÇĞ»»´°¿Ú
+let g:miniBufExplMapCTabSwitchBufs = 1 " ä¾›è¿‡tabåˆ‡æ¢çª—å£
+let g:miniBufExplMapWindowNavVim = 1 " é€šè¿‡h,j,k,låˆ‡æ¢çª—å£
+let g:miniBufExplMapWindowNavArrows = 1 " é€šè¿‡æ–¹å‘é”®åˆ‡æ¢çª—å£
 
 "--------------------------------------------------------------------------
-"	ÉèÖÃOmniCppComplete
+"	è®¾ç½®OmniCppComplete
 "--------------------------------------------------------------------------
 set tags+=~/.vim/tags/ctags
 set tags+=~/.vim/tags/cpptags
 set tags+=~/.vim/tags/gnutags
 "set tags+=~/.vim/tags/phptags
 "set tags+=~/.vim/tags/kerneltags
-"	ÉèÖÃPythonComplete£¨Ã»ÓĞ¿´µ½Ğ§¹û£©
+"	è®¾ç½®PythonCompleteï¼ˆæ²¡æœ‰çœ‹åˆ°æ•ˆæœï¼‰
 "autocmd FileType python set omnifunc=pythoncomplete#Complete
 
 let OmniCpp_NamespaceSearch = 1
 let OmniCpp_GlobalScopeSearch = 1
 let OmniCpp_ShowAccess = 1
-let OmniCpp_ShowPrototypeInAbbr = 1 " ÏÔÊ¾º¯Êı²ÎÊıÁĞ±í
-let OmniCpp_MayCompleteDot = 1   " ÊäÈë .  ºó×Ô¶¯²¹È«
-let OmniCpp_MayCompleteArrow = 1 " ÊäÈë -> ºó×Ô¶¯²¹È«
-let OmniCpp_MayCompleteScope = 1 " ÊäÈë :: ºó×Ô¶¯²¹È«
+let OmniCpp_ShowPrototypeInAbbr = 1 " æ˜¾ç¤ºå‡½æ•°å‚æ•°åˆ—è¡¨
+let OmniCpp_MayCompleteDot = 1   " è¾“å…¥ .  åè‡ªåŠ¨è¡¥å…¨
+let OmniCpp_MayCompleteArrow = 1 " è¾“å…¥ -> åè‡ªåŠ¨è¡¥å…¨
+let OmniCpp_MayCompleteScope = 1 " è¾“å…¥ :: åè‡ªåŠ¨è¡¥å…¨
 "let OmniCpp_DefaultNamespaces = ["std", \"_GLIBCXX_STD"]
-" ×Ô¶¯¹Ø±Õ²¹È«´°¿Ú
+" è‡ªåŠ¨å…³é—­è¡¥å…¨çª—å£
 "au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 set completeopt=menuone,menu,longest
 
 "--------------------------------------------------------------------------
-"	ÉèÖÃÊó±ê¼°¹öÂÖ
+"	è®¾ç½®é¼ æ ‡åŠæ»šè½®
 "--------------------------------------------------------------------------
 ":set	mouse=a
 :map	<ScrollWheelUp>		<C-Y>
@@ -159,7 +159,7 @@ map <silent> <leader>3 :diffget 3<CR> :diffupdate<CR>
 map <silent> <leader>4 :diffget 4<CR> :diffupdate<CR>
 
 "--------------------------------------------------------------------------
-"	Ìí¼ÓÁÙÊ±ÅäÖÃ
+"	æ·»åŠ ä¸´æ—¶é…ç½®
 "--------------------------------------------------------------------------
 if findfile('./vimrc') != ''
 	source ./vimrc

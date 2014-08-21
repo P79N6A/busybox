@@ -3,7 +3,7 @@
 // 
 //       Filename:  derived.cpp
 // 
-//    Description:  ÅÉÉúÀàÊµÏÖ
+//    Description:  æ´¾ç”Ÿç±»å®ç°
 // 
 //        Version:  1.0
 //        Created:  01/16/2013 01:08:45 PM

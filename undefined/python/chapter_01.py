@@ -2,93 +2,93 @@
 #coding=utf-8
 
 # for 1.10	from __future__ imports must occur at the beginning of the file
-from __future__ import division	# ¸÷¸öÄ£¿éÖĞµÄ__future__·½·¨¶¼ÊÇÓÃÀ´È·±£2.1Ö®Ç°°æ±¾µÄPython¿ÉÒÔÕı³£ÔËĞĞÒ»Ğ©ĞÂµÄÓïÑÔÌØĞÔ£¬ÕâÀïÓÃÀ´È±±í¡°²»»á½Ø¶Ï¡±
+from __future__ import division	# å„ä¸ªæ¨¡å—ä¸­çš„__future__æ–¹æ³•éƒ½æ˜¯ç”¨æ¥ç¡®ä¿2.1ä¹‹å‰ç‰ˆæœ¬çš„Pythonå¯ä»¥æ­£å¸¸è¿è¡Œä¸€äº›æ–°çš„è¯­è¨€ç‰¹æ€§ï¼Œè¿™é‡Œç”¨æ¥ç¼ºè¡¨â€œä¸ä¼šæˆªæ–­â€
 
-# µÚÒ»ÕÂ ÎÄ±¾
+# ç¬¬ä¸€ç«  æ–‡æœ¬
 
-# 1.1-Ã¿´Î´¦ÀíÒ»¸ö×Ö·û
+# 1.1-æ¯æ¬¡å¤„ç†ä¸€ä¸ªå­—ç¬¦
 def fun1_1_1(char):
-	return char,	# ²»¼Ó¶ººÅ±íÊ¾·µ»ØÒ»¸ö×Ö·û£¬¼Ó¶ººÅ±íÊ¾·µ»ØÔª×é
+	return char,	# ä¸åŠ é€—å·è¡¨ç¤ºè¿”å›ä¸€ä¸ªå­—ç¬¦ï¼ŒåŠ é€—å·è¡¨ç¤ºè¿”å›å…ƒç»„
 
 def chapter1_1():
 	str = 'Hello World'
-	print list(str)	# ½«×Ö·û´®²ğ·Ö³Élist
-	print ''.join(list(str))	# list(str)µÄ·´Ïò²Ù×÷£¬½«list×éºÏÎª×Ö·û´®
+	print list(str)	# å°†å­—ç¬¦ä¸²æ‹†åˆ†æˆlist
+	print ''.join(list(str))	# list(str)çš„åå‘æ“ä½œï¼Œå°†listç»„åˆä¸ºå­—ç¬¦ä¸²
 
-	for char in str:	# Ñ­»·¶ÁÈ¡×Ö·û´®µÄÃ¿¸ö×Ö·û
-		print char,	# printÄ¬ÈÏÊä³ö»Ø³µ·û£¬¼Ó¶ººÅ¿É±ÜÃâÊä³ö»Ø³µ·û
+	for char in str:	# å¾ªç¯è¯»å–å­—ç¬¦ä¸²çš„æ¯ä¸ªå­—ç¬¦
+		print char,	# printé»˜è®¤è¾“å‡ºå›è½¦ç¬¦ï¼ŒåŠ é€—å·å¯é¿å…è¾“å‡ºå›è½¦ç¬¦
 	print ''
 
-	result = [i for i in str]	# ÀûÓÃforÓï¾ä³õÊ¼»¯list
+	result = [i for i in str]	# åˆ©ç”¨forè¯­å¥åˆå§‹åŒ–list
 	print result
 
-	result = map(fun1_1_1, str)	# Ã¿¶ÁÈ¡Ò»¸ö×Ö·û£¬µ÷ÓÃÒ»´Îº¯Êı
-	print result	# ½á¹ûÎªÃ¿¸öfun1_1_1·µ»ØÖµµÄlist
-	result = map(lambda x : (x,), str)	# ÉÏÊö·½·¨µÄÄäÃûº¯ÊıÊµÏÖ
-	print result	# ½á¹ûÎªÃ¿¸öfun1_1_1·µ»ØÖµµÄlist
+	result = map(fun1_1_1, str)	# æ¯è¯»å–ä¸€ä¸ªå­—ç¬¦ï¼Œè°ƒç”¨ä¸€æ¬¡å‡½æ•°
+	print result	# ç»“æœä¸ºæ¯ä¸ªfun1_1_1è¿”å›å€¼çš„list
+	result = map(lambda x : (x,), str)	# ä¸Šè¿°æ–¹æ³•çš„åŒ¿åå‡½æ•°å®ç°
+	print result	# ç»“æœä¸ºæ¯ä¸ªfun1_1_1è¿”å›å€¼çš„list
 
 	pass
 
-# 1.2-×Ö·ûºÍ×Ö·ûÖµÖ®¼äµÄ×ª»»
+# 1.2-å­—ç¬¦å’Œå­—ç¬¦å€¼ä¹‹é—´çš„è½¬æ¢
 def chapter1_2():
-	print ord('a')	# ½«×Ö·û×ª»»³ÉÆä¶ÔÓ¦µÄASCIIÂë
-	print chr(97)	# ½«Êı×é¿´×÷ASCIIÂë£¬²¢½«Æä×ª»»Îª×Ö·û
+	print ord('a')	# å°†å­—ç¬¦è½¬æ¢æˆå…¶å¯¹åº”çš„ASCIIç 
+	print chr(97)	# å°†æ•°ç»„çœ‹ä½œASCIIç ï¼Œå¹¶å°†å…¶è½¬æ¢ä¸ºå­—ç¬¦
 
-	# \u2020Ò²¿ÉÒÔÎªÖĞÎÄ»òÕßÆäËûUnicode×Ö·û
-	print ord(u'\u2020')	# ½«Unicode×Ö·û×ª»»ÎªUnicode±àÂë
-	print unichr(8824)	# ½«Unicode±àÂë×ª»»ÎªUnicode×Ö·û
+	# \u2020ä¹Ÿå¯ä»¥ä¸ºä¸­æ–‡æˆ–è€…å…¶ä»–Unicodeå­—ç¬¦
+	print ord(u'\u2020')	# å°†Unicodeå­—ç¬¦è½¬æ¢ä¸ºUnicodeç¼–ç 
+	print unichr(8824)	# å°†Unicodeç¼–ç è½¬æ¢ä¸ºUnicodeå­—ç¬¦
 
-	print repr(chr(97))	# chr½«Êı×Ö×ª»»³ÉASCII×Ö·û
-	print repr(str(97))	# str½«Êı×ÖÖ±½Ó×ª»»³ÉÆä¶ÔÓ¦µÄ×Ö·û´®
+	print repr(chr(97))	# chrå°†æ•°å­—è½¬æ¢æˆASCIIå­—ç¬¦
+	print repr(str(97))	# strå°†æ•°å­—ç›´æ¥è½¬æ¢æˆå…¶å¯¹åº”çš„å­—ç¬¦ä¸²
 
-	print map(ord, 'hello')	# Ê¹ÓÃmap½«×Ö·û´®×ª»»³ÉÎªASCII±àÂëÊı×é
-	print ''.join(map(chr, range(97, 123)))	# ´òÓ¡26¸ö×ÖÄ¸
+	print map(ord, 'hello')	# ä½¿ç”¨mapå°†å­—ç¬¦ä¸²è½¬æ¢æˆä¸ºASCIIç¼–ç æ•°ç»„
+	print ''.join(map(chr, range(97, 123)))	# æ‰“å°26ä¸ªå­—æ¯
 
 	pass
 
-# 1.3-²âÊÔÒ»¸ö¶ÔÏóÊÇ·ñÊÇÀà×Ö·û´®
+# 1.3-æµ‹è¯•ä¸€ä¸ªå¯¹è±¡æ˜¯å¦æ˜¯ç±»å­—ç¬¦ä¸²
 def isStringLike(anobj):
 	'''
-	pythonµÄÌØÉ«Ö®Ò»¾ÍÊÇ¸ù¾İ×Ô¼ºµÄÔ¤ÆÚÈ¥Ö´ĞĞÈÎÎñ£¬ÔÚ´Ë¹ı³ÌÖĞ¼ì²â´íÎóºÍÒì³£¡£
-	ÕâÊÇÒ»¸öÖøÃûµÄ´¦Àí·½Ê½£¬½Ğ×ö¡°»ñÈ¡ÊÂºóÔ­ÁÂ×Ü±ÈÊÂÏÈµÃµ½Ğí¿ÉÒªÈİÒ×µÄ¶à¡±
+	pythonçš„ç‰¹è‰²ä¹‹ä¸€å°±æ˜¯æ ¹æ®è‡ªå·±çš„é¢„æœŸå»æ‰§è¡Œä»»åŠ¡ï¼Œåœ¨æ­¤è¿‡ç¨‹ä¸­æ£€æµ‹é”™è¯¯å’Œå¼‚å¸¸ã€‚
+	è¿™æ˜¯ä¸€ä¸ªè‘—åçš„å¤„ç†æ–¹å¼ï¼Œå«åšâ€œè·å–äº‹ååŸè°…æ€»æ¯”äº‹å…ˆå¾—åˆ°è®¸å¯è¦å®¹æ˜“çš„å¤šâ€
 	'''
 
-	try: anobj + ''	# Í¨¹ıĞŞ¸ÄtryµÄ²¿·Ö£¬¿ÉÒÔ¼ì²â¸ü¶àµÄ×Ö·û´®ÌØĞÔ
+	try: anobj + ''	# é€šè¿‡ä¿®æ”¹tryçš„éƒ¨åˆ†ï¼Œå¯ä»¥æ£€æµ‹æ›´å¤šçš„å­—ç¬¦ä¸²ç‰¹æ€§
 	except: return False
 	else: return True
 
 def chapter1_3():
 	string = 'Hello World'
-	print isinstance(string, basestring)	# basestringÊÇstrºÍunicodeÀàËÆÄÄ¸öµÄ¹²Í¬»ùÀà
+	print isinstance(string, basestring)	# basestringæ˜¯strå’Œunicodeç±»ä¼¼å“ªä¸ªçš„å…±åŒåŸºç±»
 	string = 'Hello World'
-	print isinstance(string, str)	# strÈç¹û±»¶¨ÒåÎª±äÁ¿£¬¾ÍÎŞ·¨ÔÙ×÷ÎªÀàÃûÊ¹ÓÃ
+	print isinstance(string, str)	# strå¦‚æœè¢«å®šä¹‰ä¸ºå˜é‡ï¼Œå°±æ— æ³•å†ä½œä¸ºç±»åä½¿ç”¨
 	string = 'Hello World'
 	print isinstance(string, unicode)
 	string = u'Hello World'
 	print isinstance(string, unicode)
 
-	print type(string) is type(u'')	# ËäÈ»ÕâÖÖ·½·¨Ò²¿ÉÒÔ½øĞĞÀàĞÍ²âÊÔ£¬²»¹ıÕâÖÖ·½·¨·Ç³£Ôã¸â£¬ÓÈÆäÎŞ·¨ÅĞ¶Ï×Ô¶¨ÒåÀàĞÍ
-	print isStringLike(string)	# ÕâÖÖ·½·¨±ÈisinstanceÒªÂıµÄ¶à£¬µ«ÊÇÈ´ÊÊÓÃÓÚÀà×Ö·û´®ÀàĞÍµÄÊµÀı
+	print type(string) is type(u'')	# è™½ç„¶è¿™ç§æ–¹æ³•ä¹Ÿå¯ä»¥è¿›è¡Œç±»å‹æµ‹è¯•ï¼Œä¸è¿‡è¿™ç§æ–¹æ³•éå¸¸ç³Ÿç³•ï¼Œå°¤å…¶æ— æ³•åˆ¤æ–­è‡ªå®šä¹‰ç±»å‹
+	print isStringLike(string)	# è¿™ç§æ–¹æ³•æ¯”isinstanceè¦æ…¢çš„å¤šï¼Œä½†æ˜¯å´é€‚ç”¨äºç±»å­—ç¬¦ä¸²ç±»å‹çš„å®ä¾‹
 
 	pass
 
-# 1.4-×Ö·û´®¶ÔÆë
+# 1.4-å­—ç¬¦ä¸²å¯¹é½
 def chapter1_4():
 	'''
-	ljust & r rjust: ×ó¶ÔÆë»òÓÒ¶ÔÆë£¬²ÎÊı±íÊ¾Ìî³ä·¶Î§£¬Ìî³ä×Ö·ûÄ¬ÈÏÎª¿Õ¸ñ
-	center: ¾ÓÖĞ£¬²ÎÊı±íÊ¾Ìî³ä·¶Î§ºÍÌî³ä×Ö·û
+	ljust & r rjust: å·¦å¯¹é½æˆ–å³å¯¹é½ï¼Œå‚æ•°è¡¨ç¤ºå¡«å……èŒƒå›´ï¼Œå¡«å……å­—ç¬¦é»˜è®¤ä¸ºç©ºæ ¼
+	center: å±…ä¸­ï¼Œå‚æ•°è¡¨ç¤ºå¡«å……èŒƒå›´å’Œå¡«å……å­—ç¬¦
 	'''
 
 	print '|', 'hej'.ljust(20), '|', 'hej'.rjust(20), '|', 'hej'.center(20, '+'), '|'
 
 	pass
 
-# 1.5-È¥³ı×Ö·û´®Á½¶ËµÄ¿Õ¸ñ
+# 1.5-å»é™¤å­—ç¬¦ä¸²ä¸¤ç«¯çš„ç©ºæ ¼
 def chapter1_5():
 	'''
 	lstrip, rstrip, strip
-	·Ö±ğÈ¥³ı×ó¡¢ÓÒºÍÁ½¶ËµÄÖ¸¶¨×Ö·û£¬Ä¬ÈÏÎª¿Õ¸ñ
-	²ÎÊıÒ²¿ÉÒÔÖ¸¶¨×Ö·ûÁĞ±í
+	åˆ†åˆ«å»é™¤å·¦ã€å³å’Œä¸¤ç«¯çš„æŒ‡å®šå­—ç¬¦ï¼Œé»˜è®¤ä¸ºç©ºæ ¼
+	å‚æ•°ä¹Ÿå¯ä»¥æŒ‡å®šå­—ç¬¦åˆ—è¡¨
 	'''
 
 	print '|', '+hej+'.lstrip('+'), '|', '+hej+'.rstrip('+'), '|', '+hej+'.strip('+'), '|'
@@ -96,58 +96,58 @@ def chapter1_5():
 
 	pass
 
-# 1.6-ºÏ²¢×Ö·û´®
+# 1.6-åˆå¹¶å­—ç¬¦ä¸²
 def chapter1_6():
 	'''
-	pythonµÄ×Ö·û´®ÎŞ·¨¸Ä±ä£¬Ö»ÄÜ´´½¨ĞÂµÄ×Ö·û´®£¬ËùÒÔ£¬ÄÄÖÖ´¦Àí·½Ê½ÖĞ¼ä½á¹û×îÉÙ£¬ËÙ¶È¾ÍÔ½¿ì
-	ÓÉ´ËÀ´¿´£¬'+'ÔËËãµÄĞÔÄÜ×î²î£¬ĞèÒªN-1¸öÖĞ¼ä½á¹û¡£¶øjoin·½Ê½ÊÇ×î¿ìµÄ£¬Ö»ĞèÒªÒ»¸öÖĞ¼äbuf
-	¶ÔÓÚ×Ö·û´®Æ´½ÓÊä³öµÄÇé¿ö£¬ÍÆ¼öÊ¹ÓÃ¸ñÊ½»¯Êä³ö»úÖÆ£¬¿É¶ÁĞÔÇ¿¡¢¿ÉÀ©Õ¹ĞÔÇ¿£¨±ÜÃâÁËºÜ¶à¶ÔÊı×ÖµÄstr()×ª»»£©£¬²¢ÇÒĞ§ÂÊÉÏÒ²²»ÊÇÎÊÌâ
+	pythonçš„å­—ç¬¦ä¸²æ— æ³•æ”¹å˜ï¼Œåªèƒ½åˆ›å»ºæ–°çš„å­—ç¬¦ä¸²ï¼Œæ‰€ä»¥ï¼Œå“ªç§å¤„ç†æ–¹å¼ä¸­é—´ç»“æœæœ€å°‘ï¼Œé€Ÿåº¦å°±è¶Šå¿«
+	ç”±æ­¤æ¥çœ‹ï¼Œ'+'è¿ç®—çš„æ€§èƒ½æœ€å·®ï¼Œéœ€è¦N-1ä¸ªä¸­é—´ç»“æœã€‚è€Œjoinæ–¹å¼æ˜¯æœ€å¿«çš„ï¼Œåªéœ€è¦ä¸€ä¸ªä¸­é—´buf
+	å¯¹äºå­—ç¬¦ä¸²æ‹¼æ¥è¾“å‡ºçš„æƒ…å†µï¼Œæ¨èä½¿ç”¨æ ¼å¼åŒ–è¾“å‡ºæœºåˆ¶ï¼Œå¯è¯»æ€§å¼ºã€å¯æ‰©å±•æ€§å¼ºï¼ˆé¿å…äº†å¾ˆå¤šå¯¹æ•°å­—çš„str()è½¬æ¢ï¼‰ï¼Œå¹¶ä¸”æ•ˆç‡ä¸Šä¹Ÿä¸æ˜¯é—®é¢˜
 	'''
-	print 'foo'+'bar'	# '+'²Ù×÷¶ÔÓÚ×Ö·û´®ÀàĞÍ¼´ÎªÁ¬½Ó²Ù×÷£¬µ±È»'+='Ò²ÊÇÖ§³ÖµÄ
-	print 'foo','bar'	# ¶ººÅµÄµÄÄ¬ÈÏ´¦ÀíÎª¿Õ¸ñ·Ö¸î
-	print '%s%s' % ('foo', 'bar')	# ÀàCÓïÑÔµÄ¸ñÊ½»¯Êä³ö
+	print 'foo'+'bar'	# '+'æ“ä½œå¯¹äºå­—ç¬¦ä¸²ç±»å‹å³ä¸ºè¿æ¥æ“ä½œï¼Œå½“ç„¶'+='ä¹Ÿæ˜¯æ”¯æŒçš„
+	print 'foo','bar'	# é€—å·çš„çš„é»˜è®¤å¤„ç†ä¸ºç©ºæ ¼åˆ†å‰²
+	print '%s%s' % ('foo', 'bar')	# ç±»Cè¯­è¨€çš„æ ¼å¼åŒ–è¾“å‡º
 	import operator
-	print reduce(operator.add, ['x','y','z'], 'init')	# reduceµÄµÚÈı¸ö²ÎÊıÎª³õÊ¼»¯Öµ£¬Îª¿ÉÑ¡²ÎÊı
-	print ''.join(['foo', 'bar'])	# ½«×Ö·û´®±ä³ÉĞòÁĞ£¬È»ºóÁ¬½ÓĞòÁĞµÄÔªËØÒ²¿ÉÒÔ´ïµ½×Ö·û´®Á¬½ÓµÄĞ§¹û
-	print 'foo'.join('bar')	# ÕâÖÖÓÃ·¨ÊÇ´íµÄ£¬½á¹ûÎª£ºbfooafoor£¬join½«'bar'×÷Îªlist£¬ÒÔ'foo'Îª·Ö¸î·û½øĞĞÖØ×é
+	print reduce(operator.add, ['x','y','z'], 'init')	# reduceçš„ç¬¬ä¸‰ä¸ªå‚æ•°ä¸ºåˆå§‹åŒ–å€¼ï¼Œä¸ºå¯é€‰å‚æ•°
+	print ''.join(['foo', 'bar'])	# å°†å­—ç¬¦ä¸²å˜æˆåºåˆ—ï¼Œç„¶åè¿æ¥åºåˆ—çš„å…ƒç´ ä¹Ÿå¯ä»¥è¾¾åˆ°å­—ç¬¦ä¸²è¿æ¥çš„æ•ˆæœ
+	print 'foo'.join('bar')	# è¿™ç§ç”¨æ³•æ˜¯é”™çš„ï¼Œç»“æœä¸ºï¼šbfooafoorï¼Œjoinå°†'bar'ä½œä¸ºlistï¼Œä»¥'foo'ä¸ºåˆ†å‰²ç¬¦è¿›è¡Œé‡ç»„
 
 	pass
 
-# 1.7-½«×Ö·û´®Öğ×Ö·û»îÖğ´Ê·´×ª
+# 1.7-å°†å­—ç¬¦ä¸²é€å­—ç¬¦æ´»é€è¯åè½¬
 def chapter1_7():
-	# Öğ×Ö·´×ª
+	# é€å­—åè½¬
 	print 'hello'[::-1]
 
 	wlist = list('hello')
-	wlist.reverse()	# listµÄreverse·½·¨Ö»·´×ªlistÔªËØ£¬Ã»ÓĞ·µ»ØÖµ
+	wlist.reverse()	# listçš„reverseæ–¹æ³•åªåè½¬listå…ƒç´ ï¼Œæ²¡æœ‰è¿”å›å€¼
 	print ''.join(wlist)
-	print ''.join(list('hello')[::-1])	# ÉÏÊö·½·¨µÄÒ»ĞĞ±íÊ¾
+	print ''.join(list('hello')[::-1])	# ä¸Šè¿°æ–¹æ³•çš„ä¸€è¡Œè¡¨ç¤º
 
 	print reduce(lambda x,y: y+x, 'hello')
 
-	# Öğ´Ê·´×ª
+	# é€è¯åè½¬
 	wlist = 'hello world'.split()
 	wlist.reverse()
 	print ' '.join(wlist)
-	print ' '.join(('hello world').split()[::-1])	# ÉÏÊö·½·¨µÄÒ»ĞĞ±íÊ¾
+	print ' '.join(('hello world').split()[::-1])	# ä¸Šè¿°æ–¹æ³•çš„ä¸€è¡Œè¡¨ç¤º
 
-	import re	# ÕıÔò±í´ïÊ½·½Ê½
+	import re	# æ­£åˆ™è¡¨è¾¾å¼æ–¹å¼
 	wlist = re.split(r'(\s+)', 'hello world')
 	wlist.reverse()
-	print ''.join(wlist)	# ÕıÔò½«¿Õ¸ñÒ²×÷Îª·´×ªÔªËØ£¬¹ÊjoinµÄÊ±ºò£¬ÎŞĞèÔÚÊ¹ÓÃ¿Õ¸ñ×÷ÎªÁ¬½Ó·û
-	print ''.join(re.split(r'(\s+)', 'hello world')[::-1])	# ÉÏÊö·½·¨µÄÒ»ĞĞ±íÊ¾
+	print ''.join(wlist)	# æ­£åˆ™å°†ç©ºæ ¼ä¹Ÿä½œä¸ºåè½¬å…ƒç´ ï¼Œæ•…joinçš„æ—¶å€™ï¼Œæ— éœ€åœ¨ä½¿ç”¨ç©ºæ ¼ä½œä¸ºè¿æ¥ç¬¦
+	print ''.join(re.split(r'(\s+)', 'hello world')[::-1])	# ä¸Šè¿°æ–¹æ³•çš„ä¸€è¡Œè¡¨ç¤º
 
 	pass
 
-# 1.8-¼ì²é×Ö·û´®ÖĞÊÇ·ñ°üº¬Ä³×Ö·û¼¯ºÏÖĞµÄ×Ö·û
-def containsAny(seq, aset):	# ÅĞ¶ÏasetÖĞÊÇ·ñ°üº¬seqÖĞµÄ×Ö·û¼¯ºÏ
-	''' ¼ì²éĞòÁĞseqÊÇ·ñº¬ÓĞasetÖĞµÄÏî '''
+# 1.8-æ£€æŸ¥å­—ç¬¦ä¸²ä¸­æ˜¯å¦åŒ…å«æŸå­—ç¬¦é›†åˆä¸­çš„å­—ç¬¦
+def containsAny(seq, aset):	# åˆ¤æ–­asetä¸­æ˜¯å¦åŒ…å«seqä¸­çš„å­—ç¬¦é›†åˆ
+	''' æ£€æŸ¥åºåˆ—seqæ˜¯å¦å«æœ‰asetä¸­çš„é¡¹ '''
 	for c in seq:
 		if c in aset: return True
 	return False
 
 def containsOnly(seq, aset):
-	''' ¼ì²éĞòÁĞseqÊÇ·ñÖ»ÓĞasetÖĞµÄÏî '''
+	''' æ£€æŸ¥åºåˆ—seqæ˜¯å¦åªæœ‰asetä¸­çš„é¡¹ '''
 	for c in seq:
 		if c not in aset: return False
 	return True
@@ -160,31 +160,31 @@ def containsAll(astr, strset):
 	return not strset.translate(notrans, astr)
 
 def chapter1_8():
-	print 'abc' in '123zxcabcqweasd'	# in ¹Ø¼ü×Ö¿ÉÒÔ½øĞĞ×Ó´®¼ì²â
+	print 'abc' in '123zxcabcqweasd'	# in å…³é”®å­—å¯ä»¥è¿›è¡Œå­ä¸²æ£€æµ‹
 
 	print containsAny('abc', '123zxcabcqweasd')
-	print set( '123zxcabcqweasd').intersection('abc')	# Ê¹ÓÃbuild-inµÄsetÊı¾İÀàĞÍÊµÏÖcontainsAnyµÄ¹¦ÄÜ
-	print bool(set( '123zxcabcqweasd').intersection('abc'))	# ÕâÖÖÕÒÈ«¼¯µÄ·½·¨Èç¹û½ö½öÎªÁËÅĞ¶Ï¾ÍÌ«ÂıÁË£¬ÉÏÃæµÄ¡°¶ÌÂ··¨¡±£¨ÕÒµ½Ò»¸ö¾Í·µ»Ø£©Ïà¶Ô¿ìµÄ¶à
+	print set( '123zxcabcqweasd').intersection('abc')	# ä½¿ç”¨build-inçš„setæ•°æ®ç±»å‹å®ç°containsAnyçš„åŠŸèƒ½
+	print bool(set( '123zxcabcqweasd').intersection('abc'))	# è¿™ç§æ‰¾å…¨é›†çš„æ–¹æ³•å¦‚æœä»…ä»…ä¸ºäº†åˆ¤æ–­å°±å¤ªæ…¢äº†ï¼Œä¸Šé¢çš„â€œçŸ­è·¯æ³•â€ï¼ˆæ‰¾åˆ°ä¸€ä¸ªå°±è¿”å›ï¼‰ç›¸å¯¹å¿«çš„å¤š
 
 	print containsAny('abc', 'acbac')
-	print set('acbacd').difference('abc')	# set.difference()±íÊ¾È¡²î¼¯
-	print not set('acbac').difference('abc')	# Ê¹ÓÃbuild-inµÄsetÊı¾İÀàĞÍÊµÏÖcontainsOnlyµÄ¹¦ÄÜ
+	print set('acbacd').difference('abc')	# set.difference()è¡¨ç¤ºå–å·®é›†
+	print not set('acbac').difference('abc')	# ä½¿ç”¨build-inçš„setæ•°æ®ç±»å‹å®ç°containsOnlyçš„åŠŸèƒ½
 
-	# Õâ¸ö·½·¨ËÙ¶È²»¹ı¶øÇÒÁé»îÒ×ÓÃ£¬²»¹ıÍ¨ÓÃĞÔ²»ÈçÉÏÃæµÄ·½·¨£¬ËüÒªÇóastrºÍstrset¶¼ÊÇÆÕÍ¨×Ö·û´®£¬ÉõÖÁUnicode×Ö·û´®¶¼²»ĞĞ
+	# è¿™ä¸ªæ–¹æ³•é€Ÿåº¦ä¸è¿‡è€Œä¸”çµæ´»æ˜“ç”¨ï¼Œä¸è¿‡é€šç”¨æ€§ä¸å¦‚ä¸Šé¢çš„æ–¹æ³•ï¼Œå®ƒè¦æ±‚astrå’Œstrsetéƒ½æ˜¯æ™®é€šå­—ç¬¦ä¸²ï¼Œç”šè‡³Unicodeå­—ç¬¦ä¸²éƒ½ä¸è¡Œ
 	print containsAny2('abc', 'acbac')
 	print containsAll('abc', 'acbacd')
 
 	pass
 
-# 1.9-¼ò»¯×Ö·û´®µÄtranslate·½·¨µÄÊ¹ÓÃ
+# 1.9-ç®€åŒ–å­—ç¬¦ä¸²çš„translateæ–¹æ³•çš„ä½¿ç”¨
 import string
-def translator(frm='', to='', delete='', keep=None):	# º¯ÊıÎŞ·¨Âú×ãÍ¬Ê±Ö¸¶¨deleteºÍkeepµÄÇé¿ö£¬ÒòÎª¸ù±¾Ã»ÓĞ±ØÒªÕâÃ´Ö¸¶¨
+def translator(frm='', to='', delete='', keep=None):	# å‡½æ•°æ— æ³•æ»¡è¶³åŒæ—¶æŒ‡å®šdeleteå’Œkeepçš„æƒ…å†µï¼Œå› ä¸ºæ ¹æœ¬æ²¡æœ‰å¿…è¦è¿™ä¹ˆæŒ‡å®š
 	if len(to) == 1:
 		to = to * len(frm)
 	trans = string.maketrans(frm, to)
 	if keep is not None:
-		allchars = string.maketrans('', '')	# maketransµÄ·µ»ØÖµÀàĞÍÎª×Ö·û´®
-		delete = allchars.translate(allchars, keep.translate(allchars,delete))	# ½«keepÖ®ÍâµÄ×Ö·ûÉè¶¨Îªdelete
+		allchars = string.maketrans('', '')	# maketransçš„è¿”å›å€¼ç±»å‹ä¸ºå­—ç¬¦ä¸²
+		delete = allchars.translate(allchars, keep.translate(allchars,delete))	# å°†keepä¹‹å¤–çš„å­—ç¬¦è®¾å®šä¸ºdelete
 	def translate(s):
 		return s.translate(trans, delete)
 	return translate
@@ -199,40 +199,40 @@ def chapter1_9():
 	digits_to_hash = translator(frm=string.digits, to='#')
 	print digits_to_hash('Chris Perkings : 224-7992')
 
-	# Í¬Ê±Ö¸¶¨deleteºÍkeepÃ»ÓĞÈÎºÎÒâÒå£¬¶şÕß¶¼Ö¸¶¨Ê±¿ÉÒÔÑ¡ÔñºöÂÔÆäÒ»£¬»òÕßÅ×³öÒì³£
+	# åŒæ—¶æŒ‡å®šdeleteå’Œkeepæ²¡æœ‰ä»»ä½•æ„ä¹‰ï¼ŒäºŒè€…éƒ½æŒ‡å®šæ—¶å¯ä»¥é€‰æ‹©å¿½ç•¥å…¶ä¸€ï¼Œæˆ–è€…æŠ›å‡ºå¼‚å¸¸
 	trans = translator(delete='abcd', keep='cdef')
 	print trans('abcdefg')
 
 	pass
 
-# ¹ıÂË×Ö·û´®ÖĞ²»ÊôÓÚÖ¸¶¨¼¯ºÏµÄ×Ö·û
+# è¿‡æ»¤å­—ç¬¦ä¸²ä¸­ä¸å±äºæŒ‡å®šé›†åˆçš„å­—ç¬¦
 import string
-# Éú³ÉËùÓĞ×Ö·ûµÄ¿É¸´ÓÃµÄ×Ö·û´®£¬Ëü»¹¿ÉÒÔ×÷ÎªÒ»¸ö·­Òë±í£¬Ö¸Ã÷¡°ÎŞĞè·­Òë¡±
-allchars = string.maketrans('', '')	# ×÷ÎªÈ«¾Ö±äÁ¿£¬±ÜÃâÁË¶à´Î¿½±´£¬¼õÉÙÄÚ´æ¿ªÏú£¬Ìá¸ßĞ§ÂÊ
+# ç”Ÿæˆæ‰€æœ‰å­—ç¬¦çš„å¯å¤ç”¨çš„å­—ç¬¦ä¸²ï¼Œå®ƒè¿˜å¯ä»¥ä½œä¸ºä¸€ä¸ªç¿»è¯‘è¡¨ï¼ŒæŒ‡æ˜â€œæ— éœ€ç¿»è¯‘â€
+allchars = string.maketrans('', '')	# ä½œä¸ºå…¨å±€å˜é‡ï¼Œé¿å…äº†å¤šæ¬¡æ‹·è´ï¼Œå‡å°‘å†…å­˜å¼€é”€ï¼Œæé«˜æ•ˆç‡
 def makefilter(keep):
 	'''
-	·µ»ØÒ»¸öº¯Êı£¬´Ë·µ»Øº¯Êı½ÓÊÜÒ»¸ö×Ö·û´®×÷Îª²ÎÊı 
-	²¢·µ»Ø×Ö·û´®µÄÒ»¸ö²¿·Ö¿½±´£¬´Ë¿½±´Ö»°üº¬ÔÚkeep
-	ÖĞµÄ×Ö·û£¬×¢Òâkeep±ØĞëÊÇÒ»¸öÆÕÍ¨×Ö·û´®
+	è¿”å›ä¸€ä¸ªå‡½æ•°ï¼Œæ­¤è¿”å›å‡½æ•°æ¥å—ä¸€ä¸ªå­—ç¬¦ä¸²ä½œä¸ºå‚æ•° 
+	å¹¶è¿”å›å­—ç¬¦ä¸²çš„ä¸€ä¸ªéƒ¨åˆ†æ‹·è´ï¼Œæ­¤æ‹·è´åªåŒ…å«åœ¨keep
+	ä¸­çš„å­—ç¬¦ï¼Œæ³¨æ„keepå¿…é¡»æ˜¯ä¸€ä¸ªæ™®é€šå­—ç¬¦ä¸²
 	'''
 
-	# Éú³ÉÒ»¸öÓÉËùÓĞ²»ÔÙkeepÖĞµÄ×Ö·û×é³ÉµÄ×Ö·û´®£º
-	# keepµÄ²¹¼¯£¬¼´ËùÓĞÎÒÃÇĞèÒªÉ¾³ıµÄ×Ö·û
+	# ç”Ÿæˆä¸€ä¸ªç”±æ‰€æœ‰ä¸å†keepä¸­çš„å­—ç¬¦ç»„æˆçš„å­—ç¬¦ä¸²ï¼š
+	# keepçš„è¡¥é›†ï¼Œå³æ‰€æœ‰æˆ‘ä»¬éœ€è¦åˆ é™¤çš„å­—ç¬¦
 	delchars = allchars.translate(allchars, keep)
 
-	# Éú³É²¢·µ»ØĞèÒªµÄ¹ıÂËº¯Êı£¨×÷Îª±Õ°ü£©
+	# ç”Ÿæˆå¹¶è¿”å›éœ€è¦çš„è¿‡æ»¤å‡½æ•°ï¼ˆä½œä¸ºé—­åŒ…ï¼‰
 	def thefilter(s):
 		return s.translate(allchars, delchars)
 	return thefilter
 
-	# ÉÏÊöÄÚÇ¶º¯Êı·µ»ØµÄµ¥ĞĞĞÎÊ½
+	# ä¸Šè¿°å†…åµŒå‡½æ•°è¿”å›çš„å•è¡Œå½¢å¼
 	return lambda s: s.translate(allchars, delchars)
 
 import sets
 class Keeper(object):
 	def __init__(self, keep):
 		self.keep = sets.Set(map(ord, keep))
-	def __getitem__(self, n):	# __getitem__(self,key)   Ê¹ÓÃx[key]Ë÷Òı²Ù×÷·ûµÄÊ±ºòµ÷ÓÃ¡£
+	def __getitem__(self, n):	# __getitem__(self,key)   ä½¿ç”¨x[key]ç´¢å¼•æ“ä½œç¬¦çš„æ—¶å€™è°ƒç”¨ã€‚
 		if n not in self.keep:
 			return None
 		return unichr(n)
@@ -245,44 +245,44 @@ def chapter1_10():
 	just_vowels = makefilter('aeiouy')
 	print just_vowels('four score and seven years ago')	# output: ouoeaeeyeaao
 	print just_vowels('tiger, tiger burning bright')	# output: ieieuii
-	# ÉÏÊö·½·¨µÄµ¥ĞĞÊµÏÖ
+	# ä¸Šè¿°æ–¹æ³•çš„å•è¡Œå®ç°
 	print makefilter('aeiouy')('four score and seven years ago')
 	print makefilter('aeiouy')('tiger, tiger burning bright')
 
-	# ÔÚÖ±½Ó´¦Àí×Ö·û´®µÄÈÎÎñÖĞ£¬string¿âµÄtranslate×ÜÊÇ±ÈsetÒª¿ìÒ»Ğ©
-	# µ«ÒÅº¶µÄÊÇ²»¹»Í¨ÓÃ£¬ÀıÈçÉÏÊö·½·¨£¬¶ÔUnicode×Ö·û´®²»ÊÊÓÃ
-	instr = u"×ÔÓÉÃñÖ÷ÖÆ£¨Liberal democracy£©ÊÇÃñÖ÷Ö÷ÒåÔÚ21ÊÀ¼ÍµÄÖ÷µ¼ĞÎÊ½¡£Ëü²ÉÈ¡ÁË´úÒéÃñÖ÷ÖÆ£¬ÓÉÈËÃñÑ¡³öµÄÃñÒâ´ú±íĞĞÊ¹¾ö²ßÈ¨Á¦£¬ÆäÈ¨Á¦ÔòÊÜµ½·¨ÖÎµÄ¼à¶½ºÍÏŞÖÆ"
-	trans_table = dict([[ord(char), u"*"] for char in u"ÃñÖ÷"])	# unicode×Ö·û´®Ö»ÄÜÊÊÓÃdict×÷ÎªÓ³Éä±í
+	# åœ¨ç›´æ¥å¤„ç†å­—ç¬¦ä¸²çš„ä»»åŠ¡ä¸­ï¼Œstringåº“çš„translateæ€»æ˜¯æ¯”setè¦å¿«ä¸€äº›
+	# ä½†é—æ†¾çš„æ˜¯ä¸å¤Ÿé€šç”¨ï¼Œä¾‹å¦‚ä¸Šè¿°æ–¹æ³•ï¼Œå¯¹Unicodeå­—ç¬¦ä¸²ä¸é€‚ç”¨
+	instr = u"è‡ªç”±æ°‘ä¸»åˆ¶ï¼ˆLiberal democracyï¼‰æ˜¯æ°‘ä¸»ä¸»ä¹‰åœ¨21ä¸–çºªçš„ä¸»å¯¼å½¢å¼ã€‚å®ƒé‡‡å–äº†ä»£è®®æ°‘ä¸»åˆ¶ï¼Œç”±äººæ°‘é€‰å‡ºçš„æ°‘æ„ä»£è¡¨è¡Œä½¿å†³ç­–æƒåŠ›ï¼Œå…¶æƒåŠ›åˆ™å—åˆ°æ³•æ²»çš„ç›‘ç£å’Œé™åˆ¶"
+	trans_table = dict([[ord(char), u"*"] for char in u"æ°‘ä¸»"])	# unicodeå­—ç¬¦ä¸²åªèƒ½é€‚ç”¨dictä½œä¸ºæ˜ å°„è¡¨
 	print trans_table
-	filtered = unicode.translate(instr, trans_table)	# translateÖ§³ÖÊÊÓÃdict×÷Îª²ÎÊı£¬¶ø²»½ö½öÊÇmaketransµÄ·µ»ØÖµ
+	filtered = unicode.translate(instr, trans_table)	# translateæ”¯æŒé€‚ç”¨dictä½œä¸ºå‚æ•°ï¼Œè€Œä¸ä»…ä»…æ˜¯maketransçš„è¿”å›å€¼
 	print filtered
 
-	# ¸üºÃµÄ°ì·¨ÊÇ£¬±àĞ´Ò»¸ö¼òµ¥µÄ´óÖÂÊµÏÖÁË__getitem__·½·¨µÄÀà
+	# æ›´å¥½çš„åŠæ³•æ˜¯ï¼Œç¼–å†™ä¸€ä¸ªç®€å•çš„å¤§è‡´å®ç°äº†__getitem__æ–¹æ³•çš„ç±»
 	just_vowels = makefilter2('aeiouy')
 	print just_vowels(u'four score and seven years ago')	# output: ouoeaeeyeaao
 	print just_vowels(u'tiger, tiger burning bright')	# output: ieieuii
 
 	pass
 
-# ¼ì²éÒ»¸ö×Ö·û´®ÊÇÎÄ±¾»¹ÊÇ¶ş½øÖÆ
+# æ£€æŸ¥ä¸€ä¸ªå­—ç¬¦ä¸²æ˜¯æ–‡æœ¬è¿˜æ˜¯äºŒè¿›åˆ¶
 # from __future__ import division at head of file
 import string
 text_characters = ''.join(map(chr, range(32, 127))) + '\n\r\t\b'
 _null_trans = string.maketrans('','')
 def istext(s, text_characters=text_characters, threshold=0.30):
-	# Èôs°üº¬ÁË¿ÕÖµ£¬Ëü²»ÊÇÎÄ±¾
+	# è‹¥såŒ…å«äº†ç©ºå€¼ï¼Œå®ƒä¸æ˜¯æ–‡æœ¬
 	if '\0' in s:
 		return False
-	# Ò»¸ö¡°¿Õ¡±×Ö·û´®ÊÇ¡°ÎÄ±¾¡±£¨ÕâÊÇÒ»¸öÖ÷¹Üµ«ÓÖºÜºÏÀíµÄÑ¡Ôñ)
+	# ä¸€ä¸ªâ€œç©ºâ€å­—ç¬¦ä¸²æ˜¯â€œæ–‡æœ¬â€ï¼ˆè¿™æ˜¯ä¸€ä¸ªä¸»ç®¡ä½†åˆå¾ˆåˆç†çš„é€‰æ‹©)
 	if not s:
 		return True
-	# »ñµÃsµÄÓÉ·ÇÎÄ±¾×Ö·û¹¹³ÉµÄ×Ó´®
+	# è·å¾—sçš„ç”±éæ–‡æœ¬å­—ç¬¦æ„æˆçš„å­ä¸²
 	t = s.translate(_null_trans, text_characters)
-	# Èç¹û²»³¬¹ı30%µÄ×Ö·ûÊÇ·ÇÎÄ±¾×Ö·û£¬sÊÇ×Ö·û´®
-	return len(t)/len(s) < threshold	# Èç¹ûÃ»ÓĞ"from __future__ import division"³ı·¨»á±»½Ø¶Ï¡£¹ÊÒâ½Ø¶Ï¿ÉÒÔÊÊÓÃ'//'²Ù×÷·û
+	# å¦‚æœä¸è¶…è¿‡30%çš„å­—ç¬¦æ˜¯éæ–‡æœ¬å­—ç¬¦ï¼Œsæ˜¯å­—ç¬¦ä¸²
+	return len(t)/len(s) < threshold	# å¦‚æœæ²¡æœ‰"from __future__ import division"é™¤æ³•ä¼šè¢«æˆªæ–­ã€‚æ•…æ„æˆªæ–­å¯ä»¥é€‚ç”¨'//'æ“ä½œç¬¦
 
 def chapter1_11():
-	''' Õâ¸öÎÊÌâ²¢Ã»ÓĞ¾«È·Ëã·¨£¬ÍêÈ«ÊÇÆô·¢ĞÔµÄÊÔÌ½ '''
+	''' è¿™ä¸ªé—®é¢˜å¹¶æ²¡æœ‰ç²¾ç¡®ç®—æ³•ï¼Œå®Œå…¨æ˜¯å¯å‘æ€§çš„è¯•æ¢ '''
 	print istext('')
 	print istext('abcd')
 	print istext('aa\0')
@@ -290,78 +290,78 @@ def chapter1_11():
 
 	pass
 
-# ¿ØÖÆ´óĞ¡Ğ´
+# æ§åˆ¶å¤§å°å†™
 def chapter1_12():
-	print 'aaa'.upper()	# ¶ÔÓ¦µÄ²âÊÔº¯Êı£ºisupper()
-	print 'AAA'.lower()	# ¶ÔÓ¦µÄ²âÊÔº¯Êı£ºislower()
-	print 'one tWo thrEe'.capitalize()	# Ã»ÓĞ¶ÔÓ¦µÄ²âÊÔº¯Êı£¬¿ÉÒÔ¼òµ¥µÄÊ¹ÓÃ£ºs==s.capitalize()À´ÅĞ¶Ï£¬²»¹ı¶ÔÓÚ¿Õ×Ö·û´®Ò²»á·µ»ØTrue
-	print 'one tWo thrEe'.title()	# ¶ÔÓ¦µÄ²âÊÔº¯Êı£ºistitle()
+	print 'aaa'.upper()	# å¯¹åº”çš„æµ‹è¯•å‡½æ•°ï¼šisupper()
+	print 'AAA'.lower()	# å¯¹åº”çš„æµ‹è¯•å‡½æ•°ï¼šislower()
+	print 'one tWo thrEe'.capitalize()	# æ²¡æœ‰å¯¹åº”çš„æµ‹è¯•å‡½æ•°ï¼Œå¯ä»¥ç®€å•çš„ä½¿ç”¨ï¼šs==s.capitalize()æ¥åˆ¤æ–­ï¼Œä¸è¿‡å¯¹äºç©ºå­—ç¬¦ä¸²ä¹Ÿä¼šè¿”å›True
+	print 'one tWo thrEe'.title()	# å¯¹åº”çš„æµ‹è¯•å‡½æ•°ï¼šistitle()
 
 	pass
 
-# ·ÃÎÊ×Ó×Ö·û´®
+# è®¿é—®å­å­—ç¬¦ä¸²
 import struct
 def fields(baseformat, theline, lastfield=False):
-	# theline³¬³öµÄ³¤¶ÈÒ²ÊÇÓÉÕâ¸öbase-formatÈ·¶¨
+	# thelineè¶…å‡ºçš„é•¿åº¦ä¹Ÿæ˜¯ç”±è¿™ä¸ªbase-formatç¡®å®š
 	numremain = len(theline) - struct.calcsize(baseformat)
-	# ÓÃºÏÊÊµÄs»òx×Ö¶ÎÍê³É¸ñÊ½£¬È»ºóunpack
-	format = '%s %d%s' % (baseformat, numremain, lastfield and 's' or 'x')	#  lastfield and 's' or 'x'µÄĞ§¹ûµÈ¼ÛÓÚCÓïÑÔÖĞµÄ lastfield ? 's' : 'x'
+	# ç”¨åˆé€‚çš„sæˆ–xå­—æ®µå®Œæˆæ ¼å¼ï¼Œç„¶åunpack
+	format = '%s %d%s' % (baseformat, numremain, lastfield and 's' or 'x')	#  lastfield and 's' or 'x'çš„æ•ˆæœç­‰ä»·äºCè¯­è¨€ä¸­çš„ lastfield ? 's' : 'x'
 	return struct.unpack(format, theline)
 
 def split_by(theline, n, lastfield=False):
-	# ÇĞ¸îËùÓĞĞèÒªµÄÆ¬¶Î
+	# åˆ‡å‰²æ‰€æœ‰éœ€è¦çš„ç‰‡æ®µ
 	pieces = [theline[k:k+n] for k in xrange(0, len(theline), n)]
-	# Èô×îºóÒ»¶ÎÌ«¶Ì»ò²»Òª£¬¶ªÆúÖ®
+	# è‹¥æœ€åä¸€æ®µå¤ªçŸ­æˆ–ä¸è¦ï¼Œä¸¢å¼ƒä¹‹
 	if not lastfield and len(pieces[-1]) < n:
 		pieces.pop()
 	return pieces
 
 def split_at(theline, cuts, lastfield=False):
-	# ÇĞ¸îËùÓĞĞèÒªµÄÆ¬¶Î
+	# åˆ‡å‰²æ‰€æœ‰éœ€è¦çš„ç‰‡æ®µ
 	pieces = [ theline[i:j] for i, j in zip([0]+cuts, cuts+[None]) ]
-	# Èô×îºóÒ»¶ÎÌ«¶Ì»ò²»Òª£¬¶ªÆúÖ®
+	# è‹¥æœ€åä¸€æ®µå¤ªçŸ­æˆ–ä¸è¦ï¼Œä¸¢å¼ƒä¹‹
 	if not lastfield:
 		pieces.pop()
 	return pieces
 
 def chapter1_13():
-	print 'hello world'[3:8]	# ÇĞÆ¬
+	print 'hello world'[3:8]	# åˆ‡ç‰‡
 
 	theline = 'abcdefghijklmnopqrstuvwxyz'
-	baseformat = '5s 3x 8s 8s'	# µÃµ½Ò»¸ö5×Ö½ÚµÄ×Ö·û´®£¬Ìø¹ı3×Ö½Ú£¬µÃµ½Á½¸ö8×Ö½Ú×Ö·û´®£¬ÒÔ¼°ÆäÓà²¿·Ö£º
-	numremain = len(theline) - struct.calcsize(baseformat)	# theline³¬³öµÄ³¤¶ÈÒ²ÊÇÓÉÕâ¸öbase-formatÈ·¶¨
+	baseformat = '5s 3x 8s 8s'	# å¾—åˆ°ä¸€ä¸ª5å­—èŠ‚çš„å­—ç¬¦ä¸²ï¼Œè·³è¿‡3å­—èŠ‚ï¼Œå¾—åˆ°ä¸¤ä¸ª8å­—èŠ‚å­—ç¬¦ä¸²ï¼Œä»¥åŠå…¶ä½™éƒ¨åˆ†ï¼š
+	numremain = len(theline) - struct.calcsize(baseformat)	# thelineè¶…å‡ºçš„é•¿åº¦ä¹Ÿæ˜¯ç”±è¿™ä¸ªbase-formatç¡®å®š
 	format = '%s %ds' % (baseformat, numremain)
 	l, s1, s2, t = struct.unpack(format, theline)
 	print l, s1, s2, t
-	l, s1, s2 = struct.unpack(baseformat, theline[:struct.calcsize(baseformat)])	# ºöÂÔ¡°ÆäÓà²¿·Ö¡±
+	l, s1, s2 = struct.unpack(baseformat, theline[:struct.calcsize(baseformat)])	# å¿½ç•¥â€œå…¶ä½™éƒ¨åˆ†â€
 	print l, s1, s2
 
-	# ½«ÉÏÃæµÄ¹¦ÄÜ·â×°³ÉÒ»¸öº¯Êı
+	# å°†ä¸Šé¢çš„åŠŸèƒ½å°è£…æˆä¸€ä¸ªå‡½æ•°
 	l, s1, s2, t = fields(baseformat, theline, True)
 	print l, s1, s2, t
 	l, s1, s2 = fields(baseformat, theline)
 	print l, s1, s2
 
-	# xrange·µ»ØÉú³ÉÆ÷£¬Ã¿´Îµ÷ÓÃ·µ»ØÒ»¸öÖµ£»¶ørange·µ»Ølist¡£ËùÒÔÔÚÑ­»·Ğ§ÂÊÉÏxrangeÒª¸ßµÄ¶à£¬¶øÇÒ²»ÓÃ¿ª±ÙÒ»¸ölistµÄ¿Õ¼ä
+	# xrangeè¿”å›ç”Ÿæˆå™¨ï¼Œæ¯æ¬¡è°ƒç”¨è¿”å›ä¸€ä¸ªå€¼ï¼›è€Œrangeè¿”å›listã€‚æ‰€ä»¥åœ¨å¾ªç¯æ•ˆç‡ä¸Šxrangeè¦é«˜çš„å¤šï¼Œè€Œä¸”ä¸ç”¨å¼€è¾Ÿä¸€ä¸ªlistçš„ç©ºé—´
 	print xrange(0, 10, 5)
 	print list(xrange(0, 10, 5))
 	print range(0, 10, 5)
 
-	print ['0123456789abc'[k:k+5] for k in xrange(0, 13, 5)]	# ÇĞÆ¬Ô½½çÒ²²»»áµ¼ÖÂ³ÌĞò´íÎó£¬µ«ÕâÑù±à³Ì·Ç³£ÒµÓà
+	print ['0123456789abc'[k:k+5] for k in xrange(0, 13, 5)]	# åˆ‡ç‰‡è¶Šç•Œä¹Ÿä¸ä¼šå¯¼è‡´ç¨‹åºé”™è¯¯ï¼Œä½†è¿™æ ·ç¼–ç¨‹éå¸¸ä¸šä½™
 
-	# ½«ÉÏÃæµÄ¹¦ÄÜ·â×°³ÉÒ»¸öº¯Êı
+	# å°†ä¸Šé¢çš„åŠŸèƒ½å°è£…æˆä¸€ä¸ªå‡½æ•°
 	print split_by('0123456789abc', 5)
 
-	# zipº¯Êı·µ»ØÒ»¸ölist£¬ÆäÖĞÃ¿Ïî¶¼ÊÇĞÎÈç(cuts[k], cuts[k+1])ÕâÑùµÄÊı¶Ô£¬³ıÁËµÚÒ»ÏîºÍ×îºóÒ»Ïî£¬ÕâÁ½Ïî·Ö±ğÊÇ(0, cuts[0])ºÍ(cuts[len(cuts)-1], None)
+	# zipå‡½æ•°è¿”å›ä¸€ä¸ªlistï¼Œå…¶ä¸­æ¯é¡¹éƒ½æ˜¯å½¢å¦‚(cuts[k], cuts[k+1])è¿™æ ·çš„æ•°å¯¹ï¼Œé™¤äº†ç¬¬ä¸€é¡¹å’Œæœ€åä¸€é¡¹ï¼Œè¿™ä¸¤é¡¹åˆ†åˆ«æ˜¯(0, cuts[0])å’Œ(cuts[len(cuts)-1], None)
 	cuts = [8, 14, 20, 26, 30]
 	print [ '000111222333444555666777888999xyz'[i:j] for i, j in zip([0]+cuts, cuts+[None]) ]
 
-	# ½«ÉÏÃæµÄ¹¦ÄÜ·â×°³ÉÒ»¸öº¯Êı
+	# å°†ä¸Šé¢çš„åŠŸèƒ½å°è£…æˆä¸€ä¸ªå‡½æ•°
 	print split_at('000111222333444555666777888999xyz', cuts)
 
 	pass
 
-# ¸Ä±ä¶àĞĞÎÄ±¾×Ö·û´®µÄËõ½ø
+# æ”¹å˜å¤šè¡Œæ–‡æœ¬å­—ç¬¦ä¸²çš„ç¼©è¿›
 def reindent(s, numSpaces):
 	leading_space = numSpaces * ' '
 	lines = [ leading_space + line.lstrip() for line in s.splitlines() ]
@@ -392,25 +392,25 @@ def chapter1_14():
 
 	pass
 
-# À©Õ¹ºÍÑ¹ËõÖÆ±í·û
+# æ‰©å±•å’Œå‹ç¼©åˆ¶è¡¨ç¬¦
 def unexpand(astring, tablen=8):
 	import re
-	# ÇĞ·Ö³É¿Õ¸ñºÍ·Ç¿Õ¸ñµÄĞòÁĞ
+	# åˆ‡åˆ†æˆç©ºæ ¼å’Œéç©ºæ ¼çš„åºåˆ—
 	pieces = re.split(r'( +)', astring.expandtabs(tablen))
-	# ¼ÇÂ¼Ä¿Ç°×Ö·û´®µÄ×Ü³¤¶È
+	# è®°å½•ç›®å‰å­—ç¬¦ä¸²çš„æ€»é•¿åº¦
 	lensofar = 0
 	for i, piece in enumerate(pieces):
 		thislen = len(piece)
 		lensofar += thislen
 		if piece.isspace():
-			# ½«¸÷¸ö¿Õ¸ñĞòÁĞ¸Ä³Étabs+spaces
+			# å°†å„ä¸ªç©ºæ ¼åºåˆ—æ”¹æˆtabs+spaces
 			numblanks = thislen % tablen
 			numtabs = (thislen-numblanks)//tablen
 			pieces[i] = '\t'*numtabs + ' '*numblanks
 	return ''.join(pieces)
 
 def chapter1_15():
-	# ½«ÖÆ±í·ûÌæ»»Îª¿Õ¸ñ
+	# å°†åˆ¶è¡¨ç¬¦æ›¿æ¢ä¸ºç©ºæ ¼
 	print len('\tabc'.expandtabs())
 	print unexpand('        abc d        e')
 	print len('        abc d        e')
@@ -418,14 +418,14 @@ def chapter1_15():
 
 	pass
 
-# Ìæ»»×Ö·û´®ÖĞµÄ×Ó´®
+# æ›¿æ¢å­—ç¬¦ä¸²ä¸­çš„å­ä¸²
 def expand(format, d, marker="'", safe=False):
 	if safe:
-		def loopup(w): return d.get(w, w.join(marker*2))	# ²»´æÔÚ·µ»ØÄ¬ÈÏÖµ
+		def loopup(w): return d.get(w, w.join(marker*2))	# ä¸å­˜åœ¨è¿”å›é»˜è®¤å€¼
 	else:
-		def lookup(w): return d[w]	# ²»´æÔÚÅ×³öÒì³£
+		def lookup(w): return d[w]	# ä¸å­˜åœ¨æŠ›å‡ºå¼‚å¸¸
 	parts = format.split(marker)
-	parts[1::2] = map(lookup, parts[1::2])	# parts[1::2]°ó¶¨×Ö·û´®µÄÆæÊıÏîË÷Òı£¬µ±Ç°Óï¾äÖ»ĞŞ¸ÄlistµÄÆæÊıÏî
+	parts[1::2] = map(lookup, parts[1::2])	# parts[1::2]ç»‘å®šå­—ç¬¦ä¸²çš„å¥‡æ•°é¡¹ç´¢å¼•ï¼Œå½“å‰è¯­å¥åªä¿®æ”¹listçš„å¥‡æ•°é¡¹
 	return ''.join(parts)
 
 def chapter1_16():
@@ -433,19 +433,19 @@ def chapter1_16():
 	
 	pass
 
-# Ìæ»»×Ö·û´®ÖĞµÄ×Ö´®¡ª¡ªPython 2.4
+# æ›¿æ¢å­—ç¬¦ä¸²ä¸­çš„å­—ä¸²â€”â€”Python 2.4
 import string
 def chapter1_17():
-	# ´Ó×Ö·û´®Éú³ÉÄ£°å£¬ÆäÖĞ±êÊ¶·û±»$±ê¼Ç
+	# ä»å­—ç¬¦ä¸²ç”Ÿæˆæ¨¡æ¿ï¼Œå…¶ä¸­æ ‡è¯†ç¬¦è¢«$æ ‡è®°
 	new_style = string.Template('this is $thing')
-	# ¸øÄ£°åµÄsubstitute·½·¨´«ÈëÒ»¸ö×Öµä²ÎÊı²¢µ÷ÓÃÖ®
+	# ç»™æ¨¡æ¿çš„substituteæ–¹æ³•ä¼ å…¥ä¸€ä¸ªå­—å…¸å‚æ•°å¹¶è°ƒç”¨ä¹‹
 	print new_style.substitute({'thing':5})
 	print new_style.substitute({'thing':'test'})
-	# ÁíÍâ£¬Ò²¿ÉÒÔ¸øsubstitute·½·¨´«µİ¹Ø¼ü×Ö²ÎÊı
+	# å¦å¤–ï¼Œä¹Ÿå¯ä»¥ç»™substituteæ–¹æ³•ä¼ é€’å…³é”®å­—å‚æ•°
 	print new_style.substitute(thing=5)
 	print new_style.substitute(thing='test')
 
-	# Ê¹ÓÃÁ½¸ö$À´¶Ô$×ÔÉí½øĞĞ×ªÒâ£¬¼´Á½¸ö$±íÊ¾´òÓ¡Ò»¸ö$
+	# ä½¿ç”¨ä¸¤ä¸ª$æ¥å¯¹$è‡ªèº«è¿›è¡Œè½¬æ„ï¼Œå³ä¸¤ä¸ª$è¡¨ç¤ºæ‰“å°ä¸€ä¸ª$
 	from_letter = '''Dear $customer,
 	i hope you are having a great time.
 	if you do not find Room $room to your satisaction,
@@ -456,20 +456,20 @@ def chapter1_17():
 	letter_template = string.Template(from_letter)
 	print letter_template.substitute({'name':'Sleepy', 'customer':'Fred Smith','manager':'Barney Mills', 'room':307,})
 
-	# locals()º¯Êı·µ»Ø½«±¾µØ±äÁ¿¼°ÆäÖµËù×é³ÉµÄ×Öµä
+	# locals()å‡½æ•°è¿”å›å°†æœ¬åœ°å˜é‡åŠå…¶å€¼æ‰€ç»„æˆçš„å­—å…¸
 	msg = string.Template('the square of $number is $square')
 	for number in range(10):
 		square = number * number
 		print msg.substitute(locals())
-	# ÁíÒ»¸ö·½·¨ÊÇÊ¹ÓÃ¹Ø¼ü×Ö¶ø·Ç×Öµä
+	# å¦ä¸€ä¸ªæ–¹æ³•æ˜¯ä½¿ç”¨å…³é”®å­—è€Œéå­—å…¸
 	msg = string.Template('the square of $number is $square')
 	for i in range(10):
 		print msg.substitute(number=i, square=i*i)
-	# ÉõÖÁ¿ÉÒÔÍ¬Ê±´«µİ×ÖµäºÍ¹Ø¼ü×Ö²ÎÊı
+	# ç”šè‡³å¯ä»¥åŒæ—¶ä¼ é€’å­—å…¸å’Œå…³é”®å­—å‚æ•°
 	msg = string.Template('the square of $number is $square')
 	for number in range(10):
 		print msg.substitute(locals(), square=number*number)
-	# ÎªÁË·ÀÖ¹×ÖµäµÄÌõÄ¿Óë¹Ø¼ü×Ö²ÎÊıÏÔÊ½´«µİµÄÖµ·¢Éú³åÍ»£¬¹Ø¼ü×Ö²ÎÊıÓÅÏÈ
+	# ä¸ºäº†é˜²æ­¢å­—å…¸çš„æ¡ç›®ä¸å…³é”®å­—å‚æ•°æ˜¾å¼ä¼ é€’çš„å€¼å‘ç”Ÿå†²çªï¼Œå…³é”®å­—å‚æ•°ä¼˜å…ˆ
 	msg = string.Template('an $adj $msg')
 	adj = 'interesting'
 	print msg.substitute(locals(), msg='message')
@@ -477,17 +477,17 @@ def chapter1_17():
 
 	pass
 
-# Ò»´ÎÍê³É¶à¸öÌæ»»
+# ä¸€æ¬¡å®Œæˆå¤šä¸ªæ›¿æ¢
 import re
 def multiple_replace(text, adict):
-	rx = re.compile('|'.join(map(re.escape, adict)))	# mapº¯Êı´«dict²ÎÊıÊ±£¬Ö»±éÀúdictµÄkey£¬¶ø²»¹Üvalue
+	rx = re.compile('|'.join(map(re.escape, adict)))	# mapå‡½æ•°ä¼ dictå‚æ•°æ—¶ï¼Œåªéå†dictçš„keyï¼Œè€Œä¸ç®¡value
 	def one_xlat(match):
 		return adict[match.group(0)]
-	return rx.sub(one_xlat, text)	# subµÄµÚÒ»¸ö²ÎÊı¿ÉÒÔÊÇ×Ö·û´®£¬Ò²¿ÉÒÔÊÇº¯Êı
+	return rx.sub(one_xlat, text)	# subçš„ç¬¬ä¸€ä¸ªå‚æ•°å¯ä»¥æ˜¯å­—ç¬¦ä¸²ï¼Œä¹Ÿå¯ä»¥æ˜¯å‡½æ•°
 
 def make_xlat(*args, **kwds):
-	''' µ±¶Ô¶à¸öÎÄ±¾Ê¹ÓÃÍ³Ò»¸ö¹æÔòÊ±£¬Ê¹ÓÃ»ùÓÚ±Õ°üµÄ·½Ê½Ö»Ğè×öÒ»´Î×¼±¸¹¤×÷£¬ÓÃÓÚÌá¸ßĞ§ÂÊ '''
-	adict = dict(*args, **kwds)	# ´ø*ºÍ**Ê¹ÓÃ²ÎÊı±äÁ¿£¬±íÊ¾Ô­Ñù´«µİ£¬ÕâÓë²»¼Ó*»ò**º¬ÒåÍêÈ«²»Í¬£¨±È½Ï¸´ÔÓ£¬²»×¸Êö£©
+	''' å½“å¯¹å¤šä¸ªæ–‡æœ¬ä½¿ç”¨ç»Ÿä¸€ä¸ªè§„åˆ™æ—¶ï¼Œä½¿ç”¨åŸºäºé—­åŒ…çš„æ–¹å¼åªéœ€åšä¸€æ¬¡å‡†å¤‡å·¥ä½œï¼Œç”¨äºæé«˜æ•ˆç‡ '''
+	adict = dict(*args, **kwds)	# å¸¦*å’Œ**ä½¿ç”¨å‚æ•°å˜é‡ï¼Œè¡¨ç¤ºåŸæ ·ä¼ é€’ï¼Œè¿™ä¸ä¸åŠ *æˆ–**å«ä¹‰å®Œå…¨ä¸åŒï¼ˆæ¯”è¾ƒå¤æ‚ï¼Œä¸èµ˜è¿°ï¼‰
 	rx = re.compile('|'.join(map(re.escape, adict)))
 	def one_xlat(match):
 		return adict[match.group(0)]
@@ -495,8 +495,8 @@ def make_xlat(*args, **kwds):
 		return rx.sub(one_xlat, text)
 	return xlat
 class make_xlat_class:
-	''' µ±ÕıÔò±í´ïÊ½¾­³£ĞŞ¸ÄÊ±£¬ÎÒÃÇ¿ÉÒÔÀûÓÃÀàµÄÖØÔØÀ´±ÜÃâ´óÁ¿µÄ´úÂë¸´ÖÆ
-	    ËäÈ»º¯Êı¸ü¼Ó¼òµ¥¿ìËÙ£¬µ«ÊÇÀà¿ÉÒÔÈÃ´úÂë¸ü¼ÓÇåÎú¼ò½à '''
+	''' å½“æ­£åˆ™è¡¨è¾¾å¼ç»å¸¸ä¿®æ”¹æ—¶ï¼Œæˆ‘ä»¬å¯ä»¥åˆ©ç”¨ç±»çš„é‡è½½æ¥é¿å…å¤§é‡çš„ä»£ç å¤åˆ¶
+	    è™½ç„¶å‡½æ•°æ›´åŠ ç®€å•å¿«é€Ÿï¼Œä½†æ˜¯ç±»å¯ä»¥è®©ä»£ç æ›´åŠ æ¸…æ™°ç®€æ´ '''
 	def __init__(self, *args, **kwds):
 		self.adict = dict(*args, **kwds)
 		self.rx = self.make_rx()
@@ -528,24 +528,24 @@ def chapter1_18():
 
 	pass
 
-# ¼ì²é×Ö·û´®ÖĞ½áÊø±ê¼Ç
-import itertools	# itertoolsµÄ¸ßĞ§ĞÔĞèÒª¶Ô¸ÃÄ£¿é½øĞĞÉîÈëÑ§Ï°
-def anyTrue(predicate, sequence):	# itertools.imap¸ø³öÁËÒ»ÖÖ¿ìËÙ·½±ãµÄ½â¾ö°ì·¨
+# æ£€æŸ¥å­—ç¬¦ä¸²ä¸­ç»“æŸæ ‡è®°
+import itertools	# itertoolsçš„é«˜æ•ˆæ€§éœ€è¦å¯¹è¯¥æ¨¡å—è¿›è¡Œæ·±å…¥å­¦ä¹ 
+def anyTrue(predicate, sequence):	# itertools.imapç»™å‡ºäº†ä¸€ç§å¿«é€Ÿæ–¹ä¾¿çš„è§£å†³åŠæ³•
 	return True in itertools.imap(predicate, sequence)
 def endsWith(s, *endings):
 	return anyTrue(s.endswith, endings)
 def chapter1_19():
-	print 'hello world'.endswith('ld')	# ÕâÊÇÒ»ÖÖ×îÖ±½Ó£¬µ«ÊÇ×î±¿ÖØµÄ·½·¨
+	print 'hello world'.endswith('ld')	# è¿™æ˜¯ä¸€ç§æœ€ç›´æ¥ï¼Œä½†æ˜¯æœ€ç¬¨é‡çš„æ–¹æ³•
 	print endsWith('hello world', 'ld')
 
 	pass
 
-# Ê¹ÓÃUnicodeÀ´´¦Àí¹ú¼Ê»¯ÎÄ±¾
+# ä½¿ç”¨Unicodeæ¥å¤„ç†å›½é™…åŒ–æ–‡æœ¬
 def chapter1_20():
 	german_ae = unicode('\xc3\xa4', 'utf8')
 	print german_ae
 
-	# ¿ÉÒÔÏñ´¦ÀíÆÕÍ¨str×Ö·û´®ÄÇÑù²Ù×İunicode×Ö·û´®
+	# å¯ä»¥åƒå¤„ç†æ™®é€šstrå­—ç¬¦ä¸²é‚£æ ·æ“çºµunicodeå­—ç¬¦ä¸²
 	s = 'this is a ' + german_ae
 	s2 = 'easy!'
 	para = '. '.join([s, s2])
@@ -553,18 +553,18 @@ def chapter1_20():
 
 	pass
 
-#	bytestring = '\xc3\xa4'	# ÕâÊÇ¸ö·ÇASCII×Ö·û´®£¬ÕâÖÖ²Ù×÷½«µ¼ÖÂÅ×³öÒì³£
+#	bytestring = '\xc3\xa4'	# è¿™æ˜¯ä¸ªéASCIIå­—ç¬¦ä¸²ï¼Œè¿™ç§æ“ä½œå°†å¯¼è‡´æŠ›å‡ºå¼‚å¸¸
 #	german_ae += bytestring
 
-# ÔÚUnicodeºÍÆÕÍ¨×Ö·û´®Ö®¼ä×ª»»
+# åœ¨Unicodeå’Œæ™®é€šå­—ç¬¦ä¸²ä¹‹é—´è½¬æ¢
 def chapter1_21():
 	unicodestring = u'Hello World'
-	# ½«Unidoce×ª»¯ÎªÆÕÍ¨×Ö·û´®: "encode"
+	# å°†Unidoceè½¬åŒ–ä¸ºæ™®é€šå­—ç¬¦ä¸²: "encode"
 	utf8string = unicodestring.encode('utf-8')
 	asciistring = unicodestring.encode('ascii')
 	isostring = unicodestring.encode('ISO-8859-1')
 	utf16string = unicodestring.encode('utf-16')
-	# ½«ÆÕÍ¨×Ö·û´®×ª»¯Îªunicode: "decode"
+	# å°†æ™®é€šå­—ç¬¦ä¸²è½¬åŒ–ä¸ºunicode: "decode"
 	plainstring1 = unicode(utf8string, 'utf-8')
 	plainstring2 = unicode(asciistring, 'ascii')
 	plainstring3 = unicode(isostring, 'ISO-8859-1')
@@ -573,31 +573,31 @@ def chapter1_21():
 
 	pass
 
-# ÔÚ±ê×¼Êä³öÖĞ´òÓ¡Unicode×Ö·û
+# åœ¨æ ‡å‡†è¾“å‡ºä¸­æ‰“å°Unicodeå­—ç¬¦
 import codecs, sys
 def chapter1_22():
-	# ½«sys.stdoutÁ÷ÓÃ×ª»»Æ÷°ü×°ÆğÀ´
+	# å°†sys.stdoutæµç”¨è½¬æ¢å™¨åŒ…è£…èµ·æ¥
 	old = sys.stdout
 	sys.stdout = codecs.lookup('iso8859-1')[-1](sys.stdout)
 	sys.stdout = old
 
-	# Êä³öÒ»¸öunicode×Ö·û´®
-	# Èç¹ûÅ×³öÒì³££¨ÓÉÓÚPythonÃ»ÓĞ×Ô¶¯Ê¶±ğ³öÕıÈ·µÄ±àÂë£©£¬ÔòĞèÒªÊ¹ÓÃÉÏÊö·½·¨¶Ôstdout½øĞĞ°ü×°
+	# è¾“å‡ºä¸€ä¸ªunicodeå­—ç¬¦ä¸²
+	# å¦‚æœæŠ›å‡ºå¼‚å¸¸ï¼ˆç”±äºPythonæ²¡æœ‰è‡ªåŠ¨è¯†åˆ«å‡ºæ­£ç¡®çš„ç¼–ç ï¼‰ï¼Œåˆ™éœ€è¦ä½¿ç”¨ä¸Šè¿°æ–¹æ³•å¯¹stdoutè¿›è¡ŒåŒ…è£…
 	char = u'\N{LATIN SMALL LETTER A WITH DIAERESIS}'
 	print char
 
 	pass
 
-# ¶ÔUnicodeÊı¾İ±àÂë²¢ÓÃÓÚXMLºÍHTML
+# å¯¹Unicodeæ•°æ®ç¼–ç å¹¶ç”¨äºXMLå’ŒHTML
 def encode_for_xml(unicode_data, encoding = 'ascii'):
-	''' pythonÌá¹©ÁËÒ»ÖÖ±àÂë´íÎó´¦Àí¹¤¾ß£¬½Ğ×öxmlcharrefreplace£¬
-	Ëû»á½«ËùÓĞ²»ÊôÓÚËùÑ¡±àÂëµÄ×Ö·ûÓÃXMLµÄÊı×Ö×Ö·ûÒıÓÃÀ´´úÌæ '''
+	''' pythonæä¾›äº†ä¸€ç§ç¼–ç é”™è¯¯å¤„ç†å·¥å…·ï¼Œå«åšxmlcharrefreplaceï¼Œ
+	ä»–ä¼šå°†æ‰€æœ‰ä¸å±äºæ‰€é€‰ç¼–ç çš„å­—ç¬¦ç”¨XMLçš„æ•°å­—å­—ç¬¦å¼•ç”¨æ¥ä»£æ›¿ '''
 	return unicode_data.encode(encoding, 'xmlcharrefreplace')
 
 import codecs
 from htmlentitydefs import codepoint2name
 def html_replace(exc):
-	''' ×¢²áÒ»¸ö×Ô¶¨ÒåµÄ±àÂë´íÎó´¦Àíº¯Êı£¬ÓÃÓÚ´¦ÀíHTMLÊä³ö '''
+	''' æ³¨å†Œä¸€ä¸ªè‡ªå®šä¹‰çš„ç¼–ç é”™è¯¯å¤„ç†å‡½æ•°ï¼Œç”¨äºå¤„ç†HTMLè¾“å‡º '''
 	if isinstance(exc, (UnicodeEncodeError, UnicodeTranslateError)):
 		s = [u'&%s;' % codepoint2name[ord(c)]
 				for c in exc.object[exc.start:exc.end]]
@@ -635,12 +635,12 @@ def chapter1_23():
 
 	pass
 
-# ÈÃÄ³Ğ©×Ö·û´®´óĞ¡Ğ´²»Ãô¸Ğ
+# è®©æŸäº›å­—ç¬¦ä¸²å¤§å°å†™ä¸æ•æ„Ÿ
 class iStr(str):
 	'''
-	´óĞ¡Ğ´²»Ãô¸ĞµÄ×Ö·û´®Àà
-	ĞĞÎª·½Ê½ÀàËÆÓÚstr£¬Ö»ÊÇËùÓĞµÄ±È½ÏºÍ²éÑ¯
-	¶¼ÊÇ´óĞ¡Ğ´²»Ãô¸ĞµÄ
+	å¤§å°å†™ä¸æ•æ„Ÿçš„å­—ç¬¦ä¸²ç±»
+	è¡Œä¸ºæ–¹å¼ç±»ä¼¼äºstrï¼Œåªæ˜¯æ‰€æœ‰çš„æ¯”è¾ƒå’ŒæŸ¥è¯¢
+	éƒ½æ˜¯å¤§å°å†™ä¸æ•æ„Ÿçš„
 	'''
 	def __init__(self, *args):
 		self._lowered = str.lower(self)
@@ -652,37 +652,37 @@ class iStr(str):
 		return self._lowered
 
 def _make_case_insensitive(name):
-	''' ½«strµÄ·½·¨·â×°³ÉiStrµÄ·½·¨£¬´óĞ¡Ğ´²»Ãô¸Ğ '''
+	''' å°†strçš„æ–¹æ³•å°è£…æˆiStrçš„æ–¹æ³•ï¼Œå¤§å°å†™ä¸æ•æ„Ÿ '''
 	str_meth = getattr(str, name)
 	def x(self, other, *args):
 		'''
-		ÏÈ³¢ÊÔ½«otherĞ¡Ğ´»¯£¬Í¨³£ÕâÓ¦¸ÃÊÇÒ»¸ö×Ö·û´®£¬
-		µ«±ØĞëÒª×öºÃ×¼±¸Ó¦¸¶Õâ¸ö¹ı³ÌÖĞ³öÏÖµÄ´íÎó£¬
-		ÒòÎª×Ö·û´®ÊÇ¿ÉÒÔºÍ·Ç×Ö·û´®ÕıÈ·±È½ÏµÄ
+		å…ˆå°è¯•å°†otherå°å†™åŒ–ï¼Œé€šå¸¸è¿™åº”è¯¥æ˜¯ä¸€ä¸ªå­—ç¬¦ä¸²ï¼Œ
+		ä½†å¿…é¡»è¦åšå¥½å‡†å¤‡åº”ä»˜è¿™ä¸ªè¿‡ç¨‹ä¸­å‡ºç°çš„é”™è¯¯ï¼Œ
+		å› ä¸ºå­—ç¬¦ä¸²æ˜¯å¯ä»¥å’Œéå­—ç¬¦ä¸²æ­£ç¡®æ¯”è¾ƒçš„
 		'''
 		try : other = other.lower()
 		except (TypeError, AttributeError, ValueError):pass
 		return str_meth(self._lowered, other, *args)
-	# ½öpython 2.4£¬Ôö¼ÓÒ»ÌõÓï¾ä£ºx.func_name = name
+	# ä»…python 2.4ï¼Œå¢åŠ ä¸€æ¡è¯­å¥ï¼šx.func_name = name
 	setattr(iStr, name, x)
 
 def _make_return_iStr(name):
-	''' ½«ËùÓĞµÄ·µ»Ø×Ö·û´®µÄiStr·½·¨·â×°
-	Ê¹µÃËùÓĞµÄ·µ»Ø½á¹û¶¼ÊÇiStrÀàĞÍ£¬¶ø²»ÊÇÄ¬ÈÏµÄstrÀàĞÍ'''
+	''' å°†æ‰€æœ‰çš„è¿”å›å­—ç¬¦ä¸²çš„iStræ–¹æ³•å°è£…
+	ä½¿å¾—æ‰€æœ‰çš„è¿”å›ç»“æœéƒ½æ˜¯iStrç±»å‹ï¼Œè€Œä¸æ˜¯é»˜è®¤çš„strç±»å‹'''
 	str_meth = getattr(str, name)
 	def x(*args):
 		return iStr(str_meth(*args))
 	setattr(iStr, name, x)
 
 def chapter1_24():
-	global _make_case_insensitive	# ²»ÉùÃ÷global½«delÊ±½«±¨´í
+	global _make_case_insensitive	# ä¸å£°æ˜globalå°†delæ—¶å°†æŠ¥é”™
 	for name in 'eq lt le gt gt ne contains'.split():
 		_make_case_insensitive('__%s__' % name)
 	for name in 'count endswith find index rfind rindex startswith'.split():
 		_make_case_insensitive(name)
-	# ×¢Òâ£¬ÎÒÃÇ²¢²»ĞŞ¸Äreplace¡¢split¡¢stripµÈ·½·¨
-	# µ±È»£¬Èç¹ûÓĞĞèÒª£¬Ò²¿ÉÒÔ¶ÔËüÃÇ½øĞĞĞŞ¸Ä
-	del _make_case_insensitive	# É¾³ı°ïÊıº¯Êı£¬ÒÑ¾­²»ÔÙĞèÒªÁË
+	# æ³¨æ„ï¼Œæˆ‘ä»¬å¹¶ä¸ä¿®æ”¹replaceã€splitã€stripç­‰æ–¹æ³•
+	# å½“ç„¶ï¼Œå¦‚æœæœ‰éœ€è¦ï¼Œä¹Ÿå¯ä»¥å¯¹å®ƒä»¬è¿›è¡Œä¿®æ”¹
+	del _make_case_insensitive	# åˆ é™¤å¸®æ•°å‡½æ•°ï¼Œå·²ç»ä¸å†éœ€è¦äº†
 
 	s1 = 'hello'
 	s2 = 'HELLO'
@@ -697,63 +697,63 @@ def chapter1_24():
 		_make_return_iStr(name)
 	print type(s2.strip())
 
-	# ÊéÖĞP51Ò³£¬»¹ÓĞÒ»¸ö»ùÓÚiStrÊµÏÖ´óĞ¡Ğ´ÎŞ¹ØµÄiList
+	# ä¹¦ä¸­P51é¡µï¼Œè¿˜æœ‰ä¸€ä¸ªåŸºäºiStrå®ç°å¤§å°å†™æ— å…³çš„iList
 
 	pass
 
-# ½«HTMLÎÄµµ×ª»¯ÎªÎÄ±¾ÏÔÊ¾µ½UNIXÖÕ¶ËÉÏ
+# å°†HTMLæ–‡æ¡£è½¬åŒ–ä¸ºæ–‡æœ¬æ˜¾ç¤ºåˆ°UNIXç»ˆç«¯ä¸Š
 import sys, os, htmllib, formatter
-# Ê¹ÓÃUNIXµÄtputÀ´»ñµÃ´ÖÌå¡¢ÏÂ»®ÏßºÍÖØÉèµÄ×ªÒåĞòÁĞ
+# ä½¿ç”¨UNIXçš„tputæ¥è·å¾—ç²—ä½“ã€ä¸‹åˆ’çº¿å’Œé‡è®¾çš„è½¬ä¹‰åºåˆ—
 set_bold = os.popen('tput bold').read()
 set_underline = os.popen('tput smul').read()
 perform_reset = os.popen('tput sgr0').read()
 class TtyFormatter(formatter.AbstractFormatter):
-	''' Ò»¸ö±£Áô´ÖÌåºÍĞ±Ìå×´Ì¬µÄ¸ñÊ½»¯¶ÔÏó
-	²¢Êä³öÏàÓ¦µÄÖÕ¶Ë¿ØÖÆĞòÁĞ '''
+	''' ä¸€ä¸ªä¿ç•™ç²—ä½“å’Œæ–œä½“çŠ¶æ€çš„æ ¼å¼åŒ–å¯¹è±¡
+	å¹¶è¾“å‡ºç›¸åº”çš„ç»ˆç«¯æ§åˆ¶åºåˆ— '''
 	def __init__(self, writer):
-		# Ê×ÏÈ£¬ÏñÍù³£Ò»Ñù£¬³õÊ¼»¯³¬Àà
+		# é¦–å…ˆï¼Œåƒå¾€å¸¸ä¸€æ ·ï¼Œåˆå§‹åŒ–è¶…ç±»
 		formatter.AbstractFormatter.__init__(self, writer)
-		# Ò»¿ªÊ¼¼ÈÃ»ÓĞ´ÖÌåÒ²Ã»ÓĞĞ±Ìå×´Ì¬£¬Î´±£ÁôÈÎºÎĞÅÏ¢
+		# ä¸€å¼€å§‹æ—¢æ²¡æœ‰ç²—ä½“ä¹Ÿæ²¡æœ‰æ–œä½“çŠ¶æ€ï¼Œæœªä¿ç•™ä»»ä½•ä¿¡æ¯
 		self.fontState = False, False
 		self.fontStack = []
 	def push_font(self, font):
-		# fontÔª×éÓĞ4Ïî£¬ ÎÒÃÇÖ»¿´Óë´ÖÌåºÍĞ±ÌåµÄ×´Ì¬ÓĞ¹ØµÄÁ½¸ö±êÖ¾
+		# fontå…ƒç»„æœ‰4é¡¹ï¼Œ æˆ‘ä»¬åªçœ‹ä¸ç²—ä½“å’Œæ–œä½“çš„çŠ¶æ€æœ‰å…³çš„ä¸¤ä¸ªæ ‡å¿—
 		size, is_italic, is_bold, is_tt = font
 		self.fontStack.append((is_italic, is_bold))
 		self._updateFontState()
 	def pop_font(self, *args):
-		# »Øµ½Ç°Ò»¸öfont×´Ì¬
+		# å›åˆ°å‰ä¸€ä¸ªfontçŠ¶æ€
 		try:
 			self.fontStack.pop()
 		except IndexError:
 			pass
 		self._updateFontState
 	def updateFontState(self):
-		# Êä³öÕıÈ·µÄÖÕ¶Ë¿ØÖÆĞòÁĞ£¬Èç¹û´ÖÌåºÍ/»òĞ±Ìå(==underline)
-		# µÄ×´Ì¬¸Õ¸Õ±»¸Ä±äµÄ»°
+		# è¾“å‡ºæ­£ç¡®çš„ç»ˆç«¯æ§åˆ¶åºåˆ—ï¼Œå¦‚æœç²—ä½“å’Œ/æˆ–æ–œä½“(==underline)
+		# çš„çŠ¶æ€åˆšåˆšè¢«æ”¹å˜çš„è¯
 		try:
 			newState = self.fontStack[-1]
 		except IndexError:
 			newState = False, False
 		if self.fontState != newState:
-			# Ïà¹ØµÄ×´Ì¬¸Ä±ä£ºÖØÖÃÖÕ¶Ë
+			# ç›¸å…³çš„çŠ¶æ€æ”¹å˜ï¼šé‡ç½®ç»ˆç«¯
 			print perform_reset,
-			# Èç¹ûĞèÒªµÄ»°£¬ÉèÖÃÏÂ»®ÏßÓë/»ò´ÖÌå×´Ì¬
+			# å¦‚æœéœ€è¦çš„è¯ï¼Œè®¾ç½®ä¸‹åˆ’çº¿ä¸/æˆ–ç²—ä½“çŠ¶æ€
 			if newState[0]:
 				print set_underline,
 			if newState[1]:
 				print set_bold,
-			# ¼Ç×¡µ±Ç°µÄÁ½¸ö×´Ì¬
+			# è®°ä½å½“å‰çš„ä¸¤ä¸ªçŠ¶æ€
 			self.fontState = newState
 def chapter1_25():
-	# Éú³ÉĞ´Èë¡¢¸ñÊ½»¯¡¢½âÎö¶ÔÏó£¬¸ù¾İĞèÒª½«ËûÃÇÁ¬½ÓÆğÀ´
+	# ç”Ÿæˆå†™å…¥ã€æ ¼å¼åŒ–ã€è§£æå¯¹è±¡ï¼Œæ ¹æ®éœ€è¦å°†ä»–ä»¬è¿æ¥èµ·æ¥
 	myWriter = formatter.DumbWriter()
 	if sys.stdout.isatty():
 		myFormatter = TtyFormatter(myWriter)
 	else:
 		myFormatter = formatter.AbstractFormatter(myWriter)
 	myParser = htmllib.HTMLParser(myFormatter)
-	# ½«±ê×¼ÊäÈëºÍÖÕ¶Ë²Ù×÷Ìá¹©¸ø½âÎöÆ÷
+	# å°†æ ‡å‡†è¾“å…¥å’Œç»ˆç«¯æ“ä½œæä¾›ç»™è§£æå™¨
 	myParser.feed(sys.stdin.read())
 	myParser.close()
 
@@ -784,7 +784,7 @@ def main():
 #	chapter1_22()
 #	chapter1_23()
 #	chapter1_24()
-	chapter1_25()	# Õâ¸öÊµÑéÃ»¿´¶®
+	chapter1_25()	# è¿™ä¸ªå®éªŒæ²¡çœ‹æ‡‚
 
 	pass
 

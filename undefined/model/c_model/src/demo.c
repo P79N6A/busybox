@@ -3,7 +3,7 @@
  *
  *       Filename:  demo.c
  *
- *    Description:  demo程序的源代码
+ *    Description:  demo绋嬪簭鐨勬簮浠ｇ爜
  *
  *        Version:  1.0
  *        Created:  01/10/2013 03:00:07 PM

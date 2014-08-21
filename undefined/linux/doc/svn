@@ -1,33 +1,33 @@
-add: ½«ÎÄ¼şÄÉÈë°æ±¾¹ÜÀí¿â
+add: å°†æ–‡ä»¶çº³å…¥ç‰ˆæœ¬ç®¡ç†åº“
 blame (praise, annotate, ann)
-cat: ²é¿´°æ±¾¿âÖĞµÄÎÄ¼ş£¬µ«²»¼ì³ö
+cat: æŸ¥çœ‹ç‰ˆæœ¬åº“ä¸­çš„æ–‡ä»¶ï¼Œä½†ä¸æ£€å‡º
 changelist (cl)
-checkout (co): ´ÓÖ¸¶¨°æ±¾¿âÖĞ¼ì³ö×îĞÂ´úÂë
+checkout (co): ä»æŒ‡å®šç‰ˆæœ¬åº“ä¸­æ£€å‡ºæœ€æ–°ä»£ç 
 cleanup
-commit (ci): Ìá½»×îĞÂ´úÂë
+commit (ci): æäº¤æœ€æ–°ä»£ç 
 copy (cp)
-delete (del, remove, rm): É¾³ı°æ±¾¿âÖĞµÄÎÄ¼ş
-diff (di): ±È½ÏÁ½¸ö°æ±¾Ö®¼äµÄÇø±ğ
-export: µ¼³öÒ»¸öÄÚÓĞ°æ±¾¹ÜÀíµÄ¡°´¿¾»¡±´úÂë
-help (?, h): ²é¿´°ïÖú
+delete (del, remove, rm): åˆ é™¤ç‰ˆæœ¬åº“ä¸­çš„æ–‡ä»¶
+diff (di): æ¯”è¾ƒä¸¤ä¸ªç‰ˆæœ¬ä¹‹é—´çš„åŒºåˆ«
+export: å¯¼å‡ºä¸€ä¸ªå†…æœ‰ç‰ˆæœ¬ç®¡ç†çš„â€œçº¯å‡€â€ä»£ç 
+help (?, h): æŸ¥çœ‹å¸®åŠ©
 import
-info: ²é¿´ÎÄ¼şµÄĞÅÏ¢
-list (ls): ÀàËÆshellµÄls£¬Çø±ğÎªÖ»ÏÔÊ¾ÄÉÈë°æ±¾¿ØÖÆµÄÎÄ¼ş
+info: æŸ¥çœ‹æ–‡ä»¶çš„ä¿¡æ¯
+list (ls): ç±»ä¼¼shellçš„lsï¼ŒåŒºåˆ«ä¸ºåªæ˜¾ç¤ºçº³å…¥ç‰ˆæœ¬æ§åˆ¶çš„æ–‡ä»¶
 lock
-log: ²é¿´°æ±¾¿âµÄ±ä¸üÈÕÖ¾
+log: æŸ¥çœ‹ç‰ˆæœ¬åº“çš„å˜æ›´æ—¥å¿—
 merge
 mergeinfo
-mkdir; ´´½¨ĞÂµÄÄ¿Â¼²¢ÄÉÈë°æ±¾¿â
+mkdir; åˆ›å»ºæ–°çš„ç›®å½•å¹¶çº³å…¥ç‰ˆæœ¬åº“
 move (mv, rename, ren)
 propdel (pdel, pd)
 propedit (pedit, pe)
 propget (pget, pg)
 proplist (plist, pl)
 propset (pset, ps)
-resolve: -accept base(°æ±¾µ¹ÍË£¬Ë­µÄÒ²²»ÓÃ)|mine-full(ÓÃÎÒµÄ)|theirs-full(ÓÃËûµÄ)|working(Ö¸¶¨ÊÖ¶¯¸ÄµÄ)
-resolved: ³åÍ»ÒÔ½â¾ö£¬ĞŞ¸ÄÎÄ¼ş×´Ì¬CÎªM£¬²¢É¾³ı³åÍ»ÎÄ¼ş(Óëresolve --accept working PATH Ò»Ñù)
+resolve: -accept base(ç‰ˆæœ¬å€’é€€ï¼Œè°çš„ä¹Ÿä¸ç”¨)|mine-full(ç”¨æˆ‘çš„)|theirs-full(ç”¨ä»–çš„)|working(æŒ‡å®šæ‰‹åŠ¨æ”¹çš„)
+resolved: å†²çªä»¥è§£å†³ï¼Œä¿®æ”¹æ–‡ä»¶çŠ¶æ€Cä¸ºMï¼Œå¹¶åˆ é™¤å†²çªæ–‡ä»¶(ä¸resolve --accept working PATH ä¸€æ ·)
 revert
-status (stat, st): ²é¿´µ±È«ÎÄ¼şµÄ×´Ì¬
-switch (sw): °Ñ¹¤×÷¿½±´¸üĞÂµ½±ğµÄURL
+status (stat, st): æŸ¥çœ‹å½“å…¨æ–‡ä»¶çš„çŠ¶æ€
+switch (sw): æŠŠå·¥ä½œæ‹·è´æ›´æ–°åˆ°åˆ«çš„URL
 unlock
-update (up): ¸üĞÂµ±Ç°°æ±¾¿â£¬»ñÈ¡×îĞÂ´úÂë
+update (up): æ›´æ–°å½“å‰ç‰ˆæœ¬åº“ï¼Œè·å–æœ€æ–°ä»£ç 

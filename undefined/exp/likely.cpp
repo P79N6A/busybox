@@ -3,7 +3,7 @@
 // 
 //       Filename:  likely.cpp
 // 
-//    Description:  测试likely和unlikely的性能效果
+//    Description:  娴嬭瘯likely鍜寀nlikely鐨勬�ц兘鏁堟灉
 // 
 //        Version:  1.0
 //        Created:  07/13/2013 11:31:39 AM

@@ -3,10 +3,10 @@
 // 
 //       Filename:  ring-list.cpp
 // 
-//       Description:  ´ø»·Á´±íÎÊÌâ£º
-//       1¡¢ÈçºÎÅÐ¶ÏÒ»¸öÁ´±íÊÇ·ñÓÐ»·Â·£¿£¨Òª¿¼ÂÇ0ºÍ6Á½ÖÖÇé¿ö£©
-//       2¡¢Èç¹ûÁ´±í´ø»·£¬ÈçºÎÅÐ¶Ï»·µÄ³¤¶È£¿
-//       3¡¢Èç¹ûÁ´±í´ø»·£¬ÈçºÎÅÐ¶Ï±úµÄ³¤¶È£¿
+//       Description:  å¸¦çŽ¯é“¾è¡¨é—®é¢˜ï¼š
+//       1ã€å¦‚ä½•åˆ¤æ–­ä¸€ä¸ªé“¾è¡¨æ˜¯å¦æœ‰çŽ¯è·¯ï¼Ÿï¼ˆè¦è€ƒè™‘0å’Œ6ä¸¤ç§æƒ…å†µï¼‰
+//       2ã€å¦‚æžœé“¾è¡¨å¸¦çŽ¯ï¼Œå¦‚ä½•åˆ¤æ–­çŽ¯çš„é•¿åº¦ï¼Ÿ
+//       3ã€å¦‚æžœé“¾è¡¨å¸¦çŽ¯ï¼Œå¦‚ä½•åˆ¤æ–­æŸ„çš„é•¿åº¦ï¼Ÿ
 //       Reference:
 //       http://www.360doc.com/content/12/0402/23/9568648_200376434.shtml
 //
@@ -38,8 +38,8 @@ struct node
 /*
 // =====================================================================================
 //        Class:  List
-//  Description:  ¸ÃListÀà²Ù×÷µÄÁ´±íÀàÐÍÎªµ¥ÏòÁ´±í£¨º¬Í·½Úµã£©£¬¸ÃÀàÖ»¸ºÔð´´½¨·ûºÏÌõ¼þµÄ
-//  Á´±í£¬ÒÔ¼°¶ÔÁ´±í½øÐÐ»·Â·µÄÅÐ¶ÏºÍÏà¹Ø¼ÆËã£¬³ý´ËÒÔÍâ£¬²»ÊµÏÖÈÎºÎÆäËûÁ´±í¹¦ÄÜ
+//  Description:  è¯¥Listç±»æ“ä½œçš„é“¾è¡¨ç±»åž‹ä¸ºå•å‘é“¾è¡¨ï¼ˆå«å¤´èŠ‚ç‚¹ï¼‰ï¼Œè¯¥ç±»åªè´Ÿè´£åˆ›å»ºç¬¦åˆæ¡ä»¶çš„
+//  é“¾è¡¨ï¼Œä»¥åŠå¯¹é“¾è¡¨è¿›è¡ŒçŽ¯è·¯çš„åˆ¤æ–­å’Œç›¸å…³è®¡ç®—ï¼Œé™¤æ­¤ä»¥å¤–ï¼Œä¸å®žçŽ°ä»»ä½•å…¶ä»–é“¾è¡¨åŠŸèƒ½
 // =====================================================================================
 */
 class List {
@@ -50,7 +50,7 @@ public:
 		m_ring_size(0),
 		m_list_head(NULL) {}		// constructor
 
-	// ÊÍ·ÅÁ´±í£¬±ÜÃâÄÚ´æÐ¹Â©
+	// é‡Šæ”¾é“¾è¡¨ï¼Œé¿å…å†…å­˜æ³„æ¼
 	~List();
 
 	// ====================  INTERFACE     =======================================
@@ -58,10 +58,10 @@ public:
 	/* 
 	// ===  FUNCTION  ======================================================================
 	//         Name:  CreateList
-	//  Description:  ¸ù¾Ý±úµÄ³¤¶ÈºÍ»·µÄ³¤¶È£¬´´½¨Âú×ãÒªÇóµÄÁ´±í
-	//   Parameters:  ±úµÄ³¤¶È£¨0±íÊ¾´´½¨Ò»¸öÑ­»·Á´±í£©;
-	//   		»·µÄ³¤¶È£¨0±íÊ¾´´½¨Ò»¸öÎÞ»·µÄÁ´±í£©;
-	//  ReturnValue:  ´´½¨³É¹¦·µ»Ø0£¬·ñÔò·µ»Ø-1
+	//  Description:  æ ¹æ®æŸ„çš„é•¿åº¦å’ŒçŽ¯çš„é•¿åº¦ï¼Œåˆ›å»ºæ»¡è¶³è¦æ±‚çš„é“¾è¡¨
+	//   Parameters:  æŸ„çš„é•¿åº¦ï¼ˆ0è¡¨ç¤ºåˆ›å»ºä¸€ä¸ªå¾ªçŽ¯é“¾è¡¨ï¼‰;
+	//   		çŽ¯çš„é•¿åº¦ï¼ˆ0è¡¨ç¤ºåˆ›å»ºä¸€ä¸ªæ— çŽ¯çš„é“¾è¡¨ï¼‰;
+	//  ReturnValue:  åˆ›å»ºæˆåŠŸè¿”å›ž0ï¼Œå¦åˆ™è¿”å›ž-1
 	// =====================================================================================
 	*/
 	int CreateList(int handle_size, int ring_size);
@@ -69,10 +69,10 @@ public:
 	/* 
 	// ===  FUNCTION  ======================================================================
 	//         Name:  CheckRing
-	//  Description:  ÓÃÓÚ¼ì²âÁ´±íÊÇ·ñ´æÔÚ»·Â·
+	//  Description:  ç”¨äºŽæ£€æµ‹é“¾è¡¨æ˜¯å¦å­˜åœ¨çŽ¯è·¯
 	//   Parameters:  null
-	//  ReturnValue:  ·µ»ØÖµÎªNULL±íÊ¾ÎÞ»·Â·£¬·ñÔò±íÊ¾ÓÐ»·Â·£¬·µ»ØÖµµÄÖµ±íÊ¾¿ìÂýÁ½¸öÖ¸ÕëµÄÖØ
-	//  ºÏµØÖ·£¨²»Ò»¶¨ÊÇ»·Â·Æðµã£©£¬Õâ¸öÖµ³ýÁËÓÃÓÚºóÐø¼ÆËãÒÔÍâ£¬Ã»ÓÐÆäËûÒâÒå
+	//  ReturnValue:  è¿”å›žå€¼ä¸ºNULLè¡¨ç¤ºæ— çŽ¯è·¯ï¼Œå¦åˆ™è¡¨ç¤ºæœ‰çŽ¯è·¯ï¼Œè¿”å›žå€¼çš„å€¼è¡¨ç¤ºå¿«æ…¢ä¸¤ä¸ªæŒ‡é’ˆçš„é‡
+	//  åˆåœ°å€ï¼ˆä¸ä¸€å®šæ˜¯çŽ¯è·¯èµ·ç‚¹ï¼‰ï¼Œè¿™ä¸ªå€¼é™¤äº†ç”¨äºŽåŽç»­è®¡ç®—ä»¥å¤–ï¼Œæ²¡æœ‰å…¶ä»–æ„ä¹‰
 	// =====================================================================================
 	*/
 	struct node* CheckRing();
@@ -80,10 +80,10 @@ public:
 	/* 
 	// ===  FUNCTION  ======================================================================
 	//         Name:  CalculateRingSize
-	//  Description:  ¼ÆËãÁ´±íÖÐ»·µÄ³¤¶È
-	//   Parameters:  CheckRing()º¯Êý·µ»ØµÄÖ¸Õë£¬Êµ¼ÊÉÏ¾ÍÊÇ»·ÉÏÄ³Ò»¸önodeµÄµØÖ·£¬ÊÇÄÄ¸önodeµÄ
-	//   µØÖ·Ëã·¨ÉÏÎÞËùÎ½£¬¹Ø¼üÊÇÕâ¸öµØÖ·±ØÐëÔÚ»·ÉÏ
-	//  ReturnValue:  ·µ»Ø»·µÄ³¤¶È£¬Õâ¸ö³¤¶ÈÓ¦¸ÃÓëCreateList()ÖÐµÚ¶þ¸ö²ÎÊýÏàµÈ
+	//  Description:  è®¡ç®—é“¾è¡¨ä¸­çŽ¯çš„é•¿åº¦
+	//   Parameters:  CheckRing()å‡½æ•°è¿”å›žçš„æŒ‡é’ˆï¼Œå®žé™…ä¸Šå°±æ˜¯çŽ¯ä¸ŠæŸä¸€ä¸ªnodeçš„åœ°å€ï¼Œæ˜¯å“ªä¸ªnodeçš„
+	//   åœ°å€ç®—æ³•ä¸Šæ— æ‰€è°“ï¼Œå…³é”®æ˜¯è¿™ä¸ªåœ°å€å¿…é¡»åœ¨çŽ¯ä¸Š
+	//  ReturnValue:  è¿”å›žçŽ¯çš„é•¿åº¦ï¼Œè¿™ä¸ªé•¿åº¦åº”è¯¥ä¸ŽCreateList()ä¸­ç¬¬äºŒä¸ªå‚æ•°ç›¸ç­‰
 	// =====================================================================================
 	*/
 	int CalculateRingSize(struct node *p);
@@ -92,11 +92,11 @@ public:
 	/* 
 	// ===  FUNCTION  ======================================================================
 	//         Name:  CalculateHandleSize
-	//  Description:  ¼ÆËãÁ´±íÖÐ±úµÄ³¤¶È 
-	//   Parameters:  ChechRing()º¯Êý·µ»ØµÄÖ¸Õë£¬Êµ¼ÊÉÏ¾ÍÊÇ»·ÉÏÄ³Ò»¸önodeµÄµØÖ·£¬Õâ¸önodeµÄÎ»
-	//   		ÖÃºÜÖØÒª£¬²»ÄÜÊÇÈÎÒâÒ»¸öµØÖ·£¬ÒòÎªËüÒªÓëhead±£³ÖÒ»¶¨µÄ´úÊý¹ØÏµ£¬·ñÔòÎÞ·¨
-	//   		ÕýÈ·ÔËËã
-	//  ReturnValue:  ·µ»Ø±úµÄ³¤¶È£¬Õâ¸ö³¤¶ÈÓ¦¸ÃÓëCreateList()ÖÐµÚÒ»¸ö²ÎÊý¼ÓÒ»ÏàµÈ£¨º¬Í·½Úµã£©
+	//  Description:  è®¡ç®—é“¾è¡¨ä¸­æŸ„çš„é•¿åº¦ 
+	//   Parameters:  ChechRing()å‡½æ•°è¿”å›žçš„æŒ‡é’ˆï¼Œå®žé™…ä¸Šå°±æ˜¯çŽ¯ä¸ŠæŸä¸€ä¸ªnodeçš„åœ°å€ï¼Œè¿™ä¸ªnodeçš„ä½
+	//   		ç½®å¾ˆé‡è¦ï¼Œä¸èƒ½æ˜¯ä»»æ„ä¸€ä¸ªåœ°å€ï¼Œå› ä¸ºå®ƒè¦ä¸Žheadä¿æŒä¸€å®šçš„ä»£æ•°å…³ç³»ï¼Œå¦åˆ™æ— æ³•
+	//   		æ­£ç¡®è¿ç®—
+	//  ReturnValue:  è¿”å›žæŸ„çš„é•¿åº¦ï¼Œè¿™ä¸ªé•¿åº¦åº”è¯¥ä¸ŽCreateList()ä¸­ç¬¬ä¸€ä¸ªå‚æ•°åŠ ä¸€ç›¸ç­‰ï¼ˆå«å¤´èŠ‚ç‚¹ï¼‰
 	// =====================================================================================
 	*/
 	int CalculateHandleSize(struct node *p);
@@ -118,9 +118,9 @@ private:
 	/* 
 	// ===  FUNCTION  ======================================================================
 	//         Name:  m_CreateList
-	//  Description:  ´´½¨Ò»¸öµ¥Ñ­»·Á´±í£¬²¢·µ»ØÍ·½ÚµãÖ¸Õë
+	//  Description:  åˆ›å»ºä¸€ä¸ªå•å¾ªçŽ¯é“¾è¡¨ï¼Œå¹¶è¿”å›žå¤´èŠ‚ç‚¹æŒ‡é’ˆ
 	//   Parameters:  null
-	//  ReturnValue:  ´´½¨³É¹¦·µ»Ø0£¬·ñÔò·µ»Ø-1
+	//  ReturnValue:  åˆ›å»ºæˆåŠŸè¿”å›ž0ï¼Œå¦åˆ™è¿”å›ž-1
 	// =====================================================================================
 	*/
 	int m_CreateList();
@@ -128,9 +128,9 @@ private:
 	/* 
 	// ===  FUNCTION  ======================================================================
 	//         Name:  m_AddNode
-	//  Description:  ÏòÁ´±íÖÐÌí¼ÓÒ»¸öÐÂµÄnode 
-	//   Parameters:  ÐèÒªÐ´ÈëµÄÊýÖµ
-	//  ReturnValue:  Ìí¼Ó³É¹¦·µ»Ø0£¬·ñÔò·µ»Ø-1
+	//  Description:  å‘é“¾è¡¨ä¸­æ·»åŠ ä¸€ä¸ªæ–°çš„node 
+	//   Parameters:  éœ€è¦å†™å…¥çš„æ•°å€¼
+	//  ReturnValue:  æ·»åŠ æˆåŠŸè¿”å›ž0ï¼Œå¦åˆ™è¿”å›ž-1
 	// =====================================================================================
 	*/
 	int m_AddNode(int n);
@@ -144,8 +144,8 @@ private:
 List::~List()
 {
 	struct node *p = m_list_head;
-	int n = m_handle_size + m_ring_size + 1;	// »¹ÓÐÒ»¸ö¶îÍâµÄÍ·½Úµã
-	// Èç¹ûÁ´±íÓÐ»·£¬ÔòÒ»°ãµÄÁ´±íÊÍ·Å·½·¨½«µ¼ÖÂ¶Î´íÎó
+	int n = m_handle_size + m_ring_size + 1;	// è¿˜æœ‰ä¸€ä¸ªé¢å¤–çš„å¤´èŠ‚ç‚¹
+	// å¦‚æžœé“¾è¡¨æœ‰çŽ¯ï¼Œåˆ™ä¸€èˆ¬çš„é“¾è¡¨é‡Šæ”¾æ–¹æ³•å°†å¯¼è‡´æ®µé”™è¯¯
 	for (int i=0; i<n; ++i) {
 		struct node *tmp = p->next;
 		free(p);
@@ -161,16 +161,16 @@ int List::CreateList(int handle_size, int ring_size)
 
 	srand((unsigned)time(0));
 	try {
-		/* ´´½¨Á´±í */
+		/* åˆ›å»ºé“¾è¡¨ */
 		if (m_CreateList() == -1) return -1;
-		/* ¹¹Ôì»·Â· */
+		/* æž„é€ çŽ¯è·¯ */
 		for (int i=0; i<ring_size; ++i)
 			if (m_AddNode(rand()%100) == -1) return -1;
 		struct node *p = m_list_head;
 		while (p->next != NULL) p = p->next;
 		p->next = m_list_head->next;
 
-		/* ¹¹Ôì±ú */
+		/* æž„é€ æŸ„ */
 		for (int i=0; i<handle_size; ++i)
 			if (m_AddNode(rand()%100) == -1) return -1;
 	} catch (std::bad_alloc &e) {
@@ -208,7 +208,7 @@ int List::CalculateRingSize(struct node *p)
 	struct node *fast = p;
 	int n = 0;
 	do {
-		/* ÕâÀï²»¿ÉÄÜ³öÏÖfast->NULLµÄÇé¿ö */
+		/* è¿™é‡Œä¸å¯èƒ½å‡ºçŽ°fast->NULLçš„æƒ…å†µ */
 		assert(fast != NULL);
 		assert(fast->next != NULL);
 		slow = slow->next;
@@ -235,7 +235,7 @@ int List::CalculateHandleSize(struct node *p)
 	struct node *node = m_list_head;
 	int n = 0;
 	while (node != slow) {
-		/* ÕâÀï²»¿ÉÄÜ³öÏÖnode==NULL»òslow==NULLµÄÇé¿ö */
+		/* è¿™é‡Œä¸å¯èƒ½å‡ºçŽ°node==NULLæˆ–slow==NULLçš„æƒ…å†µ */
 		assert(node != NULL);
 		assert(slow != NULL);
 		node = node->next;
@@ -248,7 +248,7 @@ int List::CalculateHandleSize(struct node *p)
 
 int List::m_CreateList()
 {
-	// Í·½ÚµãµÄdataÇøÓòÓÃÓÚ±£´æÁ´±íÖÐ½ÚµãµÄ¸öÊý
+	// å¤´èŠ‚ç‚¹çš„dataåŒºåŸŸç”¨äºŽä¿å­˜é“¾è¡¨ä¸­èŠ‚ç‚¹çš„ä¸ªæ•°
 	m_list_head = (struct node*) malloc(sizeof(struct node));
 	if (m_list_head == NULL) throw std::bad_alloc();
 	m_list_head->data = 0;

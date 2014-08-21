@@ -3,7 +3,7 @@
 // 
 //       Filename:  derived.hpp
 // 
-//    Description:  ÅÉÉúÀàÉùÃ÷
+//    Description:  æ´¾ç”Ÿç±»å£°æ˜
 // 
 //        Version:  1.0
 //        Created:  01/16/2013 01:07:46 PM

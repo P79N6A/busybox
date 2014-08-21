@@ -3,7 +3,7 @@
 // 
 //       Filename:  base.cpp
 // 
-//    Description:  基类实现
+//    Description:  鍩虹被瀹炵幇
 // 
 //        Version:  1.0
 //        Created:  01/16/2013 01:06:24 PM

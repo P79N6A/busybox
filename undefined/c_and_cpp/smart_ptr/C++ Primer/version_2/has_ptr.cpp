@@ -3,7 +3,7 @@
 // 
 //       Filename:  has_ptr.cpp
 // 
-//    Description:  Ê¹ÓÃÒıÓÃ¼ÆÊıµÄ·½Ê½ÊµÏÖÖÇÄÜÖ¸Õë£¬ÖÇÄÜÖ¸ÕëÎŞĞèÊÖ¶¯Ïú»Ù
+//    Description:  ä½¿ç”¨å¼•ç”¨è®¡æ•°çš„æ–¹å¼å®ç°æ™ºèƒ½æŒ‡é’ˆï¼Œæ™ºèƒ½æŒ‡é’ˆæ— éœ€æ‰‹åŠ¨é”€æ¯
 // 
 //        Version:  1.0
 //        Created:  10/10/2012 10:10:45 AM
@@ -34,7 +34,7 @@ public:
 
 private:
 	// ====================  DATA MEMBERS  =======================================
-	friend class Has_Ptr;	// ÓÑÔª²»ĞèÒªÌáÇ°ÉùÃ÷£¬¿ÉÒÔÖ±½ÓÊ¹ÓÃÃû×Ö
+	friend class Has_Ptr;	// å‹å…ƒä¸éœ€è¦æå‰å£°æ˜ï¼Œå¯ä»¥ç›´æ¥ä½¿ç”¨åå­—
 	int *ip;
 	size_t use;
 
@@ -43,7 +43,7 @@ private:
 /*
 // =====================================================================================
 //        Class:  Has_Ptr
-//  Description:  Í¨¹ıU_PtrÀàµÄ¸¨Öú£¬ÊµÏÖÖÇÄÜÖ¸Õë
+//  Description:  é€šè¿‡U_Ptrç±»çš„è¾…åŠ©ï¼Œå®ç°æ™ºèƒ½æŒ‡é’ˆ
 // =====================================================================================
 */
 class Has_Ptr {
@@ -64,7 +64,7 @@ public:
 	int get_ptr_val() const { return *ptr->ip; }
 	void set_ptr_val(int i) { *ptr->ip = i; }
 	
-	size_t get_use() { return ptr->use; };	// ²é¿´ÒıÓÃ¼ÆÊıÆ÷
+	size_t get_use() { return ptr->use; };	// æŸ¥çœ‹å¼•ç”¨è®¡æ•°å™¨
 
 	// ====================  OPERATORS     =======================================
 	Has_Ptr& operator=(const Has_Ptr&);
@@ -79,7 +79,7 @@ private:
 Has_Ptr& Has_Ptr::operator=(const Has_Ptr &rhs)
 {
 	++rhs.ptr->use;
-	if (--ptr->use == 0) delete ptr;	// ×óÖµĞèÒª×ÃÇéÊÍ·Å
+	if (--ptr->use == 0) delete ptr;	// å·¦å€¼éœ€è¦é…Œæƒ…é‡Šæ”¾
 	ptr = rhs.ptr;
 	val = rhs.val;
 	return *this;
@@ -94,23 +94,23 @@ Has_Ptr& Has_Ptr::operator=(const Has_Ptr &rhs)
 int main(int argc, char *argv[])
 {
 	int *p = new int(42);
-	Has_Ptr obj(p, 10);	// obj×Ô¼ºµÄvalÎª10£¬Ö¸ÕëÖ¸ÏòµÄ¿Õ¼äÎª42
+	Has_Ptr obj(p, 10);	// objè‡ªå·±çš„valä¸º10ï¼ŒæŒ‡é’ˆæŒ‡å‘çš„ç©ºé—´ä¸º42
 	std::cout << obj.get_int() << ',' << obj.get_ptr_val() << ',' << obj.get_use() << std::endl;
 	std::cout << std::endl;
 
-	Has_Ptr obj2(obj);	// obj2¸´ÖÆobj
+	Has_Ptr obj2(obj);	// obj2å¤åˆ¶obj
 	std::cout << obj.get_int() << ',' << obj.get_ptr_val() << ',' << obj.get_use() << std::endl;
 	std::cout << obj2.get_int() << ',' << obj2.get_ptr_val() << ',' << obj2.get_use() << std::endl;
 	std::cout << std::endl;
 
-	Has_Ptr obj3 = obj;	// obj3¸´ÖÆobj
+	Has_Ptr obj3 = obj;	// obj3å¤åˆ¶obj
 	std::cout << obj.get_int() << ',' << obj.get_ptr_val() << ',' << obj.get_use() << std::endl;
 	std::cout << obj2.get_int() << ',' << obj2.get_ptr_val() << ',' << obj2.get_use() << std::endl;
 	std::cout << obj3.get_int() << ',' << obj3.get_ptr_val() << ',' << obj3.get_use() << std::endl;
 	std::cout << std::endl;
 
-	/* ÏÂÃæÕâ¶Î´úÂë½«µ¼ÖÂpËùÖ¸ÏòµÄµØÖ·ÖØ¸´ÊÍ·Å */
-	Has_Ptr obj4(p, 4);	// obj×Ô¼ºµÄvalÎª10£¬Ö¸ÕëÖ¸ÏòµÄ¿Õ¼äÎª42
+	/* ä¸‹é¢è¿™æ®µä»£ç å°†å¯¼è‡´pæ‰€æŒ‡å‘çš„åœ°å€é‡å¤é‡Šæ”¾ */
+	Has_Ptr obj4(p, 4);	// objè‡ªå·±çš„valä¸º10ï¼ŒæŒ‡é’ˆæŒ‡å‘çš„ç©ºé—´ä¸º42
 	std::cout << obj4.get_int() << ',' << obj4.get_ptr_val() << ',' << obj4.get_use() << std::endl;
 	std::cout << std::endl;
 

@@ -1,9 +1,9 @@
 # do not show hidden files in the list
-# ¹Øµô match-hidden-files ²»ÏÔÊ¾Òş²ØÎÄ¼ş£¬ÌØ±ğÊÇµ±ÄãÔÚ home Ä¿Â¼Ê±£¬Äã»á¾õµÃÑÛÇ°ºÃ¸É¾»¡£
+# å…³æ‰ match-hidden-files ä¸æ˜¾ç¤ºéšè—æ–‡ä»¶ï¼Œç‰¹åˆ«æ˜¯å½“ä½ åœ¨ home ç›®å½•æ—¶ï¼Œä½ ä¼šè§‰å¾—çœ¼å‰å¥½å¹²å‡€ã€‚
 set match-hidden-files off
  
 # auto complete ignoring case
-# Ä¬ÈÏÇé¿öÏÂ£¬°´ÏÂÁ½´Î <tab> ²Å»á³öÏÖÌáÊ¾£¬show-all-if-ambiguous ¿ªÆôºó£¬Ö»ĞèÒªÒ»´ÎÁË¡£
+# é»˜è®¤æƒ…å†µä¸‹ï¼ŒæŒ‰ä¸‹ä¸¤æ¬¡ <tab> æ‰ä¼šå‡ºç°æç¤ºï¼Œshow-all-if-ambiguous å¼€å¯åï¼Œåªéœ€è¦ä¸€æ¬¡äº†ã€‚
 #set show-all-if-ambiguous on	
-# ¿ªÆô completion-ignore-case ºöÂÔ´óĞ¡Ğ´
+# å¼€å¯ completion-ignore-case å¿½ç•¥å¤§å°å†™
 set completion-ignore-case on

@@ -3,7 +3,7 @@
  *
  *       Filename:  demo.h
  *
- *    Description:  demo³ÌĞòµÄÍ·ÎÄ¼ş
+ *    Description:  demoç¨‹åºçš„å¤´æ–‡ä»¶
  *
  *        Version:  1.0
  *        Created:  01/10/2013 03:00:34 PM
@@ -19,17 +19,17 @@
 #ifndef  DEMO_H
 #define  DEMO_H
 
-/* Ä£¿éAµÄÈı¸ö¹¦ÄÜº¯Êı */
+/* æ¨¡å—Açš„ä¸‰ä¸ªåŠŸèƒ½å‡½æ•° */
 int fun_a1();
 int fun_a2();
 int fun_a3();
 
-/* Ä£¿éBµÄÈı¸ö¹¦ÄÜº¯Êı */
+/* æ¨¡å—Bçš„ä¸‰ä¸ªåŠŸèƒ½å‡½æ•° */
 int fun_b1();
 int fun_b2();
 int fun_b3();
 
-/* Ä£¿éCµÄÈı¸ö¹¦ÄÜº¯Êı */
+/* æ¨¡å—Cçš„ä¸‰ä¸ªåŠŸèƒ½å‡½æ•° */
 int fun_c1();
 int fun_c2();
 int fun_c3();

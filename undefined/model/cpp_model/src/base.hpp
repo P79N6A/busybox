@@ -3,7 +3,7 @@
 // 
 //       Filename:  base.hpp
 // 
-//    Description:  基类声明
+//    Description:  鍩虹被澹版槑
 // 
 //        Version:  1.0
 //        Created:  01/16/2013 01:00:07 PM

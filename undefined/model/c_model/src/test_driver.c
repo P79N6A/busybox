@@ -3,7 +3,7 @@
  *
  *       Filename:  test_driver.c
  *
- *    Description:  ²âÊÔÇı¶¯
+ *    Description:  æµ‹è¯•é©±åŠ¨
  *
  *        Version:  1.0
  *        Created:  01/10/2013 01:13:45 PM
@@ -28,7 +28,7 @@
 #include "demo.h"
 #include "demo_test.h"
 
-/* ½éÉÜlog4cµÄÓÃ·¨ */
+/* ä»‹ç»log4cçš„ç”¨æ³• */
 static void log4c_demo()
 {
 	log4c_category_t* runlog = NULL;
@@ -58,75 +58,75 @@ enum BOOL { FALSE=0, TRUE=1 };
  */
 int main(int argc, char *argv[])
 {
-	CU_TestInfo cases_a[] = {	/* ¶¨Òå²âÊÔ¼¯ºÏAµÄÈı¸ö²âÊÔÓÃÀı */
-		{"Ä£¿éA-²âÊÔÓÃÀı1", test_a_1},
-		{"Ä£¿éA-²âÊÔÓÃÀı2", test_a_2},
-		{"Ä£¿éA-²âÊÔÓÃÀı3", test_a_3},
+	CU_TestInfo cases_a[] = {	/* å®šä¹‰æµ‹è¯•é›†åˆAçš„ä¸‰ä¸ªæµ‹è¯•ç”¨ä¾‹ */
+		{"æ¨¡å—A-æµ‹è¯•ç”¨ä¾‹1", test_a_1},
+		{"æ¨¡å—A-æµ‹è¯•ç”¨ä¾‹2", test_a_2},
+		{"æ¨¡å—A-æµ‹è¯•ç”¨ä¾‹3", test_a_3},
 		CU_TEST_INFO_NULL
 	};
 
-	CU_TestInfo cases_b[] = {	/* ¶¨Òå²âÊÔ¼¯ºÏBµÄÈı¸ö²âÊÔÓÃÀı */
-		{"Ä£¿éB-²âÊÔÓÃÀı1", test_b_1},
-		{"Ä£¿éB-²âÊÔÓÃÀı2", test_b_2},
-		{"Ä£¿éB-²âÊÔÓÃÀı3", test_b_3},
+	CU_TestInfo cases_b[] = {	/* å®šä¹‰æµ‹è¯•é›†åˆBçš„ä¸‰ä¸ªæµ‹è¯•ç”¨ä¾‹ */
+		{"æ¨¡å—B-æµ‹è¯•ç”¨ä¾‹1", test_b_1},
+		{"æ¨¡å—B-æµ‹è¯•ç”¨ä¾‹2", test_b_2},
+		{"æ¨¡å—B-æµ‹è¯•ç”¨ä¾‹3", test_b_3},
 		CU_TEST_INFO_NULL
 	};
 
-	CU_TestInfo cases_c[] = {	/* ¶¨Òå²âÊÔ¼¯ºÏCµÄÈı¸ö²âÊÔÓÃÀı */
-		{"Ä£¿éC-²âÊÔÓÃÀı1", test_c_1},
-		{"Ä£¿éC-²âÊÔÓÃÀı2", test_c_2},
-		{"Ä£¿éC-²âÊÔÓÃÀı3", test_c_3},
+	CU_TestInfo cases_c[] = {	/* å®šä¹‰æµ‹è¯•é›†åˆCçš„ä¸‰ä¸ªæµ‹è¯•ç”¨ä¾‹ */
+		{"æ¨¡å—C-æµ‹è¯•ç”¨ä¾‹1", test_c_1},
+		{"æ¨¡å—C-æµ‹è¯•ç”¨ä¾‹2", test_c_2},
+		{"æ¨¡å—C-æµ‹è¯•ç”¨ä¾‹3", test_c_3},
 		CU_TEST_INFO_NULL
 	};
 
-	/* ËµÃ÷£¬´Ë´¦²¢Ã»ÓĞ³öÏÖCU_pSuite±äÁ¿£¬ÕâÊÇÒòÎªcunitÊÇÒÔ¡°ÃèÊö¡±×÷Îª²âÊÔÓÃÀı»ò²âÊÔ¼¯ºÏµÄÎ¨Ò»±êÊ¶£¬¶ø·Ç±äÁ¿ */
-	CU_SuiteInfo suites[] = {	/* ¶¨ÒåÈı¸ö²âÊÔ¼¯ºÏ */
-		{"²âÊÔ¼¯ºÏA", test_a_init, test_a_destroy, cases_a},
-		{"²âÊÔ¼¯ºÏB", test_b_init, test_b_destroy, cases_b},
-		{"²âÊÔ¼¯ºÏC", test_c_init, test_c_destroy, cases_c},
+	/* è¯´æ˜ï¼Œæ­¤å¤„å¹¶æ²¡æœ‰å‡ºç°CU_pSuiteå˜é‡ï¼Œè¿™æ˜¯å› ä¸ºcunitæ˜¯ä»¥â€œæè¿°â€ä½œä¸ºæµ‹è¯•ç”¨ä¾‹æˆ–æµ‹è¯•é›†åˆçš„å”¯ä¸€æ ‡è¯†ï¼Œè€Œéå˜é‡ */
+	CU_SuiteInfo suites[] = {	/* å®šä¹‰ä¸‰ä¸ªæµ‹è¯•é›†åˆ */
+		{"æµ‹è¯•é›†åˆA", test_a_init, test_a_destroy, cases_a},
+		{"æµ‹è¯•é›†åˆB", test_b_init, test_b_destroy, cases_b},
+		{"æµ‹è¯•é›†åˆC", test_c_init, test_c_destroy, cases_c},
 		CU_SUITE_INFO_NULL
 	};
 
-	/* ³õÊ¼»¯cunit */
+	/* åˆå§‹åŒ–cunit */
 	if (CU_initialize_registry() == CUE_NOMEMORY) {
 		fprintf(stderr, "CU_initialize_registry fault!\n");
 		exit(EXIT_FAILURE);
 	}
 
-	/* Ïòcunit×¢²á²âÊÔ¼¯ºÏ */
+	/* å‘cunitæ³¨å†Œæµ‹è¯•é›†åˆ */
 	if (CU_register_suites(suites) != CUE_SUCCESS) {
 		fprintf(stderr, "CU_register_suites fault!\n");
 	}
 
-	/* ÉèÖÃ²âÊÔ¼¯ºÏµÄ¼¤»î±êÖ¾ */
-	CU_set_suite_active(CU_get_suite("²âÊÔ¼¯ºÏA"), TRUE);	/* ¼¤»î²âÊÔ¼¯ºÏA */
-	CU_set_suite_active(CU_get_suite("²âÊÔ¼¯ºÏB"), FALSE);	/* ²»¼¤»î²âÊÔ¼¯ºÏB */
-	CU_set_suite_active(CU_get_suite("²âÊÔ¼¯ºÏC"), TRUE);	/* ¼¤»î²âÊÔ¼¯ºÏC */
+	/* è®¾ç½®æµ‹è¯•é›†åˆçš„æ¿€æ´»æ ‡å¿— */
+	CU_set_suite_active(CU_get_suite("æµ‹è¯•é›†åˆA"), TRUE);	/* æ¿€æ´»æµ‹è¯•é›†åˆA */
+	CU_set_suite_active(CU_get_suite("æµ‹è¯•é›†åˆB"), FALSE);	/* ä¸æ¿€æ´»æµ‹è¯•é›†åˆB */
+	CU_set_suite_active(CU_get_suite("æµ‹è¯•é›†åˆC"), TRUE);	/* æ¿€æ´»æµ‹è¯•é›†åˆC */
 
-	/* ÉèÖÃ²âÊÔÓÃÀıµÄ¼¤»î±êÖ¾ */
-	CU_set_test_active(CU_get_test(CU_get_suite("²âÊÔ¼¯ºÏA"), "Ä£¿éA-²âÊÔÓÃÀı1"), TRUE);
-	CU_set_test_active(CU_get_test(CU_get_suite("²âÊÔ¼¯ºÏA"), "Ä£¿éA-²âÊÔÓÃÀı2"), TRUE);
-	CU_set_test_active(CU_get_test(CU_get_suite("²âÊÔ¼¯ºÏA"), "Ä£¿éA-²âÊÔÓÃÀı3"), TRUE);
-	CU_set_test_active(CU_get_test(CU_get_suite("²âÊÔ¼¯ºÏB"), "Ä£¿éB-²âÊÔÓÃÀı1"), TRUE);	/* ÓÉÓÚ²âÊÔ¼¯ºÏBÎ´¼¤»î£¬ËùÒÔÄ£¿éBµÄ²âÊÔÓÃÀı²»»áÖ´ĞĞ */
-	CU_set_test_active(CU_get_test(CU_get_suite("²âÊÔ¼¯ºÏB"), "Ä£¿éB-²âÊÔÓÃÀı2"), TRUE);	/* ÓÉÓÚ²âÊÔ¼¯ºÏBÎ´¼¤»î£¬ËùÒÔÄ£¿éBµÄ²âÊÔÓÃÀı²»»áÖ´ĞĞ */
-	CU_set_test_active(CU_get_test(CU_get_suite("²âÊÔ¼¯ºÏB"), "Ä£¿éB-²âÊÔÓÃÀı3"), TRUE);	/* ÓÉÓÚ²âÊÔ¼¯ºÏBÎ´¼¤»î£¬ËùÒÔÄ£¿éBµÄ²âÊÔÓÃÀı²»»áÖ´ĞĞ */
-	CU_set_test_active(CU_get_test(CU_get_suite("²âÊÔ¼¯ºÏC"), "Ä£¿éC-²âÊÔÓÃÀı1"), TRUE);
-	CU_set_test_active(CU_get_test(CU_get_suite("²âÊÔ¼¯ºÏC"), "Ä£¿éC-²âÊÔÓÃÀı2"), FALSE);	/* ²»¼¤»î"Ä£¿éC-²âÊÔÓÃÀı2" */
-	CU_set_test_active(CU_get_test(CU_get_suite("²âÊÔ¼¯ºÏC"), "Ä£¿éC-²âÊÔÓÃÀı3"), TRUE);
+	/* è®¾ç½®æµ‹è¯•ç”¨ä¾‹çš„æ¿€æ´»æ ‡å¿— */
+	CU_set_test_active(CU_get_test(CU_get_suite("æµ‹è¯•é›†åˆA"), "æ¨¡å—A-æµ‹è¯•ç”¨ä¾‹1"), TRUE);
+	CU_set_test_active(CU_get_test(CU_get_suite("æµ‹è¯•é›†åˆA"), "æ¨¡å—A-æµ‹è¯•ç”¨ä¾‹2"), TRUE);
+	CU_set_test_active(CU_get_test(CU_get_suite("æµ‹è¯•é›†åˆA"), "æ¨¡å—A-æµ‹è¯•ç”¨ä¾‹3"), TRUE);
+	CU_set_test_active(CU_get_test(CU_get_suite("æµ‹è¯•é›†åˆB"), "æ¨¡å—B-æµ‹è¯•ç”¨ä¾‹1"), TRUE);	/* ç”±äºæµ‹è¯•é›†åˆBæœªæ¿€æ´»ï¼Œæ‰€ä»¥æ¨¡å—Bçš„æµ‹è¯•ç”¨ä¾‹ä¸ä¼šæ‰§è¡Œ */
+	CU_set_test_active(CU_get_test(CU_get_suite("æµ‹è¯•é›†åˆB"), "æ¨¡å—B-æµ‹è¯•ç”¨ä¾‹2"), TRUE);	/* ç”±äºæµ‹è¯•é›†åˆBæœªæ¿€æ´»ï¼Œæ‰€ä»¥æ¨¡å—Bçš„æµ‹è¯•ç”¨ä¾‹ä¸ä¼šæ‰§è¡Œ */
+	CU_set_test_active(CU_get_test(CU_get_suite("æµ‹è¯•é›†åˆB"), "æ¨¡å—B-æµ‹è¯•ç”¨ä¾‹3"), TRUE);	/* ç”±äºæµ‹è¯•é›†åˆBæœªæ¿€æ´»ï¼Œæ‰€ä»¥æ¨¡å—Bçš„æµ‹è¯•ç”¨ä¾‹ä¸ä¼šæ‰§è¡Œ */
+	CU_set_test_active(CU_get_test(CU_get_suite("æµ‹è¯•é›†åˆC"), "æ¨¡å—C-æµ‹è¯•ç”¨ä¾‹1"), TRUE);
+	CU_set_test_active(CU_get_test(CU_get_suite("æµ‹è¯•é›†åˆC"), "æ¨¡å—C-æµ‹è¯•ç”¨ä¾‹2"), FALSE);	/* ä¸æ¿€æ´»"æ¨¡å—C-æµ‹è¯•ç”¨ä¾‹2" */
+	CU_set_test_active(CU_get_test(CU_get_suite("æµ‹è¯•é›†åˆC"), "æ¨¡å—C-æµ‹è¯•ç”¨ä¾‹3"), TRUE);
 
-	/* Ö´ĞĞ²âÊÔ */
-	CU_basic_run_tests();	/* ×î»ù±¾µÄÖ´ĞĞ·½Ê½£¬·Ç½»»¥£¬½«²âÊÔ½á¹ûÊä³öµ½ÆÁÄ» */
-	/* xml·½Ê½£º½«²âÊÔ½á¹ûÊä³öµ½µ±Ç°Ä¿Â¼ÏÂ£¬Éú³ÉÁ½¸öxmlÎÄ¼ş£¬ĞèÒª½áºÏ¿âÎÄ¼şÖĞ6¸öxmlµÄÅäÌ×ÎÄ¼şÀ´²é¿´²âÊÔ½á¹û */
+	/* æ‰§è¡Œæµ‹è¯• */
+	CU_basic_run_tests();	/* æœ€åŸºæœ¬çš„æ‰§è¡Œæ–¹å¼ï¼Œéäº¤äº’ï¼Œå°†æµ‹è¯•ç»“æœè¾“å‡ºåˆ°å±å¹• */
+	/* xmlæ–¹å¼ï¼šå°†æµ‹è¯•ç»“æœè¾“å‡ºåˆ°å½“å‰ç›®å½•ä¸‹ï¼Œç”Ÿæˆä¸¤ä¸ªxmlæ–‡ä»¶ï¼Œéœ€è¦ç»“åˆåº“æ–‡ä»¶ä¸­6ä¸ªxmlçš„é…å¥—æ–‡ä»¶æ¥æŸ¥çœ‹æµ‹è¯•ç»“æœ */
 	/*
 	CU_set_output_filename("test");
 	CU_list_tests_to_file();
 	CU_automated_run_tests();
 	*/
 
-	/* ÇåÀícunit×¢²áÆ÷£¬·ÀÖ¹ÄÚ´æĞ¹Â© */
+	/* æ¸…ç†cunitæ³¨å†Œå™¨ï¼Œé˜²æ­¢å†…å­˜æ³„æ¼ */
 	CU_cleanup_registry();
 
-	log4c_demo();	/* ½éÉÜlog4cµÄÓÃ·¨ */
+	log4c_demo();	/* ä»‹ç»log4cçš„ç”¨æ³• */
 
 	return EXIT_SUCCESS;
 }				/* ----------  end of function main  ---------- */

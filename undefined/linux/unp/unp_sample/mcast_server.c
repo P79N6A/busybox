@@ -25,20 +25,20 @@ int main(int argc,char **argv)
 	int recv_num;
 	int err;
 	struct ip_mreq mreq;
-	sock_fd = socket(AF_INET,SOCK_DGRAM,0);/* ½¨Á¢Ì×½Ó×Ó*/
+	sock_fd = socket(AF_INET,SOCK_DGRAM,0);/* å»ºç«‹å¥—æ¥å­*/
 	if(sock_fd < 0) {
 		perror("socket()");
 		exit(1);
 	} else {
 		printf("socket sucefull!\n");
 	}
-	/* ·şÎñÆ÷¶ËµØÖ·*/
+	/* æœåŠ¡å™¨ç«¯åœ°å€*/
 	memset(&addr_serv,0,sizeof(struct sockaddr_in));
 	addr_serv.sin_family = AF_INET;
 	addr_serv.sin_addr.s_addr = inet_addr(SERV_ADDR);
 	addr_serv.sin_port = htons(SERV_PORT);
 	serv_len = sizeof(struct sockaddr_in);
-	//³õÊ¼»¯¶à²¥µØÖ·
+	//åˆå§‹åŒ–å¤šæ’­åœ°å€
 	memset(&mcast_addr,0,sizeof(mcast_addr));
 	mcast_addr.sin_family = AF_INET;
 	mcast_addr.sin_addr.s_addr = inet_addr(MCAST_ADDR);
