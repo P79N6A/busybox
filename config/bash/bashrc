@@ -12,7 +12,8 @@ fi
 
 # User specific aliases and functions
 alias vi='vim'
-alias ls='ls --color=auto --group-directories-first'
+alias ls='ls --color=auto'
+alias lsg='ls --color=auto --group-directories-first'
 alias ll='ls -l'
 alias la='ls -A'
 alias l.='ls -d .*'
@@ -27,11 +28,14 @@ alias rmls='trash-list'
 alias rrm='restore-trash'
 alias rm_clean='trash-empty'
 alias cdtrash='cd ~/.local/share/Trash/files'
-alias grep='grep --color -i'
+alias grep='grep --color -i -n'
 #alias tee='tee -a'
 alias top='top -s'
 alias diff='diff -b -B'
+alias diffdir='diff -ruNa --brief'
 #alias apt='apt-get -o Acquire::http::proxy="http://127.0.0.1:8087/"'
+alias rsync='rsync -avzP'
+alias java-proxy='java -jar -Xms1024M -Xmx1024M -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=8087'
 
 #--------------------------------------------------------------
 
@@ -76,7 +80,4 @@ umask 027
 ulimit -c unlimited
 
 alias mplayer='mplayer -shuffle -loop 0'
-
-alias mntnfs='mount 192.168.32.164:/home/elwin/laptop /mnt/'
-
 alias update='source ~/.bashrc'
