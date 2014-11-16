@@ -27,19 +27,19 @@ int main(/* int argc, char *argv[] */)
 {
 	test_util();
 
-	test_queue();
-	test_stack();
-
-	test_mm_seg();
-	test_mm_block();
-	test_mm_fixed();
-
-	test_time();
-	test_hash();
-	test_log();
-	test_asm();
-	test_bitmap();
-	test_communication_tcp();
+//	test_queue();
+//	test_stack();
+//
+//	test_mm_seg();
+//	test_mm_block();
+//	test_mm_fixed();
+//
+//	test_time();
+//	test_hash();
+//	test_log();
+//	test_asm();
+//	test_bitmap();
+//	test_communication_tcp();
 
 	puts("all test is finished~");
 

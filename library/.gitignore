@@ -22,3 +22,12 @@
 *.exe
 *.out
 *.app
+debug
+release
+
+# gcov
+*.gcda
+*.gcno
+
+# vim
+*.swp
