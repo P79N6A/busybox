@@ -15,26 +15,26 @@ STATIC_LIB =
 
 OBJECT = $(SRC_DIR)/main.o \
 	 $(SRC_DIR)/elib_util.o \
-	 $(SRC_DIR)/elib_md5.o \
-	 $(SRC_DIR)/elib_time.o \
-	 $(SRC_DIR)/elib_mm_seg.o \
-	 $(SRC_DIR)/elib_mm_block.o \
-	 $(SRC_DIR)/elib_hash.o \
-	 $(SRC_DIR)/elib_log.o \
-	 $(SRC_DIR)/elib_communication_tcp.o \
-	 $(SRC_DIR)/elib_mm_fixed.o \
 	 $(SRC_DIR)/test/test_util.o \
-	 $(SRC_DIR)/test/test_time.o \
-	 $(SRC_DIR)/test/test_queue.o \
-	 $(SRC_DIR)/test/test_stack.o \
-	 $(SRC_DIR)/test/test_mm_seg.o \
-	 $(SRC_DIR)/test/test_mm_block.o \
-	 $(SRC_DIR)/test/test_hash.o \
-	 $(SRC_DIR)/test/test_log.o \
-	 $(SRC_DIR)/test/test_asm.o \
-	 $(SRC_DIR)/test/test_bitmap.o \
-	 $(SRC_DIR)/test/test_communication_tcp.o \
-	 $(SRC_DIR)/test/test_mm_fixed.o \
+#	 $(SRC_DIR)/test/test_asm.o \
+#	 $(SRC_DIR)/elib_md5.o \
+#	 $(SRC_DIR)/elib_time.o \
+#	 $(SRC_DIR)/elib_mm_seg.o \
+#	 $(SRC_DIR)/elib_mm_block.o \
+#	 $(SRC_DIR)/elib_hash.o \
+#	 $(SRC_DIR)/elib_log.o \
+#	 $(SRC_DIR)/elib_communication_tcp.o \
+#	 $(SRC_DIR)/elib_mm_fixed.o \
+#	 $(SRC_DIR)/test/test_time.o \
+#	 $(SRC_DIR)/test/test_queue.o \
+#	 $(SRC_DIR)/test/test_stack.o \
+#	 $(SRC_DIR)/test/test_mm_seg.o \
+#	 $(SRC_DIR)/test/test_mm_block.o \
+#	 $(SRC_DIR)/test/test_hash.o \
+#	 $(SRC_DIR)/test/test_log.o \
+#	 $(SRC_DIR)/test/test_bitmap.o \
+#	 $(SRC_DIR)/test/test_communication_tcp.o \
+#	 $(SRC_DIR)/test/test_mm_fixed.o \
 
 CC = g++
 
@@ -42,7 +42,7 @@ RELEASE	= $(CC)	# release版本基本编译命令
 R_OPT	= -O2 	# release版本优化参数
 R_WARN	= -Wall	# release版本警告等级
 R_HASH	= #-DHASH_VARIABLE_VALUE	# Hash表切换不同使用方式的宏
-R_DEF	= #-DNDEBUG -DNSHOWDBG  $(R_HASH) # release版本编译宏
+R_DEF	= #-DSHOWLOG -DNDEBUG $(R_HASH) # release版本编译宏
 R_FLAG	= # release版本附加编译参数
 R_DIY	= 	# 自定义参数
 R_PARAM	= $(R_OPT) $(R_WARN) $(R_DEF) $(R_FLAG) $(R_DIY)
@@ -53,7 +53,7 @@ DEBUG	= $(CC)	# debug版本基本编译命令
 D_OPT	= -O0 -g3	# debug版本优化参数
 D_WARN	= -Wall	-Wextra -Wconversion -Wc++0x-compat	# debug版本警告等级
 D_HASH	= #-DHASH_VARIABLE_VALUE #-DHASH_EARSE_BLOCK #-DHASH_THREAD_UNSAFE	# Hash表切换不同使用方式的宏
-D_DEF	= -DPROJECT_DEBUG -DPROJECT_TEST $(D_HASH)	# debug版本编译宏
+D_DEF	= -DSHOWLOG # -DNDEBUG -DPROJECT_DEBUG -DPROJECT_TEST $(D_HASH)	# debug版本编译宏
 D_FLAG	= -fno-strict-aliasing -fprofile-arcs -ftest-coverage -pg	# -fno-exceptions	# debug版本附加编译参数
 D_DIY	= 	# 自定义参数
 D_PARAM	= $(D_OPT) $(D_WARN) $(D_DEF) $(D_FLAG) $(D_DIY)

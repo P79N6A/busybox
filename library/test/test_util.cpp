@@ -18,6 +18,21 @@
 
 #include "../elib_util.hpp"
 
+static void case_1()
+{                                                                                                                                                  
+	log_printf("log_printf don't show in release\n");
+	err_printf("log_printf don't show in release\n");
+	sys_perror("log_printf don't show in release");
+
+	puts("\n----------------  case 1: ok  ----------------\n");
+}
+
 void test_util()
 {
+	puts("********************************  test util started  ********************************\n");
+
+	case_1();
+
+	puts("################################  test util finished  ################################\n");
 }
+

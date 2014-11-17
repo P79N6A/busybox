@@ -59,15 +59,15 @@ typedef unsigned long  ulong;
 
 /* log for debug */
 
-#ifndef  NSHOWDBG
+#ifdef  SHOWLOG
 #define log_printf(format, ...) fprintf(stdout, format, ##__VA_ARGS__)
 #define err_printf(format, ...) fprintf(stderr, format, ##__VA_ARGS__)
 #define sys_perror(prompt_str_) perror(prompt_str_)
-#else      // -----  not NSHOWERR  -----
+#else      // -----  SHOWLOG  -----
 #define log_printf(format, ...) ((void)0)
 #define err_printf(format, ...) ((void)0)
 #define sys_perror(prompt_str_) ((void)0)
-#endif     // -----  not NSHOWERR  -----
+#endif     // -----  not SHOWLOG  -----
 
 /* atomic operation */
 

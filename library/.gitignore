@@ -31,3 +31,6 @@ release
 
 # vim
 *.swp
+
+# ctags
+tags
