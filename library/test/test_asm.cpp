@@ -19,17 +19,19 @@
 #include "../elib_util.hpp"
 #include "../elib_asm.hpp"
 
-static void test_case_1()
+static void case_1()
 {
 	assert(bsf(0x8000000000000008) == 3);
 	assert(bsr(0x8000000000000008) == 8*sizeof(ulong)-1);
 
-	puts("test case 1: ok~");
+	puts("\n----------------  case 1: ok  ----------------\n");
 }
 
 void test_asm()
 {
-	test_case_1();
+	puts("********************************  test asm started  ********************************\n");
 
-	puts("test asm is finished~");
+	case_1();
+
+	puts("################################  test asm finished  ################################\n");
 }

@@ -29,7 +29,7 @@ int main(/* int argc, char *argv[] */)
 {
 	test_util();
 
-//	test_asm();
+	test_asm();
 //	test_atomic();
 
 //	test_number();
