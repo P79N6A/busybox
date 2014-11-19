@@ -17,6 +17,7 @@ OBJECT = $(SRC_DIR)/main.o \
 	 $(SRC_DIR)/elib_util.o \
 	 $(SRC_DIR)/test/test_util.o \
 	 $(SRC_DIR)/test/test_asm.o \
+	 $(SRC_DIR)/test/test_atomic.o \
 #	 $(SRC_DIR)/elib_md5.o \
 #	 $(SRC_DIR)/elib_time.o \
 #	 $(SRC_DIR)/elib_mm_seg.o \
