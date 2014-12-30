@@ -205,5 +205,4 @@ private:
 	int output_style[5];
 };		// -----  end of class EL_Log  -----
 
-
 #endif   // ----- #ifndef _ELIB_LOG_H_  -----

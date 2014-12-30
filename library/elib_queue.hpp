@@ -40,7 +40,7 @@ public:
 	//  Description:  初始化队列（非幂等）
 	// =====================================================================================
 	*/
-	int init(int length = 4096, byte *buf = NULL);
+	int init(long length = 4096, byte *buf = NULL);
 
 	/*
 	// ===  FUNCTION  ======================================================================
@@ -131,7 +131,7 @@ EL_Queue<T>::~EL_Queue()
 }
 
 template <typename T>
-int EL_Queue<T>::init(int length, byte *buf)
+int EL_Queue<T>::init(long length, byte *buf)
 {
 	if (length > max_limit) {
 		log_printf("length out of limit: %d\n", max_limit);

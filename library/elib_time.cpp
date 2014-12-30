@@ -3,7 +3,9 @@
 // 
 //       Filename:  elib_time.cpp
 // 
-//    Description:  
+//    Description:  时间处理模块，包括：
+//                  日期、时间的格式化输出
+//                  计数器
 // 
 //        Version:  1.0
 //        Created:  10/25/2013 09:13:02 AM

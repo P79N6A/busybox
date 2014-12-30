@@ -44,6 +44,10 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
+#if __GNUC__ != 4	// GCC在4.1.2版本中加入了__sync原子操作，在此之前都是使用Linux提供的atomic变量实现的
+#include <asm/atomic.h>
+#endif
+
 /* ********************************************************* */
 
 typedef unsigned char  byte;
@@ -71,22 +75,22 @@ typedef unsigned long  ulong;
 
 /* atomic operation */
 
-#define atom_add_and_fetch(ptr, val)  __sync_add_and_fetch((ptr), (val))
-#define atom_sub_and_fetch(ptr, val)  __sync_sub_and_fetch((ptr), (val))
-#define atom_and_and_fetch(ptr, val)  __sync_and_and_fetch((ptr), (val))
-#define atom_xor_and_fetch(ptr, val)  __sync_xor_and_fetch((ptr), (val))
-#define atom_or_and_fetch(ptr, val)   __sync_or_and_fetch((ptr), (val))
-#define atom_nand_and_fetch(ptr, val) __sync_nand_and_fetch((ptr), (val))
+#define sync_add_and_fetch(ptr, val)  __sync_add_and_fetch((ptr), (val))
+#define sync_sub_and_fetch(ptr, val)  __sync_sub_and_fetch((ptr), (val))
+#define sync_and_and_fetch(ptr, val)  __sync_and_and_fetch((ptr), (val))
+#define sync_xor_and_fetch(ptr, val)  __sync_xor_and_fetch((ptr), (val))
+#define sync_or_and_fetch(ptr, val)   __sync_or_and_fetch((ptr), (val))
+#define sync_nand_and_fetch(ptr, val) __sync_nand_and_fetch((ptr), (val))
 
-#define atom_fetch_and_add(ptr, val)  __sync_fetch_and_add((ptr), (val))
-#define atom_fetch_and_sub(ptr, val)  __sync_fetch_and_sub((ptr), (val))
-#define atom_fetch_and_and(ptr, val)  __sync_fetch_and_and((ptr), (val))
-#define atom_fetch_and_xor(ptr, val)  __sync_fetch_and_xor((ptr), (val))
-#define atom_fetch_and_or(ptr, val)   __sync_fetch_and_or((ptr), (val))
-#define atom_fetch_and_nand(ptr, val) __sync_fetch_and_nand((ptr), (val))
+#define sync_fetch_and_add(ptr, val)  __sync_fetch_and_add((ptr), (val))
+#define sync_fetch_and_sub(ptr, val)  __sync_fetch_and_sub((ptr), (val))
+#define sync_fetch_and_and(ptr, val)  __sync_fetch_and_and((ptr), (val))
+#define sync_fetch_and_xor(ptr, val)  __sync_fetch_and_xor((ptr), (val))
+#define sync_fetch_and_or(ptr, val)   __sync_fetch_and_or((ptr), (val))
+#define sync_fetch_and_nand(ptr, val) __sync_fetch_and_nand((ptr), (val))
 
-#define atom_cas(ptr, oldval, newval)         __sync_bool_compare_and_swap((ptr), (oldval), (newval))
-#define atom_cas_get_old(ptr, oldval, newval) __sync_val_compare_and_swap((ptr), (oldval), (newval))
+#define sync_cas_bool(ptr, oldval, newval)  __sync_bool_compare_and_swap((ptr), (oldval), (newval))
+#define sync_cas_value(ptr, oldval, newval) __sync_val_compare_and_swap((ptr), (oldval), (newval))
 
 /* memory barrier */
 #define barrier() __asm__ __volatile__("": : :"memory") 
