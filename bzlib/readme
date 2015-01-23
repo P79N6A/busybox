@@ -1,0 +1,8 @@
+bz-lib的开发目录分为两部分：
+1、demo
+一些常用的功能实例，作为reference使用
+为lib提供测试和素材，code集合
+
+2、lib
+最终的lib库
+
