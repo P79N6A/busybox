@@ -41,8 +41,10 @@ alias java-proxy='java -jar -Xms1024M -Xmx1024M -Dhttp.proxyHost=127.0.0.1 -Dhtt
 #--------------------------------------------------------------
 
 alias as='as -gstabs'
-alias cc='gcc -ansi -pedantic -Wall -Wextra -Wc++-compat -Wconversion -g3'
-alias ccp='g++ -ansi -pedantic -Wall -Wextra -Wc++0x-compat -Wconversion -g3'
+# alias cc='gcc -ansi -pedantic -Wall -Wextra -Wc++-compat -Wconversion -g3'
+# alias ccp='g++ -ansi -pedantic -Wall -Wextra -Wc++0x-compat -Wconversion -g3'
+alias cc='gcc -Wall -Wextra -g3'
+alias ccp='g++ -Wall -Wextra -g3'
 alias ar='ar crv'
 alias ctags='ctags --c++-kinds=+p --fields=+iaS --extra=+q+f --tag-relative=yes --language-force=C++'
 
