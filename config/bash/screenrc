@@ -1,0 +1,4 @@
+# 解决screen环境下GBK中文乱码的问题
+# defencoding GBK
+# encoding UTF-8 GBK
+
