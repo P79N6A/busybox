@@ -36,6 +36,12 @@ while true;do
 		if [ $line = 'FINISH' ];then
 			while [ $count -ne $concurrence ];do                                                                                                       
 				let count=$count+`cat $con_queue | wc -c`
+				# 这是为了解决高并发下，管道会丢数据的bug
+				# 不过，如果最后一个进程的数据丢了，那就无解了
+				c=`pgrep -P $$`
+				if [ -z $c ];then
+					break
+				fi
 			done
 			NOTICE "$tag finished" | tee $STATE_QUEUE
 			echo "$line" >> $out

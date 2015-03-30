@@ -81,7 +81,9 @@ function CREATE_QUEUE() {
 		fi
 
 		let j=i-1
-		eval pre_queue=\$PROCESS_QUEUE_$j
+		if [ $j -ge 0 ];then
+			eval pre_queue=\$PROCESS_QUEUE_$j
+		fi
 
 		if [ $BLOCK_STATE = true ];then
 			eval PROCESS_QUEUE_IN_$i=$pre_queue
