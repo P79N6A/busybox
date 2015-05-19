@@ -22,13 +22,21 @@ alias l='ls -CF'
 alias mv='mv -iv'
 alias cp='cp -iv'
 alias del='\rm -iv'
-#alias rm='mv -t ~/.local/share/Trash/files --backup=t'
 alias rm='trash-put'
-alias rmls='trash-list'
-alias rrm='restore-trash'
-alias rm-clean='trash-empty'
+if [ -z $rm ];then
+	mkdir -p ~/.local/share/Trash/files
+#	alias rm='mv -f -t ~/.local/share/Trash/files --backup=nil'
+	alias rm='mv -f --target-directory ~/.local/share/Trash/files --backup=nil'
+	alias rmls='ls ~/.local/share/Trash/files'
+	alias rm-clean='\rm -rf ~/.local/share/Trash/files/*'
+else
+	alias rmls='trash-list'
+	alias rrm='restore-trash'
+	alias rm-clean='trash-empty'
+fi
 alias cdtrash='cd ~/.local/share/Trash/files'
 alias grep='grep --color -i -n'
+alias fgrep='fgrep --color -i -n'
 #alias tee='tee -a'
 alias top='top -s'
 alias diff='diff -b -B'
@@ -57,7 +65,12 @@ alias ctags='ctags --c++-kinds=+p --fields=+iaS --extra=+q+f --tag-relative=yes 
 #--------------------------------------------------------------
 
 # Set dir_colors
-eval $(dircolors ~/.dir_colors)
+if [ -f ~/.dir_colors ];
+then
+	eval $(dircolors ~/.dir_colors)
+else
+	export LS_COLORS='di=01;34'
+fi
 
 # specified environment variable
 export HISTCONTROL=erasedups
@@ -68,12 +81,13 @@ export LD_LIBRARY_PATH='./'
 # DIY bash prompt
 # export PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$'	# default of PS1
 # $LINES: 当前终端行数	$COLUMNS: 当前终端列数
-ip=`ifconfig | grep -A1 "eth0\|wlan0" | fgrep inet | cut -d ":" -f 2 | cut -d " " -f 1 | xargs | sed "s/ / \& /g"`
-ip=${ip:=0.0.0.0}
+# ip=`ifconfig | grep -A1 "eth0\|wlan0" | fgrep inet | cut -d ":" -f 2 | cut -d " " -f 1 | xargs | sed "s/ / \& /g"`
+# ip=${ip:=0.0.0.0}
+host=$(hostname)
 if [ $LANG = 'en_US.UTF-8' ]; then
-	export PS1='\[\e[36m\]╔════\[\e[37m\](`echo -n "$ip"`)\[\e[36m\]══`for((i=0;i<$COLUMNS-39-${#ip};++i));do echo -n ═;done` \[\e[1m\e[33m\]$(date +"%a %F %T")\[\e[0m\e[36m\] ════╗\n\[\e[36m\]╠\[\e[0m\]\w\$ '
+	export PS1='\[\e[36m\]╔════\[\e[37m\](`echo -n "$host"`)\[\e[36m\]══`for((i=0;i<$COLUMNS-39-${#host};++i));do echo -n ═;done` \[\e[1m\e[33m\]$(date +"%a %F %T")\[\e[0m\e[36m\] ════╗\n\[\e[36m\]╠\[\e[0m\]\w\$ '
 else
-	export PS1='\[\e[36m\]|----\[\e[37m\](`echo -n "$ip"`)\[\e[36m\]--`for((i=0;i<$COLUMNS-39-${#ip};++i));do echo -n -;done` \[\e[1m\e[33m\]$(date +"%a %F %T")\[\e[0m\e[36m\] ----|\n\[\e[36m\]|\[\e[0m\]\w\$ '
+	export PS1='\[\e[36m\]|----\[\e[37m\](`echo -n "$host"`)\[\e[36m\]--`for((i=0;i<$COLUMNS-39-${#host};++i));do echo -n -;done` \[\e[1m\e[33m\]$(date +"%a %F %T")\[\e[0m\e[36m\] ----|\n\[\e[36m\]|\[\e[0m\]\w\$ '
 fi
 
 # set umask
@@ -84,3 +98,4 @@ ulimit -c unlimited
 
 alias mplayer='mplayer -shuffle -loop 0'
 alias update='source ~/.bashrc'
+
