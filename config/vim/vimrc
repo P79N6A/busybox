@@ -143,13 +143,14 @@ set completeopt=menuone,menu,longest
 "--------------------------------------------------------------------------
 "	设置鼠标及滚轮
 "--------------------------------------------------------------------------
+:set	mouse=
 ":set	mouse=a
-:map	<ScrollWheelUp>		<C-Y>
-:map	<S-ScrollWheelUp>	<C-B>
-:map	<C-ScrollWheelUp>	<C-U>
-:map	<ScrollWheelDown>	<C-E>
-:map	<S-ScrollWheelDown>	<C-F>
-:map	<C-ScrollWheelDown>	<C-D>
+":map	<ScrollWheelUp>		<C-Y>
+":map	<S-ScrollWheelUp>	<C-B>
+":map	<C-ScrollWheelUp>	<C-U>
+":map	<ScrollWheelDown>	<C-E>
+":map	<S-ScrollWheelDown>	<C-F>
+":map	<C-ScrollWheelDown>	<C-D>
 
 " for git merge
 let mapleader=','
