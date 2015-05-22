@@ -44,6 +44,7 @@ alias diff='diff -b -B'
 alias diffdir='diff -ruNa --brief'
 #alias apt='apt-get -o Acquire::http::proxy="http://127.0.0.1:8087/"'
 alias rsync='rsync -avzP'
+alias watch='watch -d -n 1'
 alias wget-dir='wget -c -r -np -nd'
 alias java-proxy='java -jar -Xms1024M -Xmx1024M -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=8087'
 
