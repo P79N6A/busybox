@@ -1,0 +1,35 @@
+#!/usr/bin/expect -f
+
+set machine [lindex $argv 0]
+set screen  [lindex $argv 1]
+set user gaowei08
+
+switch -- $machine {
+	""     { set machine gaowei08@cq01-rdqa-dev027.cq01.baidu.com }
+	"dev"  { set machine gaowei08@cq01-rdqa-dev027.cq01.baidu.com }
+	"test" { set machine work@yf-ps-beehive-test21.yf01 }
+}
+
+switch -- $screen {
+	"" {set screen gaowei08}
+}
+
+puts "machine: $machine"
+puts "screen:  $screen"
+
+set timeout 4
+spawn ssh gaowei08@relay01.baidu.com
+
+expect {
+	"bash-baidu-ssl" { send "ssh $machine\n" }
+	"password" { interact }
+}
+
+send "screen -x $screen\n"
+expect {
+	"no screen" {
+		send "screen -S $screen\n"
+	}
+}
+interact
+
