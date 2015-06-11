@@ -4,6 +4,7 @@
 set nocompatible	" 不要vim模仿vi模式，建议设置，否则会有很多不兼容的问题
 set number		" 显示行号
 set nowrap		" 不自动换行
+set textwidth=0         " 不自动拆行
 "set tabstop=4		" TAB键所表示的空格数
 "set shiftwidth=4	" 缩进所表示的空格数（不同于TAB，是利用>>缩进的大小，自动缩进也看这个值）
 ":set expandtab		" 使用空格替代tab
