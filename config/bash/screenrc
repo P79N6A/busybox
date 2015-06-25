@@ -14,8 +14,8 @@ bindkey -k k2 prev
 # bind F5 to detach
 bindkey -k k5 detach
 term linux
-setenv LC_CTYPE zh_CN.GBK
 setenv TERM linux
+#setenv LC_CTYPE zh_CN.GBK
 #use ` as the Global Key
 defscrollback 2048
 
