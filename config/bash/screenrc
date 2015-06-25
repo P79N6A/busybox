@@ -3,14 +3,13 @@
 # encoding UTF-8 GBK
 
 # bind F1 to new a screen session in this terminal
-bindkey -k k4 screen
+bindkey -k k1 screen
 # bind F2 to rename a screen
-bindkey -k k3 title
-# bind F3 to go to screen window.
-bindkey -k k1 next
-#bindkey -k k; title
+bindkey -k k2 title
 # bind F4 to move to previous window
-bindkey -k k2 prev
+bindkey -k k3 prev
+# bind F3 to go to screen window.
+bindkey -k k4 next
 # bind F5 to detach
 bindkey -k k5 detach
 term linux
@@ -25,9 +24,9 @@ hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{=kw}%?%-Lw%?%{r}(%{W}%n*%f %t%?(%u
 #screen -t xuxia 1 sh ~work/xx/.bashrc
 #screen -t server       2       ssh tc-rank-con1.tc
 vbell off
-screen bash
-screen bash
-screen bash
-screen bash
-screen bash
+#screen bash
+#screen bash
+#screen bash
+#screen bash
+#screen bash
 
