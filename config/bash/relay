@@ -13,8 +13,15 @@ set user gaowei08
 
 switch -- $machine {
 	""     { set machine gaowei08@cq01-rdqa-dev027.cq01.baidu.com }
+	"d"    { set machine gaowei08@cq01-rdqa-dev027.cq01.baidu.com }
 	"dev"  { set machine gaowei08@cq01-rdqa-dev027.cq01.baidu.com }
+	"t"    { set machine work@yf-ps-beehive-test21.yf01 }
 	"test" { set machine work@yf-ps-beehive-test21.yf01 }
+	"hz"   { set machine gaowei08@hz01-ps-beehive-con0.hz01 }
+	"nj"   { set machine gaowei08@nj02-ps-beehive-con0.nj02 }
+	"sh"   { set machine gaowei08@sh01-ps-beehive-con0.sh01 }
+	"tc"   { set machine gaowei08@tc-ps-beehive-con1.tc }
+	"bj"   { set machine gaowei08@yf-ps-beehive-con0.yf01 }
 }
 
 switch -- $screen {

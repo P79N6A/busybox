@@ -75,10 +75,11 @@ else
 fi
 
 # specified environment variable
-export HISTCONTROL=erasedups
-export HISTTIMEFORMAT='%F %T '
-export TIMEFORMAT=$'\nRealTime=%3lR  UserTime=%3lU  SysTime=%3lS  CPU=%P%%'
+export LANG=en_US.UTF-8
 export LD_LIBRARY_PATH='./'
+export HISTTIMEFORMAT='%F %T '
+export HISTCONTROL=erasedups
+export TIMEFORMAT=$'\nRealTime=%3lR  UserTime=%3lU  SysTime=%3lS  CPU=%P%%'
 
 # DIY bash prompt
 # export PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$'	# default of PS1
@@ -97,6 +98,7 @@ umask 022
 
 # others
 ulimit -c unlimited
+xmodmap -e "keycode 135 = XF86WakeUp"
 
 alias mplayer='mplayer -shuffle -loop 0'
 alias update='source ~/.bashrc'
