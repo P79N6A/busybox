@@ -33,8 +33,8 @@ set ignorecase		" 查找时忽略大小写，简写为set ic
 "map	<silent> <f3>	:noh<cr>
 "imap	<silent> <f3>	<esc><f3>a
 "	设置F4启动bash子进程热键
-map	<f8>	:!bash<cr>
-imap	<f8>	<esc><f8>
+map	<f4>	:!bash<cr>
+imap	<f4>	<esc><f4>
 "	设置F5进入二进制xxd编辑模式
 "map	<f5>	:%!xxd<cr>
 "imap	<f5>	<esc><f5>a
@@ -108,8 +108,8 @@ let g:C_Styles = { '*.c,*.h' : 'default', '*.cc,*.cpp,*.hpp' : 'CPP' }
 "	设置WinManager
 "--------------------------------------------------------------------------
 let g:winManagerWindowLayout='FileExplorer|TagList' " 设置窗口布局
-map	<silent> <f7>	:WMToggle<cr>
-imap	<silent> <f7>	<esc><f7>a
+map	<silent> <f2>	:WMToggle<cr>
+imap	<silent> <f2>	<esc><f2>a
 
 "--------------------------------------------------------------------------
 "	设置MiniBufExplorer（利用ctrl进行窗口切换）

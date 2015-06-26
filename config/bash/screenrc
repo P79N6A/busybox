@@ -3,15 +3,15 @@
 # encoding UTF-8 GBK
 
 # bind F1 to new a screen session in this terminal
-bindkey -k k1 screen
+bindkey -k k5 screen
 # bind F2 to rename a screen
-bindkey -k k2 title
+bindkey -k k6 title
 # bind F4 to move to previous window
-bindkey -k k3 prev
+bindkey -k k7 prev
 # bind F3 to go to screen window.
-bindkey -k k4 next
+bindkey -k k8 next
 # bind F5 to detach
-bindkey -k k5 detach
+bindkey -k k9 detach
 
 #term linux # 这个配置导致你的 F1 至 F4 被屏蔽了
 #setenv TERM linux
