@@ -25,7 +25,8 @@ switch -- $machine {
 }
 
 switch -- $screen {
-	"" {set screen gaowei08}
+	"g" {set screen gaowei08}
+	"b" {set screen beehive}
 }
 
 puts "machine: $machine"
@@ -39,10 +40,12 @@ expect {
 	"password" { interact }
 }
 
-send "screen -x $screen\n"
-expect {
-	"no screen" {
-		send "screen -S $screen\n"
+if {$screen != ""} {
+	send "screen -x $screen\n"
+	expect {
+		"no screen" {
+			send "screen -S $screen\n"
+		}
 	}
 }
 interact
