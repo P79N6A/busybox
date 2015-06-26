@@ -12,11 +12,12 @@ bindkey -k k3 prev
 bindkey -k k4 next
 # bind F5 to detach
 bindkey -k k5 detach
-term linux
-setenv TERM linux
+
+#term linux # 这个配置导致你的 F1 至 F4 被屏蔽了
+#setenv TERM linux
 #setenv LC_CTYPE zh_CN.GBK
 #use ` as the Global Key
-defscrollback 2048
+defscrollback 4096
 
 hardstatus alwayslastline
 hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{=kw}%?%-Lw%?%{r}(%{W}%n*%f %t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B}%Y-%m-%d %{W}%c %{g}]'
