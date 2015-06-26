@@ -40,6 +40,11 @@ expect {
 	"password" { interact }
 }
 
+if {$machine != "gaowei08@cq01-rdqa-dev027.cq01.baidu.com" && $machine != "work@yf-ps-beehive-test21.yf01"} {
+	send "export LS_COLORS='di=01;34'\n"
+	send "cd /home/work\n"
+}
+
 if {$screen != ""} {
 	send "screen -x $screen\n"
 	expect {
@@ -48,5 +53,6 @@ if {$screen != ""} {
 		}
 	}
 }
+
 interact
 
