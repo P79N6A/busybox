@@ -9,19 +9,21 @@ trap {
 
 set machine [lindex $argv 0]
 set screen  [lindex $argv 1]
-set user gaowei08
 
+set password null
 switch -- $machine {
-	""     { set machine gaowei08@cq01-rdqa-dev027.cq01.baidu.com }
-	"d"    { set machine gaowei08@cq01-rdqa-dev027.cq01.baidu.com }
-	"dev"  { set machine gaowei08@cq01-rdqa-dev027.cq01.baidu.com }
-	"t"    { set machine work@yf-ps-beehive-test21.yf01 }
-	"test" { set machine work@yf-ps-beehive-test21.yf01 }
-	"hz"   { set machine gaowei08@hz01-ps-beehive-con0.hz01 }
-	"nj"   { set machine gaowei08@nj02-ps-beehive-con0.nj02 }
-	"sh"   { set machine gaowei08@sh01-ps-beehive-con0.sh01 }
-	"tc"   { set machine gaowei08@tc-ps-beehive-con1.tc }
-	"bj"   { set machine gaowei08@yf-ps-beehive-con0.yf01 }
+	""      { set machine gaowei08@cq01-rdqa-dev027.cq01.baidu.com }
+	"d"     { set machine gaowei08@cq01-rdqa-dev027.cq01.baidu.com }
+	"dev"   { set machine gaowei08@cq01-rdqa-dev027.cq01.baidu.com }
+	"t"     { set machine work@yf-ps-beehive-test21.yf01 }
+	"test"  { set machine work@yf-ps-beehive-test21.yf01 }
+	"o"     { set machine root@cp01-ocean-1195.epc.baidu.com; set password qwe123!@# }
+	"ocean" { set machine root@cp01-ocean-1195.epc.baidu.com; set password qwe123!@# }
+	"hz"    { set machine gaowei08@hz01-ps-beehive-con0.hz01 }
+	"nj"    { set machine gaowei08@nj02-ps-beehive-con0.nj02 }
+	"sh"    { set machine gaowei08@sh01-ps-beehive-con0.sh01 }
+	"tc"    { set machine gaowei08@tc-ps-beehive-con1.tc }
+	"bj"    { set machine gaowei08@yf-ps-beehive-con0.yf01 }
 }
 
 switch -- $screen {
@@ -29,30 +31,44 @@ switch -- $screen {
 	"b" {set screen beehive}
 }
 
-puts "machine: $machine"
-puts "screen:  $screen"
-
-set timeout 4
-spawn ssh gaowei08@relay01.baidu.com
-
-expect {
-	"bash-baidu-ssl" { send "ssh $machine\n" }
-	"password" { interact }
-}
-
-if {$machine != "gaowei08@cq01-rdqa-dev027.cq01.baidu.com" && $machine != "work@yf-ps-beehive-test21.yf01"} {
-	send "export LS_COLORS='di=01;34'\n"
-	send "cd /home/work\n"
-}
-
-if {$screen != ""} {
-	send "screen -x $screen\n"
-	expect {
-		"no screen" {
-			send "screen -S $screen\n"
+proc attach_screen { name } {
+	if {$name != ""} {
+		send "screen -x $name\n"
+		expect {
+			"no screen" {
+				send "screen -S $name\n"
+			}
 		}
 	}
 }
 
+proc login { machine password screen } {
+	send "ssh $machine\n"
+	expect {
+		"dev027" { attach_screen $screen }	# dev machine
+		"test21" { attach_screen $screen }	# test machine
+		"password" {	# ocean machine
+			send "$password\n"
+			send "export LS_COLORS='di=01;34'\n"
+			attach_screen $screen
+		}
+		"beehive" {	# online-master machine
+			send "export LS_COLORS='di=01;34'\n"
+			send "cd /home/work\n"
+			attach_screen $screen
+		}
+	}
+}
+
+set timeout 1
+spawn ssh gaowei08@relay01.baidu.com
+expect {
+	"bash-baidu-ssl" { login $machine $password $screen }
+	"password" { interact }
+}
+
 interact
+
+expect eof
+exit
 
