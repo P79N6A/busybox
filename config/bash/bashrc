@@ -75,7 +75,7 @@ else
 fi
 
 # specified environment variable
-export LANG=en_US.UTF-8
+# export LANG=en_US.UTF-8
 export LD_LIBRARY_PATH='./'
 export HISTTIMEFORMAT='%F %T '
 export HISTCONTROL=erasedups
@@ -98,8 +98,9 @@ umask 022
 
 # others
 ulimit -c unlimited
-xmodmap -e "keycode 135 = XF86WakeUp"
 
 alias mplayer='mplayer -shuffle -loop 0'
 alias update='source ~/.bashrc'
+
+# xmodmap -e "keycode 135 = XF86WakeUp"
 
