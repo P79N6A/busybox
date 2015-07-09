@@ -45,14 +45,14 @@ proc attach_screen { name } {
 proc login { machine password screen } {
 	send "ssh $machine\n"
 	expect {
-		"dev027" { attach_screen $screen }	# dev machine
-		"test21" { attach_screen $screen }	# test machine
-		"password" {	# ocean machine
+		"dev027" { attach_screen $screen }
+		"test21" { attach_screen $screen }
+		"password" {
 			send "$password\n"
 			send "export LS_COLORS='di=01;34'\n"
 			attach_screen $screen
 		}
-		"beehive" {	# online-master machine
+		"beehive" {
 			send "export LS_COLORS='di=01;34'\n"
 			send "cd /home/work\n"
 			attach_screen $screen
