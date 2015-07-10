@@ -17,8 +17,8 @@ switch -- $machine {
 	"dev"   { set machine gaowei08@cq01-rdqa-dev027.cq01.baidu.com }
 	"t"     { set machine work@yf-ps-beehive-test21.yf01 }
 	"test"  { set machine work@yf-ps-beehive-test21.yf01 }
-	"o"     { set machine root@cp01-ocean-1195.epc.baidu.com; set password qwe123!@# }
-	"ocean" { set machine root@cp01-ocean-1195.epc.baidu.com; set password qwe123!@# }
+	"o"     { set machine work@cp01-ocean-1195.epc.baidu.com; set password work }
+	"ocean" { set machine work@cp01-ocean-1195.epc.baidu.com; set password work }
 	"hz"    { set machine gaowei08@hz01-ps-beehive-con0.hz01 }
 	"nj"    { set machine gaowei08@nj02-ps-beehive-con0.nj02 }
 	"sh"    { set machine gaowei08@sh01-ps-beehive-con0.sh01 }
@@ -48,7 +48,7 @@ proc login { machine password screen } {
 		"dev027" { attach_screen $screen }
 		"test21" { attach_screen $screen }
 		"password" {
-			send "$password\n"
+			send "$password\n"; sleep 0.1
 			send "export LS_COLORS='di=01;34'\n"
 			attach_screen $screen
 		}
@@ -68,7 +68,4 @@ expect {
 }
 
 interact
-
-expect eof
-exit
 
