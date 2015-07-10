@@ -26,6 +26,13 @@ set cinoptions=g0,:0,t0	" 设置C++的public、protected和private关键字不�
 set ignorecase		" 查找时忽略大小写，简写为set ic
 "set noignorecase	" 查找时匹配大小写，简写为set noic
 
+set fileencodings=utf-8,gb2312,gbk,gb18030,big5,ucs-bom,utf-16,cp936,latin1,default	" 可支持的文件编码
+set fileencoding=utf-8	" 文件编码
+set termencoding=utf-8	" 终端编码
+set encoding=utf-8	" 内部编码
+set fileformats=unix,dos,mac	" 支持的文件格式
+set fileformat=unix	" 文件格式
+
 "--------------------------------------------------------------------------
 "	设置热键
 "--------------------------------------------------------------------------
