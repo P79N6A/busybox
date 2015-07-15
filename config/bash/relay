@@ -12,9 +12,9 @@ set screen  [lindex $argv 1]
 
 set password null
 switch -- $machine {
-	""      { set machine gaowei08@cq01-rdqa-dev027.cq01.baidu.com }
-	"d"     { set machine gaowei08@cq01-rdqa-dev027.cq01.baidu.com }
-	"dev"   { set machine gaowei08@cq01-rdqa-dev027.cq01.baidu.com }
+	""      { set machine gaowei08@cp01-rdqa-dev329.cp01.baidu.com }
+	"d"     { set machine gaowei08@cp01-rdqa-dev329.cp01.baidu.com }
+	"dev"   { set machine gaowei08@cp01-rdqa-dev329.cp01.baidu.com }
 	"t"     { set machine work@yf-ps-beehive-test21.yf01 }
 	"test"  { set machine work@yf-ps-beehive-test21.yf01 }
 	"o"     { set machine work@cp01-ocean-1195.epc.baidu.com; set password work }
@@ -45,11 +45,10 @@ proc attach_screen { name } {
 proc login { machine password screen } {
 	send "ssh $machine\n"
 	expect {
-		"dev027" { attach_screen $screen }
+		"dev329" { attach_screen $screen }
 		"test21" { attach_screen $screen }
 		"password" {
 			send "$password\n"; sleep 0.1
-			send "export LS_COLORS='di=01;34'\n"
 			attach_screen $screen
 		}
 		"beehive" {
@@ -68,4 +67,6 @@ expect {
 }
 
 interact
+
+exit 0
 
