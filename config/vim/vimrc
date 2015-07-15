@@ -58,14 +58,13 @@ nmap	<A-DOWN>	<C-W>-
 "nmap	K	gk
 "	设置将当前word设置高亮
 "	vim中的左右字符边界为：\<和\>，而不是标准正则中的\b
-nmap	<silent> mm	yiw:match WildMenu	/\<<C-r>0\>/<cr>
-nmap	<silent> m0	yiw:match Search	/\<<C-r>0\>/<cr>
-nmap	<silent> m9	yiw:match ErrorMsg	/\<<C-r>0\>/<cr>
-nmap	<silent> m1	yiw:match DiffDelete	/\<<C-r>0\>/<cr>
-nmap	<silent> m2	yiw:match IncSearch	/\<<C-r>0\>/<cr>
-nmap	<silent> m-	yiw:match Visual	/\<<C-r>0\>/<cr>
-nmap	<silent> m=	yiw:match StatusLine	/\<<C-r>0\>/<cr>
-nmap	<silent> mn	yiw:match none<cr>
+nmap   <silent> mk1    yiw:1match WildMenu     /\<<C-r>0\>/<cr>
+nmap   <silent> mn1    yiw:1match none<cr>
+nmap   <silent> mk2    yiw:2match IncSearch    /\<<C-r>0\>/<cr>
+nmap   <silent> mn2    yiw:3match none<cr>
+nmap   <silent> mk3    yiw:3match ErrorMsg     /\<<C-r>0\>/<cr>
+nmap   <silent> mn3    yiw:3match none<cr>
+
 "	vi中的查找有两种方式：
 "	一：/和?需要用户自己输入，并且按照正则进行匹配，一个向下查找，一个向上查找
 "	二：*和#默认匹配当前单词，进行严格匹配，一个向上查找，一个向下查找。非严格匹配使用g*和g#，非严格匹配允许部分匹配
