@@ -58,8 +58,8 @@ nmap	<A-DOWN>	<C-W>-
 "nmap	K	gk
 "	设置将当前word设置高亮
 "	vim中的左右字符边界为：\<和\>，而不是标准正则中的\b
-"nmap	<silent> mm	yiw:syntax match Todo	/\<<C-r>0\>/<cr>
-"nmap	<silent> mc	yiw:syntax clear<cr>
+nmap	<silent> mm	yiw:syntax match Todo	/\<<C-r>0\>/<cr>
+nmap	<silent> mc	yiw:syntax clear Todo	<cr>
 nmap	<silent> mk1	yiw:1match DiffChange	/\<<C-r>0\>/<cr>
 nmap	<silent> mn1	yiw:1match none<cr>
 nmap	<silent> mk2	yiw:2match IncSearch	/\<<C-r>0\>/<cr>
