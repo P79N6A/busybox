@@ -12,6 +12,7 @@ fi
 
 # User specific aliases and functions
 alias vi='vim'
+alias view='vim -R'
 alias ls='ls --color=auto'
 alias lsg='ls --color=auto --group-directories-first'
 alias ll='ls -l'
@@ -88,11 +89,11 @@ export TIMEFORMAT=$'\nRealTime=%3lR  UserTime=%3lU  SysTime=%3lS  CPU=%P%%'
 # ip=${ip:=0.0.0.0}
 host=$(hostname)
 if [ $LANG = 'en_US.UTF-8' ]; then
-	export PS1='`ret=$?; if [ $ret -ne 0 ];then echo "\[\e[31m\]error code: $ret\n\[\e[0m\]"; fi`\[\e[36m\]╔════\[\e[37m\]($host)\[\e[36m\]══`for((i=0;i<$COLUMNS-39-${#host};++i));do echo -n ═;done` \[\e[1m\e[33m\]$(date +"%a %F %T")\[\e[0m\e[36m\] ════╗\n\[\e[36m\]╠\[\e[0m\]\w\$ '
-	export PS2='\[\e[36m\]╠\[\e[0m\]\w\$ '
+	export PS1='`ret=$?; if [ $ret -ne 0 ];then echo "\[\e[31m\]error code: $ret\n\[\e[0m\]"; fi`\[\e[36m\]╔════\[\e[37m\]($host)\[\e[36m\]══`for((i=0;i<$COLUMNS-39-${#host};++i));do echo -n ═;done` \[\e[1m\e[33m\]$(date +"%a %F %T")\[\e[0m\e[36m\] ════╗\n\[\e[36m\]╠\[\e[0m\]\W\$ '
+	export PS2='\[\e[36m\]╠\[\e[0m\]\W\$ '
 else
-	export PS1='`ret=$?; if [ $ret -ne 0 ];then echo "\[\e[31m\]error code: $ret\n\[\e[0m\]"; fi`\[\e[36m\]|----\[\e[37m\]($host)\[\e[36m\]--`for((i=0;i<$COLUMNS-39-${#host};++i));do echo -n -;done` \[\e[1m\e[33m\]$(date +"%a %F %T")\[\e[0m\e[36m\] ----|\n\[\e[36m\]|\[\e[0m\]\w\$ '
-	export PS2='\[\e[36m\]|\[\e[0m\]\w\$ '
+	export PS1='`ret=$?; if [ $ret -ne 0 ];then echo "\[\e[31m\]error code: $ret\n\[\e[0m\]"; fi`\[\e[36m\]|----\[\e[37m\]($host)\[\e[36m\]--`for((i=0;i<$COLUMNS-39-${#host};++i));do echo -n -;done` \[\e[1m\e[33m\]$(date +"%a %F %T")\[\e[0m\e[36m\] ----|\n\[\e[36m\]|\[\e[0m\]\W\$ '
+	export PS2='\[\e[36m\]|\[\e[0m\]\W\$ '
 fi
 
 # set umask
