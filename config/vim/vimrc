@@ -25,6 +25,7 @@ set cursorline		" 设置光标所在行的行标记
 set cinoptions=g0,:0,t0	" 设置C++的public、protected和private关键字不缩进、以及case不缩进
 set ignorecase		" 查找时忽略大小写，简写为set ic
 "set noignorecase	" 查找时匹配大小写，简写为set noic
+set cc=100		" 列标
 
 set fileencodings=utf-8,gb2312,gbk,gb18030,big5,ucs-bom,utf-16,cp936,latin1,default	" 可支持的文件编码
 set fileencoding=utf-8	" 文件编码
