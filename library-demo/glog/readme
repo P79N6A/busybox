@@ -1,0 +1,18 @@
+1. downlaod glog:
+git clone https://github.com/google/glog.git
+
+2. build glog:
+cd glog
+./configure --prefix=$(pwd)
+make
+make install
+(insert '# define GOOGLE_GLOG_DLL_DECL' to config.h and re-make
+if compile error: src/demangle.h:80:27: error: expected initializer before 'Demangle')
+(ln -s aclocal-x.xx ~/bin/aclocal-1.14,
+ln -s automake-x.xx ~/bin/automake-1.14
+if aclocal-1.14 or automake-1.14 command not found)
+
+3.run
+make [debug]; ./debug
+make release; ./release
+
