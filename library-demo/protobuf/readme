@@ -1,0 +1,16 @@
+1. download
+git clone https://github.com/google/protobuf.git
+
+2. build
+if (download gmock error) {
+	delete gmock part of autogen.sh, and git clone gmock from github
+}
+sh autogen.sh
+chmod +x configure
+./configure --prefix=`pwd`
+make
+make install
+
+3. run
+./protobuf/bin/protoc -I=./ --cpp_out=./ ./addressbook.proto
+
