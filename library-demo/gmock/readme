@@ -1,0 +1,9 @@
+1. download
+git clone https://github.com/google/googlemock.git
+
+2. build
+cd googlemock
+cmake .
+make
+(need gtest first)
+
