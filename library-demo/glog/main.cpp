@@ -127,6 +127,5 @@ int main(int argc, char *argv[])
 	PLOG_IF(FATAL, errno != 0) << "PLOG_IF";	// this process will be core
 	PCHECK(write(1, NULL, 2) >= 0) << "Write NULL failed";	// this process will be core
 
-	std::cout << "Hello World" << std::endl;
 	return EXIT_SUCCESS;
 }				// ----------  end of function main  ----------
