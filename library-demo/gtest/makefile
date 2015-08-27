@@ -28,8 +28,8 @@ D_PARAM	= $(D_OPT) $(D_WARN) $(D_DEF) $(D_FLAG)
 D_LINK	= $(CC) -o	# release版本链接参数
 D_SYS	= -lpthread # release版本系统动态库，例如：-lm, -rt, -ldl, -lpthread等等
 
-INCLUDE = -I	$(LIB_DIR)/googletest/include # 头文件路径
-STATIC_LIB = 	$(LIB_DIR)/googletest/libgtest.a # 依赖库路径
+INCLUDE = -I	$(LIB_DIR)/googletest/googletest/include # 头文件路径
+STATIC_LIB = 	$(LIB_DIR)/googletest/googletest/libgtest.a # 依赖库路径
 OBJECT = $(SRC_DIR)/main.o
 
 #---------------- make标签及依赖规则  ----------------
