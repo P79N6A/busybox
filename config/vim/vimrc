@@ -132,6 +132,7 @@ let g:miniBufExplMapWindowNavArrows = 1 " 通过方向键切换窗口
 "--------------------------------------------------------------------------
 set tags+=~/.vim/tags/ctags
 set tags+=~/.vim/tags/cpptags
+set tags+=~/.vim/tags/cppexttags
 set tags+=~/.vim/tags/gnutags
 "set tags+=~/.vim/tags/phptags
 "set tags+=~/.vim/tags/kerneltags
