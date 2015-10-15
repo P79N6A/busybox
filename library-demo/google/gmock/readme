@@ -3,7 +3,9 @@ git clone https://github.com/google/googlemock.git
 
 2. build
 cd googlemock
+(ln -s ../../gtest/googletest/googletest/ ./gtest)	// need gtest first
 cmake .
 make
-(need gtest first)
 
+3.the other way
+google-test is include google-mock
