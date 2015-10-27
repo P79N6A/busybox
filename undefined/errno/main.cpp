@@ -1,12 +1,12 @@
 /*
 // =====================================================================================
 // 
-//       Filename:  errno.cpp
+//       Filename:  main.cpp
 // 
-//    Description:  errno & errmsg define
+//    Description:  
 // 
 //        Version:  1.0
-//        Created:  10/26/2015 10:20:29 PM
+//        Created:  10/27/2015 02:46:35 PM
 //       Revision:  none
 //       Compiler:  g++
 // 
@@ -18,42 +18,8 @@
 
 #include <cstdlib>
 #include <iostream>
-#include <map>
 
-#define TOKENPASTE(x, y) x ## y
-#define TOKENPASTE2(x, y) TOKENPASTE(x, y)
-
-class Error_Wrapper
-{
-public:
-	Error_Wrapper(int num, std::string msg)
-	{
-		error_map[num] = msg;
-	}
-
-	static std::string& errmsg(int num)
-	{
-		return error_map[num];
-	}
-
-private:
-	static std::map<int, std::string> error_map;
-};
-std::map<int, std::string> Error_Wrapper::error_map;
-static std::string& errmsg(int num)
-{
-	return Error_Wrapper::errmsg(num);
-}
-
-static std::string errmsg(int num, std::string prefix)
-{
-	return "[" + prefix + "]" + Error_Wrapper::errmsg(num);
-}
-
-#define REGISTER_ERROR(name, num, msg) enum {name = num}; Error_Wrapper TOKENPASTE2(Unique_, __LINE__)(num, msg);
-
-REGISTER_ERROR(SUCCESS, 0, "success msg");
-REGISTER_ERROR(FAILURE, -1, "failure msg");
+#include "errno.h"
 
 /* 
 // ===  FUNCTION  ======================================================================
@@ -71,3 +37,4 @@ int main(int argc, char *argv[])
 
 	return EXIT_SUCCESS;
 }				// ----------  end of function main  ----------
+
