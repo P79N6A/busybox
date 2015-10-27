@@ -50,8 +50,8 @@ int main(int argc, char *argv[])
 	DLOG(ERROR) << "DLOG(ERROR)";
 	LOG(ERROR) << "LOG(ERROR)";
 
-	DLOG(DFATAL) << "DLOG(DFATAL)";	// this process will be core
-	LOG(FATAL) << "LOG(FATAL)";	// this process will be core
+//	DLOG(DFATAL) << "DLOG(DFATAL)";	// this process will be core
+//	LOG(FATAL) << "LOG(FATAL)";	// this process will be core
 
 	std::cout << std::endl;
 
@@ -110,7 +110,7 @@ int main(int argc, char *argv[])
 	double d1 = 3.1415926;
 	double d2 = 3.1415927;
 	double dx = 0.0000001;
-	CHECK_DOUBLE_EQ(d1, d2);	// this process will be core
+//	CHECK_DOUBLE_EQ(d1, d2);	// this process will be core
 	CHECK_NEAR(d1, d2, dx);
 
 	// VLOG可以在INFO级别输出细节日志
@@ -122,10 +122,10 @@ int main(int argc, char *argv[])
 
 	// google风格的perror
 	write(1, NULL, 2);
-	PLOG(FATAL) << "PLOG";	// this process will be core
+//	PLOG(FATAL) << "PLOG";	// this process will be core
 	write(1, NULL, 2);
-	PLOG_IF(FATAL, errno != 0) << "PLOG_IF";	// this process will be core
-	PCHECK(write(1, NULL, 2) >= 0) << "Write NULL failed";	// this process will be core
+//	PLOG_IF(FATAL, errno != 0) << "PLOG_IF";	// this process will be core
+//	PCHECK(write(1, NULL, 2) >= 0) << "Write NULL failed";	// this process will be core
 
 	return EXIT_SUCCESS;
 }				// ----------  end of function main  ----------
