@@ -32,8 +32,8 @@ int main(int argc, char *argv[])
 	std::cout << SUCCESS << ": " << errmsg(SUCCESS) << std::endl;
 	std::cout << FAILURE << ": " << errmsg(FAILURE) << std::endl;
 
-	std::cout << SUCCESS << ": " << errmsg(SUCCESS, "diy prefix") << std::endl;
-	std::cout << FAILURE << ": " << errmsg(FAILURE, "diy prefix") << std::endl;
+	std::cout << SUCCESS << ": " << errmsg(SUCCESS, "[%s]", "diy") << std::endl;
+	std::cout << FAILURE << ": " << errmsg(FAILURE, "[%s]", "diy") << std::endl;
 
 	return EXIT_SUCCESS;
 }				// ----------  end of function main  ----------

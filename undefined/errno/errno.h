@@ -16,6 +16,9 @@
  * =====================================================================================
  */
 
+#include <stdio.h>
+#include <stdarg.h>
+
 #include <cstdlib>
 #include <iostream>
 #include <ext/hash_map>
@@ -47,9 +50,19 @@ static std::string& errmsg(int num)
 	return Error_Wrapper::errmsg(num);
 }
 
-static std::string errmsg(int num, std::string prefix)
+static std::string errmsg(int num, const char *format, ...)
 {
-	return "[" + prefix + "]" + Error_Wrapper::errmsg(num);
+	char buf[64<<10];
+	va_list ap;
+	va_start(ap, format);
+	int n = vsnprintf(buf, 64<<10, format, ap);
+	va_end(ap);
+
+	std::string result;
+	result.append(buf);
+	result.append(": ");
+	result.append(Error_Wrapper::errmsg(num));
+	return result;
 }
 
 #define ERROR_DEFINE(name, num, msg) enum {name = num};
