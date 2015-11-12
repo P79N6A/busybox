@@ -29,6 +29,7 @@ switch -- $machine {
 switch -- $screen {
 	"g" {set screen gaowei08}
 	"b" {set screen beehive}
+	"e" {set screen eden}
 }
 
 proc attach_screen { name } {
