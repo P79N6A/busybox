@@ -27,6 +27,26 @@ set ignorecase		" 查找时忽略大小写，简写为set ic
 "set noignorecase	" 查找时匹配大小写，简写为set noic
 set cc=100		" 列标
 
+"--------------------------------------------------------------------------
+"	格式化显示（需要set list才能正常显示）
+"--------------------------------------------------------------------------
+" 显式输出tab和空格
+"set list
+" 设置tab和空格样式
+set lcs=tab:\|\ ,trail:-
+" 对普通空白符不着色
+highlight Whitespace ctermfg=none guifg=none
+match Whitespace /\s\+/
+" 对行首tab着灰色
+highlight LeaderTab ctermfg=grey guifg=grey
+2match LeaderTab /^\t\+/
+" 对行尾空白符着红色
+highlight WhitespaceEOL ctermfg=red guifg=red
+3match WhitespaceEOL /\s\+$/
+
+"--------------------------------------------------------------------------
+"	字符编码
+"--------------------------------------------------------------------------
 set fileencodings=utf-8,gb2312,gbk,gb18030,big5,ucs-bom,utf-16,cp936,latin1,default	" 可支持的文件编码
 set fileencoding=utf-8	" 文件编码
 set termencoding=utf-8	" 终端编码
