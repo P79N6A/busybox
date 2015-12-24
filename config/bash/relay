@@ -48,7 +48,7 @@ proc login { machine password screen } {
 	expect {
 		"dev329" { attach_screen $screen }
 		"test21" { attach_screen $screen }
-		"password" {
+		"password:" {
 			send "$password\n"; sleep 0.1
 			attach_screen $screen
 		}
@@ -56,6 +56,10 @@ proc login { machine password screen } {
 			send "export LS_COLORS='di=01;34'\n"
 			send "cd /home/work\n"
 			attach_screen $screen
+		}
+		"Doorgod" {
+			send "export LS_COLORS='di=01;34'\n"
+			send "cd /home/work/agent\n"
 		}
 	}
 }
