@@ -4,6 +4,17 @@
 //       Filename:  traits.cpp
 // 
 //    Description:  traits编程技术
+//
+//                  通常类型萃取都包含一下内容
+//                  template <class _Iterator>  
+//                  struct iterator_traits {  
+//                      typedef typename _Iterator::iterator_category iterator_category;    //迭代器类型  
+//                      typedef typename _Iterator::value_type        value_type;           //迭代器所指对象的类型  
+//                      typedef typename _Iterator::difference_type   difference_type;      //迭代器之间距离  
+//                      typedef typename _Iterator::pointer           pointer;              //迭代器所指之物  
+//                      typedef typename _Iterator::reference         reference;            //迭代器引用之物  
+//                  };  
+//
 // 
 //        Version:  1.0
 //        Created:  01/05/2016 10:50:17 AM
