@@ -8,8 +8,8 @@
 [user]
 	# git config --global user.name "Elwin.Gao"
 	# git config --global user.email Elwin.Gao4444@gmail.com
-	name = Elwin.Gao
-	email = Elwin.Gao4444@gmail.com
+	name = dokey4444
+	email = elwin.gao4444@gmail.com
 [core]
 	# git config --global core.editor vim
 	editor = vim
