@@ -59,9 +59,9 @@ static std::string errmsg(int num, const char *format, ...)
 	va_end(ap);
 
 	std::string result;
-	result.append(buf);
-	result.append(": ");
 	result.append(Error_Wrapper::errmsg(num));
+	result.append(": ");
+	result.append(buf);
 	return result;
 }
 
