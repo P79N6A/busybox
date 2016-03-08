@@ -1,24 +1,31 @@
-/***************************************************************************
- * 
- * Copyright (c) 2014 Baidu.com, Inc. All Rights Reserved
- * 
- **************************************************************************/
- 
- 
- 
-/**
- * @file connect_timeout.c
- * @author gaowei08(com@baidu.com)
- * @date 2014/05/19 18:05:47
- * @brief 
- *  
- **/
+/*
+ * =====================================================================================
+ *
+ *       Filename:  connect_timeout.c
+ *
+ *    Description:  设置阻塞模式下的connect超时时间
+ *                  用法：cc -o client connect_timeout.c
+ *                        ./client IP PORT [time(s)] （可以用网站IP作为测试IP）
+ *
+ *        Version:  1.0
+ *        Created:  03/08/2016 04:45:11 PM
+ *       Revision:  none
+ *       Compiler:  gcc
+ *
+ *         Author:  Elwin.Gao (elwin), elwin.gao4444@gmail.com
+ *   Organization:  
+ *
+ * =====================================================================================
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>
 #include <errno.h>
+
 
 int main(int argc, char *argv[])
 {
@@ -35,6 +42,8 @@ int main(int argc, char *argv[])
     addr.sin_addr.s_addr = inet_addr(argv[1]);
     addr.sin_port = htons(atoi(argv[2]));
     if (connect(fd, (struct sockaddr*)&addr, sizeof(addr)) == -1) {
+        fprintf(stderr, "errno: %d\n", errno);
+        perror("errmsg");
         if (errno == EINPROGRESS) {
             fprintf(stderr, "timeout\n");
             return -1;
@@ -47,4 +56,3 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-/* vim: set expandtab ts=4 sw=4 sts=4 tw=100: */
