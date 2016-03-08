@@ -17,13 +17,14 @@ switch -- $machine {
 	"dev"   { set machine gaowei08@cp01-rdqa-dev329.cp01.baidu.com }
 	"t"     { set machine work@yf-ps-beehive-test21.yf01 }
 	"test"  { set machine work@yf-ps-beehive-test21.yf01 }
-	"o"     { set machine work@cp01-ocean-1195.epc.baidu.com; set password work }
-	"ocean" { set machine work@cp01-ocean-1195.epc.baidu.com; set password work }
+	"o"     { set machine gaowei@cp01-ocean-1195.epc.baidu.com; set password gaowei }
+	"ocean" { set machine gaowei@cp01-ocean-1195.epc.baidu.com; set password gaowei }
 	"hz"    { set machine gaowei08@hz01-ps-beehive-con0.hz01 }
 	"nj"    { set machine gaowei08@nj02-ps-beehive-con0.nj02 }
 	"sh"    { set machine gaowei08@sh01-ps-beehive-con0.sh01 }
 	"tc"    { set machine gaowei08@tc-ps-beehive-con1.tc }
 	"bj"    { set machine gaowei08@yf-ps-beehive-con0.yf01 }
+	"hn"    { set machine gaowei08@gzns-ps-beehive-con0.gzns }
 }
 
 switch -- $screen {
