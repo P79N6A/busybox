@@ -50,6 +50,10 @@ int main(int argc, char *argv[])
 	auto i3 = i1 + i2;
 	std::cout << i3 << std::endl;
 
+	// 当auto和引用（或指针）结合时，auto推导将保留表达式的const属性
+	auto &i4 = ci2;	// i4为const引用
+	// i4 = 0;	// 赋值会引起编译错误
+
 	// decltype的作用和auto类似，区别在于auto根据初始化决定参数，decltype根据表达式确定类型
 	// 二者最大的区别：auto必须初始化，decltype不必初始化
 	std::string s1 = std::string("ijk");
