@@ -30,7 +30,8 @@ D_SYS	= -lpthread # release版本系统动态库，例如：-lm, -rt, -ldl, -lpt
 
 INCLUDE = -I	$(LIB_DIR)/protobuf/include # 头文件路径
 STATIC_LIB = 	$(LIB_DIR)/protobuf/lib/libprotobuf.a # 依赖库路径
-OBJECT = $(SRC_DIR)/main.o $(SRC_DIR)/addressbook.pb.o
+OBJECT = $(SRC_DIR)/main.o $(SRC_DIR)/pb2sample.pb.o
+PBFILE = pb2sample.pb.h
 
 #---------------- make标签及依赖规则  ----------------
 all : debug
@@ -45,11 +46,16 @@ $(SRC_DIR)/%.debug.o : $(SRC_DIR)/%.cpp
 $(SRC_DIR)/%.debug.o : $(SRC_DIR)/%.cc
 	$(DEBUG) $(D_PARAM) $(INCLUDE) -c $< -o $@
 
-release : $(OBJECT) $(STATIC_LIB)
+$(SRC_DIR)/%.pb.h : $(SRC_DIR)/%.proto
+	./protobuf/bin/protoc -I=./ --cpp_out=./ ./pb2sample.proto
+$(SRC_DIR)/%.pb.cc : $(SRC_DIR)/%.proto
+	./protobuf/bin/protoc -I=./ --cpp_out=./ ./pb2sample.proto
+
+release : $(PBFILE) $(OBJECT) $(STATIC_LIB)
 	$(R_LINK) $(BIN_DIR)/release $^ $(R_SYS)
 	@echo ''
 
-debug : $(OBJECT:.o=.debug.o) $(STATIC_LIB)
+debug : $(PBFILE) $(OBJECT:.o=.debug.o) $(STATIC_LIB)
 	$(D_LINK) $(BIN_DIR)/debug $^ $(D_SYS)
 	@echo ''
 
@@ -58,9 +64,11 @@ clean:
 	rm -f $(BIN_DIR)/debug 
 	rm -f $(OBJECT)
 	rm -f $(OBJECT:.o=.debug.o)
-	rm -f core
 
 cleanall : clean
 	rm -f $(SRC_DIR)/*.gcda 
 	rm -f $(SRC_DIR)/*.gcno 
 	rm -f $(SRC_DIR)/*.gcov
+	rm -f $(SRC_DIR)/*.pb.h
+	rm -f $(SRC_DIR)/*.pb.cc
+	rm -f core

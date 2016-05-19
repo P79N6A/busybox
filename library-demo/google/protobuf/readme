@@ -10,6 +10,3 @@ chmod +x configure
 make
 make install
 
-3. run
-first: ./protobuf/bin/protoc -I=./ --cpp_out=./ ./addressbook.proto
-
