@@ -17,8 +17,6 @@ switch -- $machine {
 	"dev"   { set machine gaowei08@cp01-rdqa-dev329.cp01.baidu.com }
 	"t"     { set machine work@yf-ps-beehive-test21.yf01 }
 	"test"  { set machine work@yf-ps-beehive-test21.yf01 }
-	"o"     { set machine gaowei@cp01-ocean-1195.epc.baidu.com; set password gaowei }
-	"ocean" { set machine gaowei@cp01-ocean-1195.epc.baidu.com; set password gaowei }
 	"hz"    { set machine gaowei08@hz01-ps-beehive-con0.hz01 }
 	"nj"    { set machine gaowei08@nj02-ps-beehive-con0.nj02 }
 	"sh"    { set machine gaowei08@sh01-ps-beehive-con0.sh01 }
@@ -28,8 +26,6 @@ switch -- $machine {
 }
 
 switch -- $screen {
-	"g" {set screen gaowei08}
-	"b" {set screen beehive}
 	"e" {set screen eden}
 }
 
