@@ -73,4 +73,5 @@ cleanall : clean
 	rm -f $(SRC_DIR)/*.gcov
 	rm -f $(SRC_DIR)/*.pb.h
 	rm -f $(SRC_DIR)/*.pb.cc
+	rm -f $(SRC_DIR)/*.data
 	rm -f core

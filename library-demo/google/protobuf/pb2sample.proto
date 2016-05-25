@@ -21,7 +21,7 @@ message BasicType
 	repeated float    f    = 4;
 	repeated double   d    = 5;
 	required string   s    = 6;	// A string must always contain UTF-8 encoded or 7-bit ASCII text.
-	required bytes    bin  = 7;	// May contain any arbitrary sequence of bytes.
+	optional bytes    bin  = 7;	// May contain any arbitrary sequence of bytes.
 	optional uint32   u32  = 8;	// Uses variable-length encoding.
 	optional uint64   u64  = 9;	// Uses variable-length encoding.
 	optional sint32   s32  = 10;	// Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.
