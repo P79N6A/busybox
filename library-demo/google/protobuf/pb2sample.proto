@@ -38,11 +38,8 @@ message BasicType
 	optional value v = 16 [default = SUCCESS];
 }
 
-message AdvancedType
-{
-	map<int32, string> m = 1;
-}
+// message AdvancedType
+// {
+// 	map<int32, string> m = 1;
+// }
 
-message MixedType
-{
-}
