@@ -8,7 +8,7 @@ THIRD_LIB	=.
 #       所以在开发时，为了方便调试和测试，应该将makefile文件复制于src路径下，并相应修改路径
 
 #---------------- 编译链接参数  ----------------
-CC = g++
+CC = gcc
 
 RELEASE	= $(CC)	# release版本基本编译命令
 R_OPT	= -O2	# release版本优化参数
@@ -21,12 +21,12 @@ R_SYS	= -lexpat	# release版本系统动态库，例如：-lm, -rt, -ldl, -lpthr
 
 DEBUG	= $(CC)	# debug版本基本编译命令
 D_OPT	= -O0 -g3	# debug版本优化参数
-D_WARN	= -ansi -pedantic -Wall -Wextra -Wc++0x-compat -Wconversion	# debug版本警告等级
+D_WARN	= -ansi -pedantic -Wall -Wextra -Wc++-compat -Wconversion	# debug版本警告等级
 D_DEF	= -DPROJECT_DEBUG -DPROJECT_TEST	# debug版本编译宏
 D_FLAG	= -fno-strict-aliasing -fprofile-arcs -ftest-coverage 	# debug版本附加编译参数
 D_PARAM	= $(D_OPT) $(D_WARN) $(D_DEF) $(D_FLAG)
 D_LINK	= $(CC) -o	# release版本链接参数
-D_SYS	= -lpthread -lgcov	# release版本系统动态库，例如：-lm, -rt, -ldl, -lpthread等等
+D_SYS	= -lpthread -ldl -lexpat -lgcov	# release版本系统动态库，例如：-lm, -rt, -ldl, -lpthread等等
 
 INCLUDE = -I $(THIRD_LIB)/sqlite/include	# 头文件路径
 STATIC_LIB = $(THIRD_LIB)/sqlite/lib/libsqlite3.a
@@ -35,10 +35,10 @@ OBJECT = $(SRC_DIR)/main.o
 #---------------- make标签及依赖规则  ----------------
 all : debug
 
-$(SRC_DIR)/%.o : $(SRC_DIR)/%.cpp
+$(SRC_DIR)/%.o : $(SRC_DIR)/%.c
 	$(RELEASE) $(R_PARAM) $(INCLUDE) -c $< -o $@
 
-$(SRC_DIR)/%.debug.o : $(SRC_DIR)/%.cpp
+$(SRC_DIR)/%.debug.o : $(SRC_DIR)/%.c
 	$(DEBUG) $(D_PARAM) $(INCLUDE) -c $< -o $@
 
 release : $(OBJECT) $(STATIC_LIB)
@@ -60,4 +60,3 @@ cleanall : clean
 	rm -f $(SRC_DIR)/*.gcda 
 	rm -f $(SRC_DIR)/*.gcno 
 	rm -f $(SRC_DIR)/*.gcov
-	rm -rf testdb

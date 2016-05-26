@@ -11,3 +11,7 @@ cd sqlite
 make
 make install
 
+3、run
+make
+sh run.sh
+
