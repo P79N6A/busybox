@@ -60,3 +60,4 @@ cleanall : clean
 	rm -f $(SRC_DIR)/*.gcda 
 	rm -f $(SRC_DIR)/*.gcno 
 	rm -f $(SRC_DIR)/*.gcov
+	rm -rf testdb
