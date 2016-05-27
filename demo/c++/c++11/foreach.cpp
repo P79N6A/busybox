@@ -19,6 +19,19 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
+#include <map>
+
+/* 
+// ===  FUNCTION  ======================================================================
+//         Name:  get_map
+//  Description:  模拟获取容器的方法，用于验证foreach的特型
+// =====================================================================================
+*/
+static std::map<int, std::string>& get_map(std::map<int, std::string> &info)
+{
+	std::cout << "get_map()" << std::endl;
+	return info;
+}		// -----  end of static function get_map  -----
 
 /* 
 // ===  FUNCTION  ======================================================================
@@ -35,5 +48,14 @@ int main(int argc, char *argv[])
 		std::cout << c << std::endl;
 	}
 
+	// c++ 支持了变长初始化列表，相应的std中的各种容器都可以进行变长初始化
+	std::map<int, std::string> info = {
+		{1, "a"}, {2, "b"}, {3, "c"}
+	};
+	for (const auto &i : get_map(info)) {	// 这里的get_map()只会在循环开始调用1次
+		std::cout << i.first << " : " << i.second << std::endl;
+	}
+
 	return EXIT_SUCCESS;
 }				// ----------  end of function main  ----------
+
