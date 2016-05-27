@@ -47,7 +47,6 @@ private:
 
 };	// -----  end of class Has_Ptr  -----
 
-
 /* 
 // ===  FUNCTION  ======================================================================
 //         Name:  main
@@ -87,3 +86,4 @@ int main(int argc, char *argv[])
 
 	return EXIT_SUCCESS;
 }				// ----------  end of function main  ----------
+
