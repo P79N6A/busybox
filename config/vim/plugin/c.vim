@@ -2973,7 +2973,7 @@ function! C_Style ( style )
 		let s:C_ActualStyleLast	= s:C_ActualStyle
 		let s:C_ActualStyle	= lstyle
 		if len( s:C_ActualStyle ) > 1 && s:C_ActualStyle != s:C_ActualStyleLast
-			echomsg "template style is '".lstyle."'"
+			"echomsg "template style is '".lstyle."'"
 		endif
 	else
 		echomsg "style '".lstyle."' does not exist"
