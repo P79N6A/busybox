@@ -42,6 +42,7 @@ int main(int argc, char *argv[])
 <SPLIT>	printf("Hello World!\n");
 <SPLIT>	return EXIT_SUCCESS;
 }				/* ----------  end of function main  ---------- */
+
 $%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 == idioms.enum ==
 enum |?ENUM_NAME|
