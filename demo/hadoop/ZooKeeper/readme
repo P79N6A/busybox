@@ -48,3 +48,6 @@ export CLASSPATH=$JAVA_HOME/lib
 头文件参考：ZOOKEEPER_ROOT/src/c/include/zookeeper.h
 client源码：ZOOKEEPER_ROOT/src/c/src/cli.c
 
+----------------------------------------------------------------------------------------------------
+C++模拟Java接口封装：c++_lib
+

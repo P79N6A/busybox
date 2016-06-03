@@ -106,6 +106,7 @@ autocmd BufRead,BufNewFile *.[ch]* syntax keyword Typedef uchar
 autocmd BufRead,BufNewFile *.[ch]* syntax keyword Typedef ushort
 autocmd BufRead,BufNewFile *.[ch]* syntax keyword Typedef uint
 autocmd BufRead,BufNewFile *.[ch]* syntax keyword Typedef ulong
+autocmd BufRead,BufNewFile *.[ch]* syntax keyword Typedef string
 
 "--------------------------------------------------------------------------
 "	设置ctags
