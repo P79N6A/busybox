@@ -38,15 +38,19 @@ LD_LIBRARY_PATH=. ./cli_st 127.0.0.1:2181
 配置java环境
 安装或下载对应的java程序包
 并在~/.bashrc中增加以下环境变量
-export JAVA_HOME=/home/opt/java6                                                                   
-export JRE_HOME=$JAVA_HOME/jre                                                                      
-export PATH=$PATH:$JAVA_HOME/bin                                                                    
-export CLASSPATH=$JAVA_HOME/lib                                                                     
+export JAVA_HOME=/home/opt/java6
+export JRE_HOME=$JAVA_HOME/jre
+export PATH=$PATH:$JAVA_HOME/bin
+export CLASSPATH=$JAVA_HOME/lib
 
 阅读源代码：
 由于Apache针对C的接口和API说明比较少，所以更多的是参照头文件和源代码
 头文件参考：ZOOKEEPER_ROOT/src/c/include/zookeeper.h
 client源码：ZOOKEEPER_ROOT/src/c/src/cli.c
+
+----------------------------------------------------------------------------------------------------
+zookeeper c api list: grep '^ZOOAPI' zookeeper.h
+所有zookerp的c api都是以ZOOAPI定头书写的
 
 ----------------------------------------------------------------------------------------------------
 C++模拟Java接口封装：c++_lib
