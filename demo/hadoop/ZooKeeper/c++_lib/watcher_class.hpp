@@ -19,6 +19,8 @@
 #ifndef  _WATCHER_CLASS_HPP_
 #define  _WATCHER_CLASS_HPP_
 
+#include "watched_event_class.hpp"
+
 namespace zkclass
 {
 
@@ -29,25 +31,17 @@ namespace zkclass
 	class Watcher
 	{
 	public:
-		// ====================  LIFECYCLE     =======================================
-		Watcher();
-		~Watcher();
-
 		// ====================  INTERFACE     =======================================
 
-		// ====================  ACCESSORS     =======================================
-
-		// ====================  MUTATORS      =======================================
-
-		// ====================  OPERATORS     =======================================
-
-	protected:
-		// ====================  DATA MEMBERS  =======================================
-
-	private:
-		// ==================== PRIVATE METHOD =======================================
-
-		// ====================  DATA MEMBERS  =======================================
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  process
+		//  Description:   
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+		virtual void process(WatchedEvent event) = 0;
 
 	};		// -----  end of class Watcher  -----
 
