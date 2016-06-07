@@ -213,6 +213,40 @@ namespace zkclass
 		
 		/* 
 		// ===  FUNCTION  ======================================================================
+		//         Name:  register
+		//  Description:  Specify the default watcher for the connection
+		//                (overrides the one specified during construction).
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+//		void register_watcher(Watcher watcher);
+
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  set_acl
+		//  Description:  Set the ACL for the node of the given path if such a node exists
+		//                and the given version matches the version of the node.
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+//		Stat set_acl(string path, vector<ACL> acl, int version);
+
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  set_data
+		//  Description:  Set the data for the node of the given path if such a node exists
+		//                and the given version matches the version of the node
+		//                (if the given version is -1, it matches any node's versions).
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+//		Stat set_data(string path, char data[], int version);
+
+		/* 
+		// ===  FUNCTION  ======================================================================
 		//         Name:  get_session_id
 		//  Description:  The session id for this ZooKeeper client instance.
 		//   Parameters:  
@@ -250,40 +284,6 @@ namespace zkclass
 		// =====================================================================================
 		*/
 //		ZooKeeper::State get_state();
-
-		/* 
-		// ===  FUNCTION  ======================================================================
-		//         Name:  register
-		//  Description:  Specify the default watcher for the connection
-		//                (overrides the one specified during construction).
-		//   Parameters:  
-		//  ReturnValue:  
-		// =====================================================================================
-		*/
-//		void register_watcher(Watcher watcher);
-
-		/* 
-		// ===  FUNCTION  ======================================================================
-		//         Name:  set_acl
-		//  Description:  Set the ACL for the node of the given path if such a node exists
-		//                and the given version matches the version of the node.
-		//   Parameters:  
-		//  ReturnValue:  
-		// =====================================================================================
-		*/
-//		Stat set_acl(string path, vector<ACL> acl, int version);
-
-		/* 
-		// ===  FUNCTION  ======================================================================
-		//         Name:  set_data
-		//  Description:  Set the data for the node of the given path if such a node exists
-		//                and the given version matches the version of the node
-		//                (if the given version is -1, it matches any node's versions).
-		//   Parameters:  
-		//  ReturnValue:  
-		// =====================================================================================
-		*/
-//		Stat set_data(string path, char data[], int version);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -431,23 +431,6 @@ namespace zkclass
 
 		/* 
 		// ===  FUNCTION  ======================================================================
-		//         Name:  register_obj_class_by_watcher_fn
-		//  Description:   
-		//   Parameters:  
-		//  ReturnValue:  
-		// =====================================================================================
-		*/
-		inline watcher_fn register_watcher_obj_by_watcher_fn(Watcher *obj)
-		{
-			watcher_fn fn = nullptr;
-			if (obj != nullptr) {
-				fn = this->watcher_callback;
-			}
-			return fn;
-		}		// -----  end of function register_watcher_obj_by_watcher_fn  -----
-
-		/* 
-		// ===  FUNCTION  ======================================================================
 		//         Name:  vector_to_array
 		//  Description:   
 		//   Parameters:  
@@ -455,9 +438,10 @@ namespace zkclass
 		// =====================================================================================
 		*/
 		template <class T>
-		inline void vector_to_array(vector<T> vec, std::unique_ptr<T[]> arr)
+		inline std::unique_ptr<T[]> vector_to_array(vector<T> vec)
 		{
-			return;
+			std::unique_ptr<T[]> array(new T[vec.size()]);
+			return array;
 		}		// -----  end of template function vector_to_array  -----
 
 		/* 

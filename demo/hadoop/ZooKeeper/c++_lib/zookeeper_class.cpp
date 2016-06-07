@@ -33,9 +33,13 @@ namespace zkclass
 	ZooKeeper::ZooKeeper(const string &connect_string, int session_timeout, Watcher *watcher)
 		: m_zhandler(nullptr)
 	{
-		m_zhandler = zookeeper_init(connect_string.c_str(),
-				register_watcher_obj_by_watcher_fn(watcher),
-				session_timeout, NULL, watcher, 0);
+		if (watcher == nullptr) {
+			m_zhandler = zookeeper_init(connect_string.c_str(),
+					nullptr, session_timeout, NULL, watcher, 0);
+		} else {
+			m_zhandler = zookeeper_init(connect_string.c_str(),
+					watcher_callback, session_timeout, NULL, watcher, 0);
+		}
 	}		// -----  end of method ZooKeeper::ZooKeeper  -----
 
 	//--------------------------------------------------------------------------------------
@@ -49,9 +53,13 @@ namespace zkclass
 		clientid_t clientid;
 		clientid.client_id = session_id;
 		strncpy(clientid.passwd, session_passwd, 16);	// 我也没办法，zk头文件写的就是16
-		m_zhandler = zookeeper_init(connect_string.c_str(),
-				register_watcher_obj_by_watcher_fn(watcher),
-				session_timeout, &clientid, watcher, 0);
+		if (watcher == nullptr) {
+			m_zhandler = zookeeper_init(connect_string.c_str(),
+					nullptr, session_timeout, &clientid, watcher, 0);
+		} else {
+			m_zhandler = zookeeper_init(connect_string.c_str(),
+					watcher_callback, session_timeout, &clientid, watcher, 0);
+		}
 	}		// -----  end of method ZooKeeper::ZooKeeper  -----
 
 	//--------------------------------------------------------------------------------------
@@ -61,7 +69,9 @@ namespace zkclass
 	//--------------------------------------------------------------------------------------
 	ZooKeeper::~ZooKeeper()
 	{
-		m_zhandler = nullptr;
+		if (m_zhandler) {
+			close();
+		}
 	}		// -----  end of method ZooKeeper::~ZooKeeper  -----
 
 	// ====================  INTERFACE     =======================================
@@ -83,7 +93,11 @@ namespace zkclass
 	//--------------------------------------------------------------------------------------
 	int ZooKeeper::close()
 	{
-		return zookeeper_close(m_zhandler);
+		int ret = zookeeper_close(m_zhandler);
+		if (ret == ZOK) {
+			m_zhandler = nullptr;
+		}
+		return ret;
 	}		// -----  end of method ZooKeeper::close  -----
 
 	//--------------------------------------------------------------------------------------
@@ -94,17 +108,12 @@ namespace zkclass
 	int ZooKeeper::create(const string &path, char data[], vector<ACL> acl, int create_flag, string *new_path)
 	{
 		ACL_vector acl_vector;
-		std::unique_ptr<ACL[]> acl_array(new ACL[acl.size()]);
-		struct ACL *acl_list = new ACL[acl.size()];
-		for (int i=0; i<acl.size(); ++i) {
-			acl_list[i] = acl[i];
-		}
-		acl_vector.data = acl_list;
+		std::unique_ptr<ACL[]> acl_array = vector_to_array<ACL>(acl);
+		acl_vector.data = acl_array.get();
 		acl_vector.count = acl.size();
 		char the_new_path[LINESIZE];
 		int ret = zoo_create(m_zhandler, path.c_str(), data, strlen(data), &acl_vector, create_flag, the_new_path, LINESIZE);
 		*new_path = the_new_path;
-		delete[] acl_list;
 		return ret;
 	}		// -----  end of method ZooKeeper::create  -----
 
