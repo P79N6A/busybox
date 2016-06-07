@@ -45,6 +45,14 @@ int main(int argc, char *argv[])
 	std::unique_ptr<int> p3 = fun();
 	std::cout << *p3 << std::endl;
 
+	// unique_ptr是天然支持c++动态数组的，而shared_ptr无法做到
+	std::unique_ptr<int[]> parray(new int[4]);
+	parray[0] = 0; parray[1] = 1; parray[2] = 2; parray[3] = 3;
+	std::cout << parray[0] << std::endl;
+	std::cout << parray[1] << std::endl;
+	std::cout << parray[2] << std::endl;
+	std::cout << parray[3] << std::endl;
+
 	return EXIT_SUCCESS;
 }				// ----------  end of function main  ----------
 
