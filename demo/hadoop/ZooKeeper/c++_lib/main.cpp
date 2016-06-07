@@ -19,6 +19,7 @@
 #include <unistd.h>
 #include <cstdlib>
 #include <cassert>
+#include <cstring>
 #include <iostream>
 
 #include "zookeeper_class.hpp"
@@ -29,10 +30,12 @@ using zkclass::WatchedEvent;
 
 const std::string server = "localhost:2181";
 
+int mywatcher_trigger = 0;
 class mywatcher : public Watcher
 {
 	void process(const WatchedEvent &event)
 	{
+		++mywatcher_trigger;
 		std::cout << "mywatcher is  triggered" << std::endl;
 		std::cout << "event.path:" << event.path() << std::endl;
 		std::cout << "event.type:" << event.type().c_str() << std::endl;
@@ -50,41 +53,48 @@ void test_connect_and_close()
 {
 	// case1：无watcher，无old session
 	ZooKeeper zk1(server, 1024, nullptr);
-	std::cout << "case1: connect to zookeeper server success!" << std::endl;
 	usleep(20*1000);	// 由于这里没有watcher监控状态，所以只能坐等session建立完成
-	assert(zk1.get_state().no() == ZOO_CONNECTED_STATE);
+	assert(zk1.get_state().value() == ZOO_CONNECTED_STATE);
 	clientid_t id1 = *zk1.get_client_id();
-	std::cout << "case1: session id:[" << id1.client_id << "]" << "\t";
-	std::cout << "case1: session passwd:[" << id1.passwd << "]" << "\t";
-	std::cout << "case1: session timeout:[" << zk1.get_session_timeout() << "]" << std::endl;
-//	assert(zk1.close().no() == ZOK);
-//	std::cout << "case1: close zookeeper connection success!" << std::endl;
+	assert(id1.client_id != 0);
+	assert(id1.passwd[0] != 0);
+	assert(zk1.get_session_timeout() >= 4000 && zk1.get_session_timeout() <= 40000);	// 4s - 40s是zk的默认配置
+//	assert(zk1.close().value() == ZOK);
 
 	// case2：无watcher，有old session
 	ZooKeeper zk2(server, 1024, nullptr, &id1);
-	assert(zk1.get_state().no() == ZOO_CONNECTED_STATE);
-	std::cout << "case2: connect to zookeeper server success!" << std::endl;
-	clientid_t id2 = *zk2.get_client_id();	// 由于此时session已经建立完成，所以无需等待
-	std::cout << "case2: session id:[" << id2.client_id << "]" << "\t";
-	std::cout << "case2: session passwd:[" << id2.passwd << "]" << "\t";
-	std::cout << "case2: session timeout:[" << zk2.get_session_timeout() << "]" << std::endl;
-	assert(zk2.close().no() == ZOK);
-	std::cout << "case2: close zookeeper connection success!" << std::endl;
+	usleep(20*1000);	// 由于这里没有watcher监控状态，所以只能坐等session建立完成
+	assert(zk2.get_state().value() == ZOO_CONNECTED_STATE);
+	assert(zk1.get_state().value() != ZOO_CONNECTED_STATE);	// session重连会导致之前的session失效
+	clientid_t id2 = *zk2.get_client_id();
+	assert(id2.client_id != 0);
+	assert(id2.passwd[0] != 0);
+	assert(zk2.get_session_timeout() >= 4000 && zk2.get_session_timeout() <= 40000);	// 4s - 40s是zk的默认配置
+	assert(zk2.close().value() == ZOK);
 
-	assert(zk1.get_state().no() == ZOO_CONNECTED_STATE);
-	assert(zk2.get_state().no() != ZOO_CONNECTED_STATE);
+	assert(zk1.get_state().value() != ZOO_CONNECTED_STATE);	// session重连会导致之前的session失效
+	assert(zk2.get_state().value() != ZOO_CONNECTED_STATE);
 
-	// case1：有watcher，无old session
-	mywatcher watcher;
-	ZooKeeper zk3(server, 1024, &watcher);
-	std::cout << "case3: connect to zookeeper server success!" << std::endl;
-	usleep(20*1000);
+	// case3：有watcher，无old session
+	mywatcher watcher3;
+	ZooKeeper zk3(server, 1024, &watcher3);
+	usleep(20*1000);	// 这里等待一段时间，确保watcher可以被触发
+	assert(zk3.get_state().value() == ZOO_CONNECTED_STATE);
+	assert(mywatcher_trigger == 1);
 	clientid_t id3 = *zk3.get_client_id();
-	std::cout << "case3: session id:[" << id3.client_id << "]" << "\t";
-	std::cout << "case3: session passwd:[" << id3.passwd << "]" << "\t";
-	std::cout << "case3: session timeout:[" << zk3.get_session_timeout() << "]" << std::endl;
-	assert(zk3.close().no() == ZOK);
-	std::cout << "case3: close zookeeper connection success!" << std::endl;
+	assert(id3.client_id != 0);
+	assert(id3.passwd[0] != 0);
+	assert(zk3.get_session_timeout() >= 4000 && zk3.get_session_timeout() <= 40000);	// 4s - 40s是zk的默认配置
+	assert(zk3.close().value() == ZOK);
+
+	// case4：有watcher，有old session
+	mywatcher watcher4;
+	ZooKeeper zk4(server, 1024, &watcher4, &id3);
+	usleep(20*1000);	// 这里等待一段时间，确保watcher可以被触发
+	// 通过watcher可以发现，close并没有使zk3的session过期，而重用session id使得zk3的session过期
+	// zk3的ZOO_EXPIRED_SESSION_STATE状态仅在watcher中能看到，直接get_state无法检测到
+	assert(zk4.get_state().value() != ZOO_CONNECTED_STATE);	// 错误的client_id无法建立连接
+	assert(zk4.close().value() == ZOK);
 
 	std::cout << "\e[32mTest: test_connect_and_close() OK\e[0m" << std::endl;
 }		// -----  end of function test_connect_and_close  -----

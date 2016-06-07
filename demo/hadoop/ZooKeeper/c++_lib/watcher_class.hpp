@@ -48,7 +48,7 @@ namespace zkclass
 			}
 
 			// ====================  INTERFACE     =======================================
-			int no()
+			int value()
 			{
 				return m_event;
 			}
@@ -95,7 +95,7 @@ namespace zkclass
 			}
 
 			// ====================  INTERFACE     =======================================
-			int no()
+			int value()
 			{
 				return m_state;
 			}

@@ -39,6 +39,9 @@ namespace zkclass
 
 	ZooKeeper::~ZooKeeper()
 	{
+		if (m_zhandler != nullptr) {
+			close();
+		}
 	}		// -----  end of method ZooKeeper::~ZooKeeper  -----
 
 	// ====================  INTERFACE     =======================================
@@ -50,7 +53,11 @@ namespace zkclass
 
 	ZooKeeper::Error ZooKeeper::close()
 	{
-		return ZooKeeper::Error(zookeeper_close(m_zhandler));
+		ZooKeeper::Error error(zookeeper_close(m_zhandler));
+		if (error.value() == ZOK) {
+			m_zhandler = nullptr;
+		}
+		return error;
 	}		// -----  end of method ZooKeeper::close  -----
 
 	ZooKeeper::Error ZooKeeper::create(const string &path, char data[], vector<ACL> acl, int create_flag, string *new_path)
