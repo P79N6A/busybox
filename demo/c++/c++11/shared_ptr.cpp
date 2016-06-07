@@ -35,6 +35,11 @@ void fun(int a, int b)
 {
 }
 
+std::shared_ptr<int> ret(int value)
+{
+	return std::make_shared<int>(value);
+}
+
 struct A;
 struct B;
 
@@ -100,6 +105,14 @@ int main(int argc, char *argv[])
 	// shared_ptr无法支持c++动态数组指针，而unique_ptr可以
 	// std::shared_ptr<int[]> parray(new int[4]);	// compile error
 	std::shared_ptr<int> parray(new int[4]);	// 编译正确，但shared_ptr会调用delete去释放数组
+
+	// shared_ptr作为返回值，必须有外部变量接收，否则会导致裸指针访问非法地址
+	std::shared_ptr<int> pr = ret(4);	// ok
+	int *pr1 = pr.get();	// ok
+	int *pr2 = ret(5).get();	// point to an invalid address
+	std::cout << "return is " << *pr << std::endl;	// read ok
+	std::cout << "return is " << *pr1 << std::endl;	// read ok
+	std::cout << "return is " << *pr2 << std::endl;	// invalid read
 
 	return EXIT_SUCCESS;
 }				// ----------  end of function main  ----------
