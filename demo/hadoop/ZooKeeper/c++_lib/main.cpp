@@ -43,13 +43,14 @@ class mywatcher : public Watcher
 	}
 };
 
+
 /* 
 // ===  FUNCTION  ======================================================================
 //         Name:  test_connect_and_close
 //  Description:   
 // =====================================================================================
 */
-void test_connect_and_close()
+static void test_connect_and_close()
 {
 	// case1：无watcher，无old session
 	ZooKeeper zk1(server, 1024, nullptr);
@@ -97,7 +98,24 @@ void test_connect_and_close()
 	assert(zk4.close().value() == ZOK);
 
 	std::cout << "\e[32mTest: test_connect_and_close() OK\e[0m" << std::endl;
-}		// -----  end of function test_connect_and_close  -----
+}		// -----  end of static function test_connect_and_close  -----
+
+/* 
+// ===  FUNCTION  ======================================================================
+//         Name:  test_create_and_remove
+//  Description:   
+// =====================================================================================
+*/
+static void test_create_and_remove()
+{
+	ZooKeeper zk(server, 1024, nullptr);
+	usleep(20*1000);	// 由于这里没有watcher监控状态，所以只能坐等session建立完成
+	assert(zk.get_state().value() == ZOO_CONNECTED_STATE);
+	std::string path("/zkclass_test");
+	vector<ACL> acl = {{ZOO_PERM_ALL, ZOO_ANYONE_ID_UNSAFE}};
+	assert(zk.create(path, "root node", acl, 0, nullptr).value() == ZOK);
+	assert(zk.remove(path, -1).value() == ZOK);
+}		// -----  end of static function test_create_and_remove  -----
 
 /* 
 // ===  FUNCTION  ======================================================================
@@ -107,12 +125,13 @@ void test_connect_and_close()
 */
 int main(int argc, char *argv[])
 {
-	test_connect_and_close();
+//	test_connect_and_close();
+	test_create_and_remove();
 	std::cout << "\e[32mAll Test is OK\e[0m" << std::endl;
-//	zhandle_t *m_zh = zookeeper_init("localhost:2181",
-//			nullptr, 0, nullptr, nullptr, 0);
-//	const clientid_t *client_id = zoo_client_id(m_zh);
-//	int timeout = zoo_recv_timeout(m_zh);
+//	zhandle_t *m_zh = zookeeper_init("localhost:2181", nullptr, 4000, nullptr, nullptr, 0);
+//	usleep(20*1000);
+//	std::cout << zoo_create(m_zh, "/zkclass_test", "root node", 9, &ZOO_OPEN_ACL_UNSAFE, 0, NULL, 0) << std::endl;
+//	std::cout << zoo_delete(m_zh, "/zkclass_test", -1) << std::endl;
 //	zookeeper_close(m_zh);
 	return EXIT_SUCCESS;
 }				// ----------  end of function main  ----------

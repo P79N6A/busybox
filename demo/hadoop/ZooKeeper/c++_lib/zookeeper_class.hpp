@@ -259,7 +259,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper::Error create(const string &path, char data[], vector<ACL> acl, int create_flag, string *new_path);
+		ZooKeeper::Error create(const string &path, const char data[], vector<ACL> acl, int create_flag, string *new_path);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -578,22 +578,11 @@ namespace zkclass
 		inline std::unique_ptr<T[]> vector_to_array(vector<T> vec)
 		{
 			std::unique_ptr<T[]> array(new T[vec.size()]);
+			for (int i=0; i<vec.size(); ++i) {
+				array[i] = vec[i];
+			}
 			return array;
 		}		// -----  end of template function vector_to_array  -----
-
-		/* 
-		// ===  FUNCTION  ======================================================================
-		//         Name:  array_to_vector
-		//  Description:   
-		//   Parameters:  
-		//  ReturnValue:  
-		// =====================================================================================
-		*/
-		template <class T>
-		inline void array_to_vector(std::unique_ptr<T[]> arr, vector<T> vec)
-		{
-			return;
-		}		// -----  end of template function array_to_vector  -----
 
 		/* 
 		// ===  FUNCTION  ======================================================================

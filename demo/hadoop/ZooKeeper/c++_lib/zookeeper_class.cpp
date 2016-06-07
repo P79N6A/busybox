@@ -60,15 +60,20 @@ namespace zkclass
 		return error;
 	}		// -----  end of method ZooKeeper::close  -----
 
-	ZooKeeper::Error ZooKeeper::create(const string &path, char data[], vector<ACL> acl, int create_flag, string *new_path)
+	ZooKeeper::Error ZooKeeper::create(const string &path, const char data[], vector<ACL> acl, int create_flag, string *new_path)
 	{
-		ACL_vector acl_vector;
+		ACL_vector acl_vector = {0, NULL};
 		std::unique_ptr<ACL[]> acl_array = vector_to_array<ACL>(acl);
 		acl_vector.data = acl_array.get();
 		acl_vector.count = acl.size();
-		char the_new_path[LINESIZE];
-		int ret = zoo_create(m_zhandler, path.c_str(), data, strlen(data), &acl_vector, create_flag, the_new_path, LINESIZE);
-		*new_path = the_new_path;
+		int ret = 0;
+		if (new_path) {
+			char the_new_path[LINESIZE];
+			ret = zoo_create(m_zhandler, path.c_str(), data, strlen(data), &acl_vector, create_flag, the_new_path, LINESIZE);
+			*new_path = the_new_path;
+		} else {
+			ret = zoo_create(m_zhandler, path.c_str(), data, strlen(data), &ZOO_OPEN_ACL_UNSAFE, create_flag, NULL, 0);
+		}
 		return ret;
 	}		// -----  end of method ZooKeeper::create  -----
 
