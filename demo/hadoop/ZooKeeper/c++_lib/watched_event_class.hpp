@@ -21,6 +21,8 @@
 
 #include <string>
 
+#include "watcher_class.hpp"
+
 using std::string;
 
 namespace zkclass
@@ -64,9 +66,9 @@ namespace zkclass
 		//  Description:   
 		// =====================================================================================
 		*/
-		inline int type() const
+		inline Watcher::Event type() const
 		{
-			return m_type;
+			return Watcher::Event(m_type);
 		}		// -----  end of function type  -----
 
 		/* 
@@ -75,9 +77,9 @@ namespace zkclass
 		//  Description:   
 		// =====================================================================================
 		*/
-		inline int state() const
+		inline Watcher::State state() const
 		{
-			return m_state;
+			return Watcher::State(m_state);
 		}		// -----  end of function state  -----
 
 	private:

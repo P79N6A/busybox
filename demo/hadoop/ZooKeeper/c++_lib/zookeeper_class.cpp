@@ -25,87 +25,35 @@ namespace zkclass
 
 	// ====================  LIFECYCLE     =======================================
 
-	//--------------------------------------------------------------------------------------
-	//       Class:  ZooKeeper
-	//      Method:  ZooKeeper
-	// Description:  
-	//--------------------------------------------------------------------------------------
 	ZooKeeper::ZooKeeper(const string &connect_string, int session_timeout, Watcher *watcher)
 		: m_zhandler(nullptr)
 	{
-		if (watcher == nullptr) {
-			m_zhandler = zookeeper_init(connect_string.c_str(),
-					nullptr, session_timeout, NULL, watcher, 0);
-		} else {
-			m_zhandler = zookeeper_init(connect_string.c_str(),
-					watcher_callback, session_timeout, NULL, watcher, 0);
-		}
+		init(connect_string, session_timeout, watcher, nullptr);
 	}		// -----  end of method ZooKeeper::ZooKeeper  -----
 
-	//--------------------------------------------------------------------------------------
-	//       Class:  ZooKeeper
-	//      Method:  ZooKeeper
-	// Description:  
-	//--------------------------------------------------------------------------------------
-	ZooKeeper::ZooKeeper(const string &connect_string, int session_timeout, Watcher *watcher, long session_id, char session_passwd[])
+	ZooKeeper::ZooKeeper(const string &connect_string, int session_timeout, Watcher *watcher, clientid_t *clientid)
 		: m_zhandler(nullptr)
 	{
-		clientid_t clientid;
-		clientid.client_id = session_id;
-		strncpy(clientid.passwd, session_passwd, 16);	// 我也没办法，zk头文件写的就是16
-		if (watcher == nullptr) {
-			m_zhandler = zookeeper_init(connect_string.c_str(),
-					nullptr, session_timeout, &clientid, watcher, 0);
-		} else {
-			m_zhandler = zookeeper_init(connect_string.c_str(),
-					watcher_callback, session_timeout, &clientid, watcher, 0);
-		}
+		init(connect_string, session_timeout, watcher, clientid);
 	}		// -----  end of method ZooKeeper::ZooKeeper  -----
 
-	//--------------------------------------------------------------------------------------
-	//       Class:  ZooKeeper
-	//      Method:  ~ZooKeeper
-	// Description:  
-	//--------------------------------------------------------------------------------------
 	ZooKeeper::~ZooKeeper()
 	{
-		if (m_zhandler) {
-			close();
-		}
 	}		// -----  end of method ZooKeeper::~ZooKeeper  -----
 
 	// ====================  INTERFACE     =======================================
 
-	//--------------------------------------------------------------------------------------
-	//       Class:  ZooKeeper
-	//      Method:  add_auth_info
-	// Description:  
-	//--------------------------------------------------------------------------------------
-	int ZooKeeper::add_auth_info(string scheme, char auth[])
+	ZooKeeper::Error ZooKeeper::add_auth_info(string scheme, char auth[])
 	{
-		return zoo_add_auth(m_zhandler, scheme.c_str(), auth, strlen(auth), NULL, NULL);
+		return ZooKeeper::Error(zoo_add_auth(m_zhandler, scheme.c_str(), auth, strlen(auth), NULL, NULL));
 	}		// -----  end of method ZooKeeper::add_auth_info  -----
 
-	//--------------------------------------------------------------------------------------
-	//       Class:  ZooKeeper
-	//      Method:  close
-	// Description:  
-	//--------------------------------------------------------------------------------------
-	int ZooKeeper::close()
+	ZooKeeper::Error ZooKeeper::close()
 	{
-		int ret = zookeeper_close(m_zhandler);
-		if (ret == ZOK) {
-			m_zhandler = nullptr;
-		}
-		return ret;
+		return ZooKeeper::Error(zookeeper_close(m_zhandler));
 	}		// -----  end of method ZooKeeper::close  -----
 
-	//--------------------------------------------------------------------------------------
-	//       Class:  ZooKeeper
-	//      Method:  create
-	// Description:  
-	//--------------------------------------------------------------------------------------
-	int ZooKeeper::create(const string &path, char data[], vector<ACL> acl, int create_flag, string *new_path)
+	ZooKeeper::Error ZooKeeper::create(const string &path, char data[], vector<ACL> acl, int create_flag, string *new_path)
 	{
 		ACL_vector acl_vector;
 		std::unique_ptr<ACL[]> acl_array = vector_to_array<ACL>(acl);
@@ -117,32 +65,17 @@ namespace zkclass
 		return ret;
 	}		// -----  end of method ZooKeeper::create  -----
 
-	//--------------------------------------------------------------------------------------
-	//       Class:  ZooKeeper
-	//      Method:  remove
-	// Description:  
-	//--------------------------------------------------------------------------------------
-	int ZooKeeper::remove(const string &path, int version)
+	ZooKeeper::Error ZooKeeper::remove(const string &path, int version)
 	{
 		return zoo_delete(m_zhandler, path.c_str(), version);
 	}		// -----  end of method ZooKeeper::remove  -----
 
-	//--------------------------------------------------------------------------------------
-	//       Class:  ZooKeeper
-	//      Method:  exists
-	// Description:  
-	//--------------------------------------------------------------------------------------
-	int ZooKeeper::exists(string path, int watch, Stat *stat)
+	ZooKeeper::Error ZooKeeper::exists(string path, int watch, Stat *stat)
 	{
 		return zoo_exists(m_zhandler, path.c_str(), watch, stat);
 	}		// -----  end of method ZooKeeper::exists  -----
 
-	//--------------------------------------------------------------------------------------
-	//       Class:  ZooKeeper
-	//      Method:  exists
-	// Description:  
-	//--------------------------------------------------------------------------------------
-	int ZooKeeper::exists(string path, Watcher *watcher, Stat *stat)
+	ZooKeeper::Error ZooKeeper::exists(string path, Watcher *watcher, Stat *stat)
 	{
 		watcher_fn fn = nullptr;
 		if (watcher != nullptr) {
@@ -151,24 +84,40 @@ namespace zkclass
 		return zoo_wexists(m_zhandler, path.c_str(), fn, watcher, stat);
 	}		// -----  end of method ZooKeeper::exists  -----
 
-	//--------------------------------------------------------------------------------------
-	//       Class:  ZooKeeper
-	//      Method:  get_acl
-	// Description:  
-	//--------------------------------------------------------------------------------------
-	int ZooKeeper::get_acl(string path, vector<ACL> *acl, Stat *stat)
+	ZooKeeper::Error ZooKeeper::get_acl(string path, vector<ACL> *acl, Stat *stat)
 	{
 		return 0;
 	}		// -----  end of method ZooKeeper::get_acl  -----
 
+	const clientid_t* ZooKeeper::get_client_id()
+	{
+		return zoo_client_id(m_zhandler);
+	}		// -----  end of method ZooKeeper::get_client_id  -----
+	
+	int ZooKeeper::get_session_timeout()
+	{
+		return zoo_recv_timeout(m_zhandler);
+	}		// -----  end of method ZooKeeper::get_session_timeout  -----
+	
+	ZooKeeper::State ZooKeeper::get_state()
+	{
+		return ZooKeeper::State(zoo_state(m_zhandler));
+	}		// -----  end of method ZooKeeper::get_state  -----
+
 
 	// ==================== PRIVATE METHOD =======================================
 
-	//--------------------------------------------------------------------------------------
-	//       Class:  ZooKeeper
-	//      Method:  watcher_callback
-	// Description:  
-	//--------------------------------------------------------------------------------------
+	void ZooKeeper::init(const string &connect_string, int session_timeout, Watcher *watcher, clientid_t *clientid)
+	{
+		if (watcher == nullptr) {
+			m_zhandler = zookeeper_init(connect_string.c_str(),
+					nullptr, session_timeout, clientid, watcher, 0);
+		} else {
+			m_zhandler = zookeeper_init(connect_string.c_str(),
+					watcher_callback, session_timeout, clientid, watcher, 0);
+		}
+	}		// -----  end of method ZooKeeper::init  -----
+
 	void ZooKeeper::watcher_callback(zhandle_t *zh, int type,
 			int state, const char *path,void *watcherCtx)
 	{

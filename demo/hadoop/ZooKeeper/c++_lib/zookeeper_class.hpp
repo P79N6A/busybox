@@ -26,6 +26,7 @@
 #include "zookeeper.h"
 
 #include "watcher_class.hpp"
+#include "watched_event_class.hpp"
 #include "async_callback_class.hpp"
 
 using std::string;
@@ -40,9 +41,158 @@ namespace zkclass
 	class ZooKeeper
 	{
 	public:
-		enum State
+		// ====================  INNER CLASS   =======================================
+
+		// =====================================================================================
+		//        Class:  Error
+		//  Description:  
+		// =====================================================================================
+		class Error
 		{
-		};
+		public:
+			// ====================  LIFECYCLE     =======================================
+			Error(int error) : m_error(error)
+			{
+			}
+
+			~Error()
+			{
+			}
+
+			// ====================  INTERFACE     =======================================
+			int no()
+			{
+				return m_error;
+			}
+
+			const char* c_str()
+			{
+				/* Everything is OK */
+				if (m_error == ZOK)
+					return "ZOK";
+
+				/* System and server-side errors */
+				if (m_error == ZSYSTEMERROR)
+					return "ZSYSTEMERROR";
+				if (m_error == ZRUNTIMEINCONSISTENCY)
+					return "ZRUNTIMEINCONSISTENCY";
+				if (m_error == ZDATAINCONSISTENCY)
+					return "ZDATAINCONSISTENCY";
+				if (m_error == ZCONNECTIONLOSS)
+					return "ZCONNECTIONLOSS";
+				if (m_error == ZMARSHALLINGERROR)
+					return "ZMARSHALLINGERROR";
+				if (m_error == ZUNIMPLEMENTED)
+					return "ZUNIMPLEMENTED";
+				if (m_error == ZOPERATIONTIMEOUT)
+					return "ZOPERATIONTIMEOUT";
+				if (m_error == ZBADARGUMENTS)
+					return "ZBADARGUMENTS";
+				if (m_error == ZINVALIDSTATE)
+					return "ZINVALIDSTATE";
+
+				/* API errors */
+				if (m_error == ZAPIERROR)
+					return "ZAPIERROR";
+				if (m_error == ZNONODE)
+					return "ZNONODE";
+				if (m_error == ZNOAUTH)
+					return "ZNOAUTH";
+				if (m_error == ZBADVERSION)
+					return "ZBADVERSION";
+				if (m_error == ZNOCHILDRENFOREPHEMERALS)
+					return "ZNOCHILDRENFOREPHEMERALS";
+				if (m_error == ZNODEEXISTS)
+					return "ZNODEEXISTS";
+				if (m_error == ZNOTEMPTY)
+					return "ZNOTEMPTY";
+				if (m_error == ZSESSIONEXPIRED)
+					return "ZSESSIONEXPIRED";
+				if (m_error == ZINVALIDCALLBACK)
+					return "ZINVALIDCALLBACK";
+				if (m_error == ZINVALIDACL)
+					return "ZINVALIDACL";
+				if (m_error == ZAUTHFAILED)
+					return "ZAUTHFAILED";
+				if (m_error == ZCLOSING)
+					return "ZCLOSING";
+				if (m_error == ZNOTHING)
+					return "ZNOTHING";
+				if (m_error == ZSESSIONMOVED)
+					return "ZSESSIONMOVED";
+
+				return "ZUNKNOWNERROR";
+			}
+
+			const char* desc()
+			{
+				/* Everything is OK */
+				if (m_error == ZOK)
+					return "Everything is OK";
+
+				/* System and server-side errors */
+				if (m_error == ZSYSTEMERROR)
+					return "system error";
+				if (m_error == ZRUNTIMEINCONSISTENCY)
+					return "A runtime inconsistency was found";
+				if (m_error == ZDATAINCONSISTENCY)
+					return "A data inconsistency was found";
+				if (m_error == ZCONNECTIONLOSS)
+					return "Connection to the server has been lost";
+				if (m_error == ZMARSHALLINGERROR)
+					return "Error while marshalling or unmarshalling data";
+				if (m_error == ZUNIMPLEMENTED)
+					return "Operation is unimplemented";
+				if (m_error == ZOPERATIONTIMEOUT)
+					return "Operation timeout";
+				if (m_error == ZBADARGUMENTS)
+					return "Invalid arguments";
+				if (m_error == ZINVALIDSTATE)
+					return "Invliad zhandle state";
+
+				/* API errors */
+				if (m_error == ZAPIERROR)
+					return "api error";
+				if (m_error == ZNONODE)
+					return "Node does not exist";
+				if (m_error == ZNOAUTH)
+					return "Not authenticated";
+				if (m_error == ZBADVERSION)
+					return "Version conflict";
+				if (m_error == ZNOCHILDRENFOREPHEMERALS)
+					return "Ephemeral nodes may not have children";
+				if (m_error == ZNODEEXISTS)
+					return "The node already exists";
+				if (m_error == ZNOTEMPTY)
+					return "The node has children";
+				if (m_error == ZSESSIONEXPIRED)
+					return "The session has been expired by the server";
+				if (m_error == ZINVALIDCALLBACK)
+					return "Invalid callback specified";
+				if (m_error == ZINVALIDACL)
+					return "Invalid ACL specified";
+				if (m_error == ZAUTHFAILED)
+					return "Client authentication failed";
+				if (m_error == ZCLOSING)
+					return "ZooKeeper is closing";
+				if (m_error == ZNOTHING)
+					return "(not error) no server responses to process";
+				if (m_error == ZSESSIONMOVED)
+					return "session moved to another server, so operation is ignored";
+
+				return "unknown error";
+			}
+
+		private:
+			// ==================== PRIVATE METHOD =======================================
+
+			// ====================  DATA MEMBERS  =======================================
+			int m_error;
+
+		};		// -----  end of class Error  -----
+
+		using State = Watcher::State;
+
 		// ====================  LIFECYCLE     =======================================
 
 		/* 
@@ -67,7 +217,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper(const string &connect_string, int session_timeout, Watcher *watcher, long session_id, char session_passwd[]);
+		ZooKeeper(const string &connect_string, int session_timeout, Watcher *watcher, clientid_t *clientid);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -89,7 +239,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		int add_auth_info(string scheme, char auth[]);
+		ZooKeeper::Error add_auth_info(string scheme, char auth[]);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -99,7 +249,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		int close();
+		ZooKeeper::Error close();
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -109,7 +259,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		int create(const string &path, char data[], vector<ACL> acl, int create_flag, string *new_path);
+		ZooKeeper::Error create(const string &path, char data[], vector<ACL> acl, int create_flag, string *new_path);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -119,7 +269,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		int remove(const string &path, int version);
+		ZooKeeper::Error remove(const string &path, int version);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -129,7 +279,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		int exists(string path, int watch, Stat *stat);
+		ZooKeeper::Error exists(string path, int watch, Stat *stat);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -139,7 +289,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		int exists(string path, Watcher *watcher, Stat *stat);
+		ZooKeeper::Error exists(string path, Watcher *watcher, Stat *stat);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -149,7 +299,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		int get_acl(string path, vector<ACL> *acl, Stat *stat);
+		ZooKeeper::Error get_acl(string path, vector<ACL> *acl, Stat *stat);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -247,23 +397,13 @@ namespace zkclass
 
 		/* 
 		// ===  FUNCTION  ======================================================================
-		//         Name:  get_session_id
-		//  Description:  The session id for this ZooKeeper client instance.
+		//         Name:  get_client_id
+		//  Description:  The session id, session password for this ZooKeeper client instance.
 		//   Parameters:  
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		long get_session_id();
-
-		/* 
-		// ===  FUNCTION  ======================================================================
-		//         Name:  get_session_passwd
-		//  Description:  The session password for this ZooKeeper client instance.
-		//   Parameters:  
-		//  ReturnValue:  
-		// =====================================================================================
-		*/
-//		char* get_session_passwd();
+		const clientid_t* get_client_id();
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -273,7 +413,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		int get_session_timeout();
+		int get_session_timeout();
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -283,7 +423,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		ZooKeeper::State get_state();
+		ZooKeeper::State get_state();
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -413,21 +553,18 @@ namespace zkclass
 		*/
 //		void multi();
 
+	private:
+		// ==================== PRIVATE METHOD =======================================
+
 		/* 
 		// ===  FUNCTION  ======================================================================
-		//         Name:  ok
+		//         Name:  init
 		//  Description:   
 		//   Parameters:  
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		inline bool ok()
-		{
-			return m_zhandler != nullptr;
-		}		// -----  end of function ok  -----
-		
-	private:
-		// ==================== PRIVATE METHOD =======================================
+		void init(const string &connect_string, int session_timeout, Watcher *watcher, clientid_t *clientid);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
