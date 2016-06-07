@@ -22,6 +22,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 #include "zookeeper.h"
 
 #include "watcher_class.hpp"
@@ -148,7 +149,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		vector<ACL> get_acl(string path, Stat stat);
+		int get_acl(string path, vector<ACL> *acl, Stat *stat);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -412,17 +413,66 @@ namespace zkclass
 		*/
 //		void multi();
 
-		// ====================  ACCESSORS     =======================================
-
-		// ====================  MUTATORS      =======================================
-
-		// ====================  OPERATORS     =======================================
-
-	protected:
-		// ====================  DATA MEMBERS  =======================================
-
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  ok
+		//  Description:   
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+		inline bool ok()
+		{
+			return m_zhandler != nullptr;
+		}		// -----  end of function ok  -----
+		
 	private:
 		// ==================== PRIVATE METHOD =======================================
+
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  register_obj_class_by_watcher_fn
+		//  Description:   
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+		inline watcher_fn register_watcher_obj_by_watcher_fn(Watcher *obj)
+		{
+			watcher_fn fn = nullptr;
+			if (obj != nullptr) {
+				fn = this->watcher_callback;
+			}
+			return fn;
+		}		// -----  end of function register_watcher_obj_by_watcher_fn  -----
+
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  vector_to_array
+		//  Description:   
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+		template <class T>
+		inline void vector_to_array(vector<T> vec, std::unique_ptr<T[]> arr)
+		{
+			return;
+		}		// -----  end of template function vector_to_array  -----
+
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  array_to_vector
+		//  Description:   
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+		template <class T>
+		inline void array_to_vector(std::unique_ptr<T[]> arr, vector<T> vec)
+		{
+			return;
+		}		// -----  end of template function array_to_vector  -----
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -437,7 +487,6 @@ namespace zkclass
 
 		// ====================  DATA MEMBERS  =======================================
 		zhandle_t *m_zhandler;
-		Watcher *m_watcher;
 		clientid_t m_clientid;
 
 		const size_t LINESIZE = 1024;

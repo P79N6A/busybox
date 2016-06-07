@@ -41,7 +41,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		virtual void process(WatchedEvent event) = 0;
+		virtual void process(const WatchedEvent &event) = 0;
 
 	};		// -----  end of class Watcher  -----
 

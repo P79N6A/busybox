@@ -31,13 +31,10 @@ namespace zkclass
 	// Description:  
 	//--------------------------------------------------------------------------------------
 	ZooKeeper::ZooKeeper(const string &connect_string, int session_timeout, Watcher *watcher)
+		: m_zhandler(nullptr)
 	{
-		m_watcher = watcher;
-		watcher_fn fn = nullptr;
-		if (watcher != nullptr) {
-			fn = this->watcher_callback;
-		}
-		m_zhandler = zookeeper_init(connect_string.c_str(), fn,
+		m_zhandler = zookeeper_init(connect_string.c_str(),
+				register_watcher_obj_by_watcher_fn(watcher),
 				session_timeout, NULL, watcher, 0);
 	}		// -----  end of method ZooKeeper::ZooKeeper  -----
 
@@ -47,16 +44,13 @@ namespace zkclass
 	// Description:  
 	//--------------------------------------------------------------------------------------
 	ZooKeeper::ZooKeeper(const string &connect_string, int session_timeout, Watcher *watcher, long session_id, char session_passwd[])
+		: m_zhandler(nullptr)
 	{
-		m_watcher = watcher;
-		watcher_fn fn = nullptr;
-		if (watcher != nullptr) {
-			fn = this->watcher_callback;
-		}
 		clientid_t clientid;
 		clientid.client_id = session_id;
 		strncpy(clientid.passwd, session_passwd, 16);	// 我也没办法，zk头文件写的就是16
-		m_zhandler = zookeeper_init(connect_string.c_str(), fn,
+		m_zhandler = zookeeper_init(connect_string.c_str(),
+				register_watcher_obj_by_watcher_fn(watcher),
 				session_timeout, &clientid, watcher, 0);
 	}		// -----  end of method ZooKeeper::ZooKeeper  -----
 
@@ -67,6 +61,7 @@ namespace zkclass
 	//--------------------------------------------------------------------------------------
 	ZooKeeper::~ZooKeeper()
 	{
+		m_zhandler = nullptr;
 	}		// -----  end of method ZooKeeper::~ZooKeeper  -----
 
 	// ====================  INTERFACE     =======================================
@@ -99,6 +94,7 @@ namespace zkclass
 	int ZooKeeper::create(const string &path, char data[], vector<ACL> acl, int create_flag, string *new_path)
 	{
 		ACL_vector acl_vector;
+		std::unique_ptr<ACL[]> acl_array(new ACL[acl.size()]);
 		struct ACL *acl_list = new ACL[acl.size()];
 		for (int i=0; i<acl.size(); ++i) {
 			acl_list[i] = acl[i];
@@ -146,6 +142,17 @@ namespace zkclass
 		return zoo_wexists(m_zhandler, path.c_str(), fn, watcher, stat);
 	}		// -----  end of method ZooKeeper::exists  -----
 
+	//--------------------------------------------------------------------------------------
+	//       Class:  ZooKeeper
+	//      Method:  get_acl
+	// Description:  
+	//--------------------------------------------------------------------------------------
+	int ZooKeeper::get_acl(string path, vector<ACL> *acl, Stat *stat)
+	{
+		return 0;
+	}		// -----  end of method ZooKeeper::get_acl  -----
+
+
 	// ==================== PRIVATE METHOD =======================================
 
 	//--------------------------------------------------------------------------------------
@@ -157,7 +164,8 @@ namespace zkclass
 			int state, const char *path,void *watcherCtx)
 	{
 		Watcher *watcher = (Watcher*)watcherCtx;
-		return;
+		WatchedEvent event(path, type, state);
+		watcher->process(event);
 	}		// -----  end of method ZooKeeper::watcher_callback  -----
 
 }	// ----- #namespace zkclass  -----

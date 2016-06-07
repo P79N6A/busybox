@@ -32,17 +32,16 @@ namespace zkclass
 	// =====================================================================================
 	class WatchedEvent
 	{
-		class EventType
-		{
-		};
-
-		class KeeperState
-		{
-		};
 	public:
 		// ====================  LIFECYCLE     =======================================
-		WatchedEvent();
-		~WatchedEvent();
+		WatchedEvent(const string &path, int type, int state)
+			: m_path(path), m_type(type), m_state(state)
+		{
+		}
+
+		~WatchedEvent()
+		{
+		}
 
 		// ====================  INTERFACE     =======================================
 
@@ -54,45 +53,40 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		string get_path();
+		inline const string& path() const
+		{
+			return m_path;
+		}		// -----  end of function path  -----
 
 		/* 
 		// ===  FUNCTION  ======================================================================
 		//         Name:  get_type
 		//  Description:   
-		//   Parameters:  
-		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		WatchedEvent::EventType get_type();
+		inline int type() const
+		{
+			return m_type;
+		}		// -----  end of function type  -----
 
 		/* 
 		// ===  FUNCTION  ======================================================================
 		//         Name:  get_state
 		//  Description:   
-		//   Parameters:  
-		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		WatchedEvent::KeeperState get_state();
-
-		/* 
-		// ===  FUNCTION  ======================================================================
-		//         Name:  get_wrapper
-		//  Description:   
-		//   Parameters:  
-		//  ReturnValue:  
-		// =====================================================================================
-		*/
-		void get_wrapper();
+		inline int state() const
+		{
+			return m_state;
+		}		// -----  end of function state  -----
 
 	private:
 		// ==================== PRIVATE METHOD =======================================
 
 		// ====================  DATA MEMBERS  =======================================
-		string path;
-		WatchedEvent::EventType type;
-		WatchedEvent::KeeperState state;
+		string m_path;
+		int m_type;
+		int m_state;
 
 	};		// -----  end of class WatchedEvent  -----
 

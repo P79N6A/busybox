@@ -17,9 +17,52 @@
 */
 
 #include <cstdlib>
+#include <cassert>
 #include <iostream>
 
 #include "zookeeper_class.hpp"
+using zkclass::ZooKeeper;
+using zkclass::Watcher;
+using zkclass::WatchedEvent;
+
+const std::string server = "localhost:2181";
+
+class mywatcher : public Watcher
+{
+	void process(const WatchedEvent &event)
+	{
+		std::cout << "mywatcher is  triggered" << std::endl;
+		std::cout << "event.path:" << event.path() << std::endl;
+		std::cout << "event.type:" << event.type() << std::endl;
+		std::cout << "event.state:" << event.state() << std::endl;
+	}
+};
+
+/* 
+// ===  FUNCTION  ======================================================================
+//         Name:  test_connect_and_close
+//  Description:   
+// =====================================================================================
+*/
+void test_connect_and_close()
+{
+	// case1：无watcher，无权限
+	ZooKeeper zk1(server, 10, nullptr);
+	assert(zk1.ok());
+	std::cout << "case1: connect to zookeeper server success!" << std::endl;
+	assert(zk1.close() == ZOK);
+	std::cout << "case1: close zookeeper connection success!" << std::endl;
+
+	// case2：有watcher无权限
+	mywatcher watcher;
+	ZooKeeper zk2(server, 10, &watcher);
+	assert(zk2.ok());
+	std::cout << "case2: connect to zookeeper server success!" << std::endl;
+	assert(zk2.close() == ZOK);
+	std::cout << "case2: close zookeeper connection success!" << std::endl;
+
+	std::cout << "\e[32mTest: test_connect_and_close() OK\e[0m" << std::endl;
+}		// -----  end of function test_connect_and_close  -----
 
 /* 
 // ===  FUNCTION  ======================================================================
@@ -29,7 +72,8 @@
 */
 int main(int argc, char *argv[])
 {
-	std::cout << "Hello World" << std::endl;
+	test_connect_and_close();
+	std::cout << "\e[32mAll Test is OK\e[0m" << std::endl;
 	return EXIT_SUCCESS;
 }				// ----------  end of function main  ----------
 
