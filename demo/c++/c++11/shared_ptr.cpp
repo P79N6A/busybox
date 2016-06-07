@@ -97,6 +97,10 @@ int main(int argc, char *argv[])
 	ap->bptr = bp;
 	bp->aptr = ap;
 
+	// shared_ptr无法支持c++动态数组指针，而unique_ptr可以
+	// std::shared_ptr<int[]> parray(new int[4]);	// compile error
+	std::shared_ptr<int> parray(new int[4]);	// 编译正确，但shared_ptr会调用delete去释放数组
+
 	return EXIT_SUCCESS;
 }				// ----------  end of function main  ----------
 
