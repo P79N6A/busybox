@@ -44,6 +44,11 @@ int main(int argc, char *argv[])
 	// 指针在函数内new，传递到函数外，不会造成内存泄漏
 	std::unique_ptr<int> p3 = fun();
 	std::cout << *p3 << std::endl;
+	// unique_ptr可以作为返回值，但是必须有对应的外部unique_ptr接收
+	int *p4 = p3.get();
+	std::cout << "pure pointer:" << *p4 << std::endl;
+	int *p5 = fun().get();
+	std::cout << "pure pointer:" << *p5 << std::endl;
 
 	// unique_ptr是天然支持c++动态数组的，而shared_ptr无法做到
 	std::unique_ptr<int[]> parray(new int[4]);
