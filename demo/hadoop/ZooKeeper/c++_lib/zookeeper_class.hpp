@@ -51,6 +51,10 @@ namespace zkclass
 		{
 		public:
 			// ====================  LIFECYCLE     =======================================
+			Error() : m_error(ZOK)
+			{
+			}
+
 			Error(int error) : m_error(error)
 			{
 			}
@@ -205,18 +209,6 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper(const string &connect_string, int session_timeout, Watcher *watcher);
-
-		/* 
-		// ===  FUNCTION  ======================================================================
-		//         Name:  ZooKeeper
-		//  Description:  To create a ZooKeeper client object, the application needs to pass a
-		//                connection string containing a comma separated list of host:port pairs,
-		//                each corresponding to a ZooKeeper server.
-		//   Parameters:  
-		//  ReturnValue:  
-		// =====================================================================================
-		*/
 		ZooKeeper(const string &connect_string, int session_timeout, Watcher *watcher, clientid_t *clientid);
 
 		/* 
@@ -230,16 +222,6 @@ namespace zkclass
 		~ZooKeeper();
 
 		// ====================  INTERFACE     =======================================
-
-		/* 
-		// ===  FUNCTION  ======================================================================
-		//         Name:  add_auth_info
-		//  Description:  Add the specified scheme:auth information to this connection.
-		//   Parameters:  
-		//  ReturnValue:  
-		// =====================================================================================
-		*/
-		ZooKeeper::Error add_auth_info(string scheme, char auth[]);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -259,7 +241,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper::Error create(const string &path, const char data[], vector<ACL> acl, int create_flag, string *new_path);
+		ZooKeeper::Error create(const string &path, const char data[], int data_size, vector<ACL> acl, int create_flag, string *new_path);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -279,7 +261,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper::Error exists(string path, int watch, Stat *stat);
+		ZooKeeper::Error exists(const string &path, bool watch, Stat *stat);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -289,18 +271,52 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper::Error exists(string path, Watcher *watcher, Stat *stat);
+		ZooKeeper::Error exists(const string &path, Watcher *watcher, Stat *stat);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
-		//         Name:  get_acl
-		//  Description:  Return the ACL and stat of the node of the given path.
+		//         Name:  set_data
+		//  Description:  Set the data for the node of the given path if such a node exists
+		//                and the given version matches the version of the node
+		//                (if the given version is -1, it matches any node's versions).
 		//   Parameters:  
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper::Error get_acl(string path, vector<ACL> *acl, Stat *stat);
+		ZooKeeper::Error set_data(const string &path, const char data[], int data_size, int version);
 
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  set_data
+		//  Description:  Set the data for the node of the given path if such a node exists
+		//                and the given version matches the version of the node
+		//                (if the given version is -1, it matches any node's versions).
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+		ZooKeeper::Error set_data(const string &path, const char data[], int data_size, int version, Stat *stat);
+
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  get_data
+		//  Description:  Return the data and the stat of the node of the given path.
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+		ZooKeeper::Error get_data(const string &path, char data[], int *data_size, bool watch, Stat *stat);
+
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  get_data
+		//  Description:  Return the data and the stat of the node of the given path.
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+		ZooKeeper::Error get_data(const string &path, char data[], int *data_size, Watcher *watcher, Stat *stat);
+		
 		/* 
 		// ===  FUNCTION  ======================================================================
 		//         Name:  get_children
@@ -343,34 +359,13 @@ namespace zkclass
 
 		/* 
 		// ===  FUNCTION  ======================================================================
-		//         Name:  get_data
-		//  Description:  Return the data and the stat of the node of the given path.
+		//         Name:  add_auth_info
+		//  Description:  Add the specified scheme:auth information to this connection.
 		//   Parameters:  
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		char* get_data(string path, bool watch, Stat stat);
-
-		/* 
-		// ===  FUNCTION  ======================================================================
-		//         Name:  get_data
-		//  Description:  Return the data and the stat of the node of the given path.
-		//   Parameters:  
-		//  ReturnValue:  
-		// =====================================================================================
-		*/
-//		char* get_data(string path, Watcher watcher, Stat stat);
-		
-		/* 
-		// ===  FUNCTION  ======================================================================
-		//         Name:  register
-		//  Description:  Specify the default watcher for the connection
-		//                (overrides the one specified during construction).
-		//   Parameters:  
-		//  ReturnValue:  
-		// =====================================================================================
-		*/
-//		void register_watcher(Watcher watcher);
+//		ZooKeeper::Error add_auth_info(string scheme, char auth[]);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -385,15 +380,24 @@ namespace zkclass
 
 		/* 
 		// ===  FUNCTION  ======================================================================
-		//         Name:  set_data
-		//  Description:  Set the data for the node of the given path if such a node exists
-		//                and the given version matches the version of the node
-		//                (if the given version is -1, it matches any node's versions).
+		//         Name:  get_acl
+		//  Description:  Return the ACL and stat of the node of the given path.
 		//   Parameters:  
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		Stat set_data(string path, char data[], int version);
+//		ZooKeeper::Error get_acl(string path, vector<ACL> *acl, Stat *stat);
+
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  register
+		//  Description:  Specify the default watcher for the connection
+		//                (overrides the one specified during construction).
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+//		void register_watcher(Watcher watcher);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -555,16 +559,6 @@ namespace zkclass
 
 	private:
 		// ==================== PRIVATE METHOD =======================================
-
-		/* 
-		// ===  FUNCTION  ======================================================================
-		//         Name:  init
-		//  Description:   
-		//   Parameters:  
-		//  ReturnValue:  
-		// =====================================================================================
-		*/
-		void init(const string &connect_string, int session_timeout, Watcher *watcher, clientid_t *clientid);
 
 		/* 
 		// ===  FUNCTION  ======================================================================

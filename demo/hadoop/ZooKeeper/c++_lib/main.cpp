@@ -30,19 +30,30 @@ using zkclass::WatchedEvent;
 
 const std::string server = "localhost:2181";
 
-int mywatcher_trigger = 0;
-class mywatcher : public Watcher
+int global_watcher_trigger = 0;
+class global_watcher : public Watcher
 {
 	void process(const WatchedEvent &event)
 	{
-		++mywatcher_trigger;
-		std::cout << "mywatcher is  triggered" << std::endl;
-		std::cout << "event.path:" << event.path() << std::endl;
-		std::cout << "event.type:" << event.type().c_str() << std::endl;
-		std::cout << "event.state:" << event.state().c_str() << std::endl;
+		++global_watcher_trigger;
+		std::cout << "global_watcher is triggered: " << "\t";
+		std::cout << "event.path[" << event.path() << "]\t";
+		std::cout << "event.type[" << event.type().c_str() << "]\t";
+		std::cout << "event.state[" << event.state().c_str() << "]" << std::endl;
 	}
 };
 
+class path_watcher : public Watcher
+{
+	void process(const WatchedEvent &event)
+	{
+		++global_watcher_trigger;
+		std::cout << "path_watcher is triggered: " << "\t";
+		std::cout << "event.path[" << event.path() << "]\t";
+		std::cout << "event.type[" << event.type().c_str() << "]\t";
+		std::cout << "event.state[" << event.state().c_str() << "]" << std::endl;
+	}
+};
 
 /* 
 // ===  FUNCTION  ======================================================================
@@ -53,7 +64,7 @@ class mywatcher : public Watcher
 static void test_connect_and_close()
 {
 	// case1：无watcher，无old session
-	ZooKeeper zk1(server, 1024, nullptr);
+	ZooKeeper zk1(server, 1024, nullptr, nullptr);
 	usleep(20*1000);	// 由于这里没有watcher监控状态，所以只能坐等session建立完成
 	assert(zk1.get_state().value() == ZOO_CONNECTED_STATE);
 	clientid_t id1 = *zk1.get_client_id();
@@ -77,11 +88,11 @@ static void test_connect_and_close()
 	assert(zk2.get_state().value() != ZOO_CONNECTED_STATE);
 
 	// case3：有watcher，无old session
-	mywatcher watcher3;
-	ZooKeeper zk3(server, 1024, &watcher3);
+	global_watcher watcher3;
+	ZooKeeper zk3(server, 1024, &watcher3, nullptr);
 	usleep(20*1000);	// 这里等待一段时间，确保watcher可以被触发
 	assert(zk3.get_state().value() == ZOO_CONNECTED_STATE);
-	assert(mywatcher_trigger == 1);
+	assert(global_watcher_trigger == 1);
 	clientid_t id3 = *zk3.get_client_id();
 	assert(id3.client_id != 0);
 	assert(id3.passwd[0] != 0);
@@ -89,7 +100,7 @@ static void test_connect_and_close()
 	assert(zk3.close().value() == ZOK);
 
 	// case4：有watcher，有old session
-	mywatcher watcher4;
+	global_watcher watcher4;
 	ZooKeeper zk4(server, 1024, &watcher4, &id3);
 	usleep(20*1000);	// 这里等待一段时间，确保watcher可以被触发
 	// 通过watcher可以发现，close并没有使zk3的session过期，而重用session id使得zk3的session过期
@@ -108,14 +119,67 @@ static void test_connect_and_close()
 */
 static void test_create_and_remove()
 {
-	ZooKeeper zk(server, 1024, nullptr);
+	global_watcher gwatcher;
+	path_watcher pwatcher;
+	path_watcher pwatcher2;
+
+	// 测试普通节点
+	ZooKeeper zk(server, 1024, &gwatcher, nullptr);
 	usleep(20*1000);	// 由于这里没有watcher监控状态，所以只能坐等session建立完成
 	assert(zk.get_state().value() == ZOO_CONNECTED_STATE);
 	std::string path("/zkclass_test");
+	Stat stat;
 	vector<ACL> acl = {{ZOO_PERM_ALL, ZOO_ANYONE_ID_UNSAFE}};
-	assert(zk.create(path, "root node", acl, 0, nullptr).value() == ZOK);
+	assert(zk.exists(path, true, &stat).value() == ZNONODE);	// true表示使用init时注册的global watcher进行监听
+	assert(zk.exists(path, true, &stat).value() == ZNONODE);	// 同一个path，同一个watcher，即使多次注册，也只监听1次
+	assert(zk.exists(path, &pwatcher, &stat).value() == ZNONODE);	// 除了使用global watcher，也可以自己指定watcher
+	assert(zk.create(path, "root node", 9, acl, 0, nullptr).value() == ZOK);
+	assert(zk.exists(path, false, &stat).value() == ZOK);	// global watcher也是一次性监听，如果需要则每次设置
+	assert(zk.exists(path, &pwatcher, &stat).value() == ZOK);	// 同一个path，同一个watcher，即使多次注册，也只监听1次
+	assert(zk.exists(path, &pwatcher, &stat).value() == ZOK);
+	assert(zk.exists(path, &pwatcher2, &stat).value() == ZOK);	// 相同path，不同watcher，作为两个不同的监听，会依次触发
 	assert(zk.remove(path, -1).value() == ZOK);
+	assert(zk.exists(path, false, &stat).value() == ZNONODE);
+	assert(zk.exists(path, &pwatcher, &stat).value() == ZNONODE);
+
+	// 测试临时节点
+	std::string path_ephemeral("/zkclass_test_ephemeral");
+	assert(zk.exists(path_ephemeral, false, &stat).value() == ZNONODE);
+	assert(zk.create(path_ephemeral, "ephemeral node", 14, acl, ZOO_EPHEMERAL, nullptr).value() == ZOK);
+	assert(zk.exists(path_ephemeral, false, &stat).value() == ZOK);
+
+	// 测试临时顺序节点
+	std::string path_sequence("/zkclass_test_sequence");
+	std::string new_path;
+	assert(zk.exists(path_sequence, false, &stat).value() == ZNONODE);
+	assert(zk.create(path_sequence, "sequence node", 14, acl, ZOO_EPHEMERAL | ZOO_SEQUENCE, &new_path).value() == ZOK);
+	assert(zk.exists(new_path, false, &stat).value() == ZOK);
+	std::cout << new_path << std::endl;
+
+	std::cout << "\e[32mTest: test_create_and_remove() OK\e[0m" << std::endl;
 }		// -----  end of static function test_create_and_remove  -----
+
+/* 
+// ===  FUNCTION  ======================================================================
+//         Name:  test_set_and_get
+//  Description:   
+// =====================================================================================
+*/
+static void test_set_and_get()
+{
+	std::cout << "\e[32mTest: test_set_and_get() OK\e[0m" << std::endl;
+}		// -----  end of static function test_set_and_get  -----
+
+/* 
+// ===  FUNCTION  ======================================================================
+//         Name:  test_acl
+//  Description:   
+// =====================================================================================
+*/
+static void test_acl()
+{
+	std::cout << "\e[32mTest: test_acl() OK\e[0m" << std::endl;
+}		// -----  end of static function test_acl  -----
 
 /* 
 // ===  FUNCTION  ======================================================================
@@ -125,12 +189,15 @@ static void test_create_and_remove()
 */
 int main(int argc, char *argv[])
 {
-//	test_connect_and_close();
+	test_connect_and_close();
 	test_create_and_remove();
+	test_set_and_get();
+	test_acl();
 	std::cout << "\e[32mAll Test is OK\e[0m" << std::endl;
 //	zhandle_t *m_zh = zookeeper_init("localhost:2181", nullptr, 4000, nullptr, nullptr, 0);
 //	usleep(20*1000);
 //	std::cout << zoo_create(m_zh, "/zkclass_test", "root node", 9, &ZOO_OPEN_ACL_UNSAFE, 0, NULL, 0) << std::endl;
+//	std::cout << zoo_create(m_zh, "/zkclass_test_ephemeral", "ephemeral root", 14, &ZOO_OPEN_ACL_UNSAFE, ZOO_EPHEMERAL, NULL, 0) << std::endl;
 //	std::cout << zoo_delete(m_zh, "/zkclass_test", -1) << std::endl;
 //	zookeeper_close(m_zh);
 	return EXIT_SUCCESS;
