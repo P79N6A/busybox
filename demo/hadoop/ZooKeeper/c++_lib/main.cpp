@@ -127,7 +127,7 @@ static void test_create_and_remove()
 	ZooKeeper zk(server, 1024, &gwatcher, nullptr);
 	usleep(20*1000);	// 由于这里没有watcher监控状态，所以只能坐等session建立完成
 	assert(zk.get_state().value() == ZOO_CONNECTED_STATE);
-	std::string path("/zkclass_test");
+	std::string path("/zkclass_test_create");
 	Stat stat;
 	vector<ACL> acl = {{ZOO_PERM_ALL, ZOO_ANYONE_ID_UNSAFE}};
 	assert(zk.exists(path, true, &stat).value() == ZNONODE);	// true表示使用init时注册的global watcher进行监听
@@ -138,7 +138,7 @@ static void test_create_and_remove()
 	assert(zk.exists(path, &pwatcher, &stat).value() == ZOK);	// 同一个path，同一个watcher，即使多次注册，也只监听1次
 	assert(zk.exists(path, &pwatcher, &stat).value() == ZOK);
 	assert(zk.exists(path, &pwatcher2, &stat).value() == ZOK);	// 相同path，不同watcher，作为两个不同的监听，会依次触发
-	assert(zk.remove(path, -1).value() == ZOK);
+	assert(zk.remove(path, stat.version).value() == ZOK);
 	assert(zk.exists(path, false, &stat).value() == ZNONODE);
 	assert(zk.exists(path, &pwatcher, &stat).value() == ZNONODE);
 
@@ -152,7 +152,7 @@ static void test_create_and_remove()
 	std::string path_sequence("/zkclass_test_sequence");
 	std::string new_path;
 	assert(zk.exists(path_sequence, false, &stat).value() == ZNONODE);
-	assert(zk.create(path_sequence, "sequence node", 14, acl, ZOO_EPHEMERAL | ZOO_SEQUENCE, &new_path).value() == ZOK);
+	assert(zk.create(path_sequence, "sequence node", 14, acl, ZOO_EPHEMERAL|ZOO_SEQUENCE, &new_path).value() == ZOK);
 	assert(zk.exists(new_path, false, &stat).value() == ZOK);
 	std::cout << new_path << std::endl;
 
@@ -167,6 +167,39 @@ static void test_create_and_remove()
 */
 static void test_set_and_get()
 {
+	global_watcher gwatcher;
+	path_watcher pwatcher;
+	ZooKeeper zk(server, 1024, &gwatcher, nullptr);
+	usleep(20*1000);	// 由于这里没有watcher监控状态，所以只能坐等session建立完成
+	assert(zk.get_state().value() == ZOO_CONNECTED_STATE);
+	std::string path("/zkclass_test_set_get");
+	Stat stat;
+	vector<ACL> acl = {{ZOO_PERM_ALL, ZOO_ANYONE_ID_UNSAFE}};
+	char data[1024];
+	int data_size = 1024;
+	assert(zk.get_data(path, data, &data_size, true, nullptr).value() == ZNONODE);	// get_data并不能监听到create事件，且在节点创建之前，对节点内容的监听都是无效的
+	assert(zk.create(path, "", 0, acl, ZOO_EPHEMERAL, nullptr).value() == ZOK);
+	assert(zk.exists(path, false, &stat).value() == ZOK);	// global watcher也是一次性监听，如果需要则每次设置
+	assert(zk.get_data(path, data, &data_size, true, nullptr).value() == ZOK);
+	assert(data_size == 0);
+	assert(zk.get_data(path, data, &data_size, &pwatcher, &stat).value() == ZOK);
+	assert(data_size == 0);
+	assert(zk.set_data(path, "abcd", 4, stat.version).value() == ZOK);
+	data_size = 1024;
+	assert(zk.get_data(path, data, &data_size, false, &stat).value() == ZOK);
+	assert(data_size == 4);
+	assert(strncmp(data, "abcd", data_size) == 0);
+	data_size = 2;	// get_data的size参数，既是入参也是出参
+	assert(zk.get_data(path, data, &data_size, false, &stat).value() == ZOK);
+	std::cout << data << data_size << std::endl;
+	assert(data_size == 2);
+	assert(strncmp(data, "ab", data_size) == 0);
+	assert(zk.get_data(path, data, &data_size, false, &stat).value() == ZOK);
+	int version = stat.version;
+	assert(zk.set_data(path, "abcde", 5, stat.version, &stat).value() == ZOK);
+	assert(stat.version == version + 1);
+	assert(zk.remove(path, stat.version).value() == ZOK);
+
 	std::cout << "\e[32mTest: test_set_and_get() OK\e[0m" << std::endl;
 }		// -----  end of static function test_set_and_get  -----
 
