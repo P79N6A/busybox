@@ -301,7 +301,7 @@ static void test_acl()
 	std::string path("/zkclass_test_acl");
 	wait_watcher();
 	assert(zk.get_state() == ZOO_CONNECTED_STATE);
-	assert(zk.create(path, std::string("acl node"), acl) == ZOK);
+	assert(zk.create(path, std::string("acl node"), acl) == ZOK);	// 为什么这一行会导致valgrind内存泄漏：possibly lost
 	acl.clear();
 	assert(zk.get_acl(path, &acl, &stat) == ZOK);
 	assert(acl.size() == 1);
@@ -319,7 +319,7 @@ static void test_acl()
 	assert(zk.set_data(path, std::string("acl write"), -1) == ZNOAUTH);
 	assert(zk.add_auth_info("digest", "test:test") == ZOK);
 	assert(zk.set_data(path, std::string("acl write"), -1) == ZOK);
-	assert(zk.remove(path, -1) == ZOK);
+	assert(zk.remove(path, -1) == ZOK);	// 为什么这一行会导致valgrind内存泄漏？
 	std::cout << "\e[32mTest: test_acl() OK\e[0m" << std::endl;
 }		// -----  end of static function test_acl  -----
 
@@ -349,13 +349,14 @@ static void test_watcher()
 */
 int main(int argc, char *argv[])
 {
-//	test_connect_and_close();
-//	test_create_and_remove();
-//	test_set_and_get();
-//	test_get_children();
+	test_connect_and_close();
+	test_create_and_remove();
+	test_set_and_get();
+	test_get_children();
 	test_acl();
-//	test_watcher();
+	test_watcher();
 	std::cout << "\e[32mAll Test is OK\e[0m" << std::endl;
+
 //	zhandle_t *m_zh = zookeeper_init("localhost:2181", nullptr, 4000, nullptr, nullptr, 0);
 //	usleep(20*1000);
 //	std::cout << zoo_create(m_zh, "/zkclass_test", "root node", 9, &ZOO_OPEN_ACL_UNSAFE, 0, NULL, 0) << std::endl;
