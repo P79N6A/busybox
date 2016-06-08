@@ -230,6 +230,11 @@ namespace zkclass
 		return error;
 	}		// -----  end of method ZooKeeper::get_children  -----
 
+	void ZooKeeper::register_watcher(Watcher *watcher)
+	{
+		zoo_set_context(m_zhandler, watcher);
+	}		// -----  end of method ZooKeeper::register_watcher  -----
+
 	const clientid_t* ZooKeeper::get_client_id()
 	{
 		return zoo_client_id(m_zhandler);
@@ -244,6 +249,12 @@ namespace zkclass
 	{
 		return ZooKeeper::State(zoo_state(m_zhandler));
 	}		// -----  end of method ZooKeeper::get_state  -----
+
+	bool ZooKeeper::recoverable()
+	{
+		return is_unrecoverable(m_zhandler) == ZINVALIDSTATE ? false : true;
+	}		// -----  end of method ZooKeeper::recoverable  -----
+
 
 	// ==================== PRIVATE METHOD =======================================
 

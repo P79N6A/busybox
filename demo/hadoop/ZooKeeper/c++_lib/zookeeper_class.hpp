@@ -485,7 +485,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		void register_watcher(Watcher watcher);
+		void register_watcher(Watcher *watcher);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -516,6 +516,16 @@ namespace zkclass
 		// =====================================================================================
 		*/
 		ZooKeeper::State get_state();
+
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  recoverable
+		//  Description:  checks if the current zookeeper connection state can be recovered.
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+		bool recoverable();
 
 		/* 
 		// ===  FUNCTION  ======================================================================

@@ -35,7 +35,8 @@ pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 #define wait_watcher() \
 	pthread_mutex_lock(&mutex);\
 	global_watcher_trigger = 0; \
-	while (!global_watcher_trigger) { \
+	path_watcher_trigger = 0; \
+	while (!(global_watcher_trigger | path_watcher_trigger)) { \
 		pthread_cond_wait(&cond, &mutex); \
 	} \
 	pthread_mutex_unlock(&mutex); \
@@ -43,6 +44,7 @@ pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 const std::string server = "localhost:2181";
 
 int global_watcher_trigger = 0;
+int path_watcher_trigger = 0;
 class global_watcher : public Watcher
 {
 	void process(const WatchedEvent &event)
@@ -64,11 +66,17 @@ class path_watcher : public Watcher
 {
 	void process(const WatchedEvent &event)
 	{
-		++global_watcher_trigger;
+		++path_watcher_trigger;
 		std::cout << "path_watcher is triggered: " << "\t";
 		std::cout << "event.path[" << event.path() << "]\t";
 		std::cout << "event.type[" << event.type().c_str() << "]\t";
 		std::cout << "event.state[" << event.state().c_str() << "]" << std::endl;
+		if (event.type() == ZOO_SESSION_EVENT) {
+			pthread_mutex_lock(&mutex);
+			path_watcher_trigger = 1;
+			pthread_cond_signal(&cond);
+			pthread_mutex_unlock(&mutex);
+		}
 	}
 };
 
@@ -267,6 +275,24 @@ static void test_acl()
 
 /* 
 // ===  FUNCTION  ======================================================================
+//         Name:  test_watcher
+//  Description:   
+// =====================================================================================
+*/
+static void test_watcher()
+{
+	global_watcher gwatcher;
+	path_watcher pwatcher;
+	ZooKeeper zk(server, 1024, &gwatcher);
+	zk.register_watcher(&pwatcher);
+	wait_watcher();
+	assert(global_watcher_trigger == 0);
+	assert(path_watcher_trigger == 1);
+	std::cout << "\e[32mTest: test_watcher() OK\e[0m" << std::endl;
+}		// -----  end of static function test_watcher  -----
+
+/* 
+// ===  FUNCTION  ======================================================================
 //         Name:  main
 //  Description:  
 // =====================================================================================
@@ -278,6 +304,7 @@ int main(int argc, char *argv[])
 	test_set_and_get();
 	test_get_children();
 	test_acl();
+	test_watcher();
 	std::cout << "\e[32mAll Test is OK\e[0m" << std::endl;
 //	zhandle_t *m_zh = zookeeper_init("localhost:2181", nullptr, 4000, nullptr, nullptr, 0);
 //	usleep(20*1000);
