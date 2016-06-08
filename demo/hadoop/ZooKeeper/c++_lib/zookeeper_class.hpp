@@ -209,6 +209,18 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
+		ZooKeeper(const string &connect_string, int session_timeout, Watcher *watcher);
+
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  ZooKeeper
+		//  Description:  To create a ZooKeeper client object, the application needs to pass a
+		//                connection string containing a comma separated list of host:port pairs,
+		//                each corresponding to a ZooKeeper server.
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
 		ZooKeeper(const string &connect_string, int session_timeout, Watcher *watcher, clientid_t *clientid);
 
 		/* 
@@ -241,7 +253,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper::Error create(const string &path, const char data[], int data_size, vector<ACL> acl, int create_flag, string *new_path);
+		ZooKeeper::Error create(const string &path, const string &data, vector<ACL> acl, int create_flag, string *new_path);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -283,7 +295,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper::Error set_data(const string &path, const char data[], int data_size, int version);
+		ZooKeeper::Error set_data(const string &path, const string &data, int version);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -295,7 +307,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper::Error set_data(const string &path, const char data[], int data_size, int version, Stat *stat);
+		ZooKeeper::Error set_data(const string &path, const string &data, int version, Stat *stat);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -305,7 +317,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper::Error get_data(const string &path, char data[], int *data_size, bool watch, Stat *stat);
+		ZooKeeper::Error get_data(const string &path, string *data, bool watch, Stat *stat);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -315,7 +327,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper::Error get_data(const string &path, char data[], int *data_size, Watcher *watcher, Stat *stat);
+		ZooKeeper::Error get_data(const string &path, string *data, Watcher *watcher, Stat *stat);
 		
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -330,22 +342,22 @@ namespace zkclass
 		/* 
 		// ===  FUNCTION  ======================================================================
 		//         Name:  get_children
-		//  Description:  For the given znode path return the stat and children list.
-		//   Parameters:  
-		//  ReturnValue:  
-		// =====================================================================================
-		*/
-		ZooKeeper::Error get_children(const string path, vector<string> &path_list, bool watch, Stat &stat);
-
-		/* 
-		// ===  FUNCTION  ======================================================================
-		//         Name:  get_children
 		//  Description:  Return the list of the children of the node of the given path.
 		//   Parameters:  
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
 		ZooKeeper::Error get_children(const string path, vector<string> &path_list, Watcher &watcher);
+
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  get_children
+		//  Description:  For the given znode path return the stat and children list.
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+		ZooKeeper::Error get_children(const string path, vector<string> &path_list, bool watch, Stat &stat);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -559,6 +571,16 @@ namespace zkclass
 
 	private:
 		// ==================== PRIVATE METHOD =======================================
+
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  init
+		//  Description:   
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+		void init(const string &connect_string, int session_timeout, Watcher *watcher, clientid_t *clientid);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
