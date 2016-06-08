@@ -22,6 +22,10 @@
 #include <cassert>
 #include <cstring>
 #include <iostream>
+#include <openssl/sha.h>
+#include <openssl/bio.h>
+#include <openssl/evp.h>
+#include <openssl/buffer.h>
 
 #include "zookeeper_class.hpp"
 #include "watched_event_class.hpp"
@@ -40,6 +44,26 @@ pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 		pthread_cond_wait(&cond, &mutex); \
 	} \
 	pthread_mutex_unlock(&mutex); \
+
+int Base64Encode(const unsigned char* buffer, size_t length, char** b64text) { //Encodes a binary safe base 64 string
+	BIO *bio, *b64;
+	BUF_MEM *bufferPtr;
+
+	b64 = BIO_new(BIO_f_base64());
+	bio = BIO_new(BIO_s_mem());
+	bio = BIO_push(b64, bio);
+
+	BIO_set_flags(bio, BIO_FLAGS_BASE64_NO_NL); //Ignore newlines - write everything in one line
+	BIO_write(bio, buffer, length);
+	BIO_flush(bio);
+	BIO_get_mem_ptr(bio, &bufferPtr);
+	BIO_set_close(bio, BIO_NOCLOSE);
+	BIO_free_all(bio);
+
+	*b64text=(*bufferPtr).data;
+
+	return (0); //success
+}
 
 const std::string server = "localhost:2181";
 
@@ -270,6 +294,32 @@ static void test_get_children()
 */
 static void test_acl()
 {
+	global_watcher gwatcher;
+	std::vector<ACL> acl = {{ZOO_PERM_ALL&~ZOO_PERM_WRITE, ZOO_ANYONE_ID_UNSAFE}};
+	Stat stat;
+	ZooKeeper zk(server, 1024, &gwatcher);
+	std::string path("/zkclass_test_acl");
+	wait_watcher();
+	assert(zk.get_state() == ZOO_CONNECTED_STATE);
+	assert(zk.create(path, std::string("acl node"), acl) == ZOK);
+	acl.clear();
+	assert(zk.get_acl(path, &acl, &stat) == ZOK);
+	assert(acl.size() == 1);
+	assert(acl[0].perms == (ZOO_PERM_ALL&~ZOO_PERM_WRITE));
+	assert(strcmp(acl[0].id.scheme, "world") == 0);
+	assert(strcmp(acl[0].id.id, "anyone") == 0);
+	acl.push_back({ZOO_PERM_WRITE, {"digest", "test:V28q/NynI4JI3Rk54h0r8O5kMug="}});
+	assert(zk.set_acl(path, acl, stat.version) == ZOK);
+	acl.clear();
+	assert(zk.get_acl(path, &acl) == ZOK);
+	assert(acl.size() == 2);
+	assert(acl[1].perms == ZOO_PERM_WRITE);
+	assert(strcmp(acl[1].id.scheme, "digest") == 0);	// digest类型的id格式为："user:base64(sha1("user:passwd"))"
+	assert(strcmp(acl[1].id.id, "test:V28q/NynI4JI3Rk54h0r8O5kMug=") == 0);
+	assert(zk.set_data(path, std::string("acl write"), -1) == ZNOAUTH);
+	assert(zk.add_auth_info("digest", "test:test") == ZOK);
+	assert(zk.set_data(path, std::string("acl write"), -1) == ZOK);
+	assert(zk.remove(path, -1) == ZOK);
 	std::cout << "\e[32mTest: test_acl() OK\e[0m" << std::endl;
 }		// -----  end of static function test_acl  -----
 
@@ -299,12 +349,12 @@ static void test_watcher()
 */
 int main(int argc, char *argv[])
 {
-	test_connect_and_close();
-	test_create_and_remove();
-	test_set_and_get();
-	test_get_children();
+//	test_connect_and_close();
+//	test_create_and_remove();
+//	test_set_and_get();
+//	test_get_children();
 	test_acl();
-	test_watcher();
+//	test_watcher();
 	std::cout << "\e[32mAll Test is OK\e[0m" << std::endl;
 //	zhandle_t *m_zh = zookeeper_init("localhost:2181", nullptr, 4000, nullptr, nullptr, 0);
 //	usleep(20*1000);
@@ -312,6 +362,14 @@ int main(int argc, char *argv[])
 //	std::cout << zoo_create(m_zh, "/zkclass_test_ephemeral", "ephemeral root", 14, &ZOO_OPEN_ACL_UNSAFE, ZOO_EPHEMERAL, NULL, 0) << std::endl;
 //	std::cout << zoo_delete(m_zh, "/zkclass_test", -1) << std::endl;
 //	zookeeper_close(m_zh);
+
+//	const unsigned char input[] = "test:test";
+//	unsigned char output[SHA_DIGEST_LENGTH];
+//	SHA1(input, strlen((const char*)input), output);
+//	std::cout << output << std::endl;
+//	char* base64EncodeOutput;
+//	Base64Encode(output, SHA_DIGEST_LENGTH, &base64EncodeOutput);
+//	std::cout << base64EncodeOutput << std::endl;
 	return EXIT_SUCCESS;
 }				// ----------  end of function main  ----------
 

@@ -47,7 +47,7 @@ namespace zkclass
 	ZooKeeper::Error ZooKeeper::close()
 	{
 		ZooKeeper::Error error(zookeeper_close(m_zhandler));
-		if (error.value() == ZOK) {
+		if (error == ZOK) {
 			m_zhandler = nullptr;
 		}
 		return error;
@@ -78,7 +78,7 @@ namespace zkclass
 			error = zoo_create(m_zhandler, path.c_str(), data.c_str(), data.size(), &acl_vector, create_flag, new_path_buf, LINESIZE);
 			*new_path = new_path_buf;
 		} else {
-			error = zoo_create(m_zhandler, path.c_str(), data.c_str(), data.size(), &ZOO_OPEN_ACL_UNSAFE, create_flag, NULL, 0);
+			error = zoo_create(m_zhandler, path.c_str(), data.c_str(), data.size(), &acl_vector, create_flag, NULL, 0);
 		}
 		return error;
 	}		// -----  end of method ZooKeeper::create  -----
@@ -152,8 +152,8 @@ namespace zkclass
 		char buf[1048576];	// 1024*1024
 		int len = 1048576;	// len is in-param and out-param
 		ZooKeeper::Error error(zoo_get(m_zhandler, path.c_str(), watch?1:0, buf, &len, stat));
-		if (error.value() == ZOK) {
-			data->std::string::~string();
+		if (error == ZOK) {
+			data->std::string::~string();	// 重复placement new会导致内存泄漏
 			new(data) std::string(buf, len);
 		} else {
 			data = nullptr;
@@ -171,8 +171,8 @@ namespace zkclass
 		char buf[1048576];	// 1024*1024
 		int len = 1048576;	// len is in-param and out-param
 		ZooKeeper::Error error(zoo_wget(m_zhandler, path.c_str(), watcher_callback, watcher, buf, &len, stat));
-		if (error.value() == ZOK) {
-			data->std::string::~string();
+		if (error == ZOK) {
+			data->std::string::~string();	// 重复placement new会导致内存泄漏
 			new(data) std::string(buf, len);
 		} else {
 			data = nullptr;
@@ -229,6 +229,37 @@ namespace zkclass
 		}
 		return error;
 	}		// -----  end of method ZooKeeper::get_children  -----
+
+	ZooKeeper::Error ZooKeeper::add_auth_info(const std::string &scheme, const std::string &cert)
+	{
+		return ZooKeeper::Error(zoo_add_auth(m_zhandler, scheme.c_str(), cert.c_str(), cert.size(), nullptr, nullptr));
+	}		// -----  end of method ZooKeeper::add_auth_info  -----
+
+	ZooKeeper::Error ZooKeeper::set_acl(const std::string path, std::vector<ACL> acl, int version)
+	{
+		ACL_vector acl_vector = {0, NULL};
+		std::unique_ptr<ACL[]> acl_array = vector_to_array<ACL>(acl);
+		acl_vector.data = acl_array.get();
+		acl_vector.count = acl.size();
+		return ZooKeeper::Error(zoo_set_acl(m_zhandler, path.c_str(), version, &acl_vector));
+	}		// -----  end of method ZooKeeper::set_acl  -----
+
+	ZooKeeper::Error ZooKeeper::get_acl(const std::string path, std::vector<ACL> *acl)
+	{
+		return get_acl(path, acl, nullptr);
+	}		// -----  end of method ZooKeeper::get_acl  -----
+
+	ZooKeeper::Error ZooKeeper::get_acl(const std::string path, std::vector<ACL> *acl, Stat *stat)
+	{
+		ACL_vector acl_vector;
+		ZooKeeper::Error error(zoo_get_acl(m_zhandler, path.c_str(), &acl_vector, stat));
+		if (error == ZOK) {
+			for (int i=0; i<acl_vector.count; ++i) {
+				acl->push_back(acl_vector.data[i]);
+			}
+		}
+		return error;
+	}		// -----  end of method ZooKeeper::get_acl  -----
 
 	void ZooKeeper::register_watcher(Watcher *watcher)
 	{

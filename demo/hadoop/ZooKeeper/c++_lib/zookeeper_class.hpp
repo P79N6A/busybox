@@ -453,7 +453,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		ZooKeeper::Error add_auth_info(std::string scheme, char auth[]);
+		ZooKeeper::Error add_auth_info(const std::string &scheme, const std::string &cert);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -464,7 +464,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		Stat set_acl(std::string path, std::vector<ACL> acl, int version);
+		ZooKeeper::Error set_acl(const std::string path, std::vector<ACL> acl, int version);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -474,7 +474,17 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		ZooKeeper::Error get_acl(std::string path, std::vector<ACL> *acl, Stat *stat);
+		ZooKeeper::Error get_acl(const std::string path, std::vector<ACL> *acl);
+
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  get_acl
+		//  Description:  Return the ACL and stat of the node of the given path.
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+		ZooKeeper::Error get_acl(const std::string path, std::vector<ACL> *acl, Stat *stat);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
