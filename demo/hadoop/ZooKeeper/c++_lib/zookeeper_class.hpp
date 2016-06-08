@@ -325,7 +325,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 //		*/
-//		vector<string> get_children(string path, bool watch);
+		ZooKeeper::Error get_children(const string path, vector<string> &path_list, bool watch);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -335,7 +335,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		vector<string> get_children(string path, bool watch, Stat stat);
+		ZooKeeper::Error get_children(const string path, vector<string> &path_list, bool watch, Stat &stat);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -345,7 +345,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		vector<string> get_children(string path, Watcher watcher);
+		ZooKeeper::Error get_children(const string path, vector<string> &path_list, Watcher &watcher);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -355,7 +355,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		void get_children(string path, Watcher watcher, Stat stat);
+		ZooKeeper::Error get_children(const string path, vector<string> &path_list, Watcher &watcher, Stat &stat);
 
 		/* 
 		// ===  FUNCTION  ======================================================================

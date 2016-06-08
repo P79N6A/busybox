@@ -112,6 +112,22 @@ namespace zkclass
 		return ZooKeeper::Error(zoo_wget(m_zhandler, path.c_str(), watcher_callback, watcher, data, data_size, stat));
 	}		// -----  end of method ZooKeeper::get_data  -----
 
+	ZooKeeper::Error ZooKeeper::get_children(const string path, vector<string> &path_list, bool watch)
+	{
+	}		// -----  end of method ZooKeeper::get_children  -----
+
+	ZooKeeper::Error ZooKeeper::get_children(const string path, vector<string> &path_list, bool watch, Stat &stat)
+	{
+	}		// -----  end of method ZooKeeper::get_children  -----
+
+	ZooKeeper::Error ZooKeeper::get_children(const string path, vector<string> &path_list, Watcher &watcher)
+	{
+	}		// -----  end of method ZooKeeper::get_children  -----
+
+	ZooKeeper::Error ZooKeeper::get_children(const string path, vector<string> &path_list, Watcher &watcher, Stat &stat)
+	{
+	}		// -----  end of method ZooKeeper::get_children  -----
+
 	const clientid_t* ZooKeeper::get_client_id()
 	{
 		return zoo_client_id(m_zhandler);
