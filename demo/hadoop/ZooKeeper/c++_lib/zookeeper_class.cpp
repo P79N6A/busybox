@@ -153,6 +153,7 @@ namespace zkclass
 		int len = 1048576;	// len is in-param and out-param
 		ZooKeeper::Error error(zoo_get(m_zhandler, path.c_str(), watch?1:0, buf, &len, stat));
 		if (error.value() == ZOK) {
+			data->std::string::~string();
 			new(data) std::string(buf, len);
 		} else {
 			data = nullptr;
@@ -171,6 +172,7 @@ namespace zkclass
 		int len = 1048576;	// len is in-param and out-param
 		ZooKeeper::Error error(zoo_wget(m_zhandler, path.c_str(), watcher_callback, watcher, buf, &len, stat));
 		if (error.value() == ZOK) {
+			data->std::string::~string();
 			new(data) std::string(buf, len);
 		} else {
 			data = nullptr;
@@ -178,27 +180,53 @@ namespace zkclass
 		return error;
 	}		// -----  end of method ZooKeeper::get_data  -----
 
-	ZooKeeper::Error ZooKeeper::get_children(const std::string path, std::vector<std::string> &path_list, bool watch)
+	ZooKeeper::Error ZooKeeper::get_children(const std::string path, std::vector<std::string> *children)
 	{
-		ZooKeeper::Error error;
+		return get_children(path, children, false);
+	}		// -----  end of method ZooKeeper::get_children  -----
+
+	ZooKeeper::Error ZooKeeper::get_children(const std::string path, std::vector<std::string> *children, Stat *stat)
+	{
+		return get_children(path, children, false, stat);
+	}		// -----  end of method ZooKeeper::get_children  -----
+
+	ZooKeeper::Error ZooKeeper::get_children(const std::string path, std::vector<std::string> *children, bool watch)
+	{
+		struct String_vector str_vector;
+		ZooKeeper::Error error(zoo_get_children(m_zhandler, path.c_str(), watch, &str_vector));
+		for (int i=0; i<str_vector.count; ++i) {
+			children->emplace_back(std::string(str_vector.data[i]));
+		}
 		return error;
 	}		// -----  end of method ZooKeeper::get_children  -----
 
-	ZooKeeper::Error ZooKeeper::get_children(const std::string path, std::vector<std::string> &path_list, Watcher &watcher)
+	ZooKeeper::Error ZooKeeper::get_children(const std::string path, std::vector<std::string> *children, Watcher *watcher)
 	{
-		ZooKeeper::Error error;
+		struct String_vector str_vector;
+		ZooKeeper::Error error(zoo_wget_children(m_zhandler, path.c_str(), watcher_callback, watcher, &str_vector));
+		for (int i=0; i<str_vector.count; ++i) {
+			children->emplace_back(std::string(str_vector.data[i]));
+		}
 		return error;
 	}		// -----  end of method ZooKeeper::get_children  -----
 
-	ZooKeeper::Error ZooKeeper::get_children(const std::string path, std::vector<std::string> &path_list, bool watch, Stat &stat)
+	ZooKeeper::Error ZooKeeper::get_children(const std::string path, std::vector<std::string> *children, bool watch, Stat *stat)
 	{
-		ZooKeeper::Error error;
+		struct String_vector str_vector;
+		ZooKeeper::Error error(zoo_get_children2(m_zhandler, path.c_str(), watch, &str_vector, stat));
+		for (int i=0; i<str_vector.count; ++i) {
+			children->emplace_back(std::string(str_vector.data[i]));
+		}
 		return error;
 	}		// -----  end of method ZooKeeper::get_children  -----
 
-	ZooKeeper::Error ZooKeeper::get_children(const std::string path, std::vector<std::string> &path_list, Watcher &watcher, Stat &stat)
+	ZooKeeper::Error ZooKeeper::get_children(const std::string path, std::vector<std::string> *children, Watcher *watcher, Stat *stat)
 	{
-		ZooKeeper::Error error;
+		struct String_vector str_vector;
+		ZooKeeper::Error error(zoo_wget_children2(m_zhandler, path.c_str(), watcher_callback, watcher, &str_vector,stat));
+		for (int i=0; i<str_vector.count; ++i) {
+			children->emplace_back(std::string(str_vector.data[i]));
+		}
 		return error;
 	}		// -----  end of method ZooKeeper::get_children  -----
 

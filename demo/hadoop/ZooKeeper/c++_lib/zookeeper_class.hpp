@@ -62,6 +62,17 @@ namespace zkclass
 			{
 			}
 
+			// ====================  OPERATORS     =======================================
+			bool operator==(int value)
+			{
+				return m_error == value;
+			}
+
+			bool operator!=(int value)
+			{
+				return m_error != value;
+			}
+
 			// ====================  INTERFACE     =======================================
 			int value()
 			{
@@ -129,61 +140,7 @@ namespace zkclass
 
 			const char* desc()
 			{
-				/* Everything is OK */
-				if (m_error == ZOK)
-					return "Everything is OK";
-
-				/* System and server-side errors */
-				if (m_error == ZSYSTEMERROR)
-					return "system error";
-				if (m_error == ZRUNTIMEINCONSISTENCY)
-					return "A runtime inconsistency was found";
-				if (m_error == ZDATAINCONSISTENCY)
-					return "A data inconsistency was found";
-				if (m_error == ZCONNECTIONLOSS)
-					return "Connection to the server has been lost";
-				if (m_error == ZMARSHALLINGERROR)
-					return "Error while marshalling or unmarshalling data";
-				if (m_error == ZUNIMPLEMENTED)
-					return "Operation is unimplemented";
-				if (m_error == ZOPERATIONTIMEOUT)
-					return "Operation timeout";
-				if (m_error == ZBADARGUMENTS)
-					return "Invalid arguments";
-				if (m_error == ZINVALIDSTATE)
-					return "Invliad zhandle state";
-
-				/* API errors */
-				if (m_error == ZAPIERROR)
-					return "api error";
-				if (m_error == ZNONODE)
-					return "Node does not exist";
-				if (m_error == ZNOAUTH)
-					return "Not authenticated";
-				if (m_error == ZBADVERSION)
-					return "Version conflict";
-				if (m_error == ZNOCHILDRENFOREPHEMERALS)
-					return "Ephemeral nodes may not have children";
-				if (m_error == ZNODEEXISTS)
-					return "The node already exists";
-				if (m_error == ZNOTEMPTY)
-					return "The node has children";
-				if (m_error == ZSESSIONEXPIRED)
-					return "The session has been expired by the server";
-				if (m_error == ZINVALIDCALLBACK)
-					return "Invalid callback specified";
-				if (m_error == ZINVALIDACL)
-					return "Invalid ACL specified";
-				if (m_error == ZAUTHFAILED)
-					return "Client authentication failed";
-				if (m_error == ZCLOSING)
-					return "ZooKeeper is closing";
-				if (m_error == ZNOTHING)
-					return "(not error) no server responses to process";
-				if (m_error == ZSESSIONMOVED)
-					return "session moved to another server, so operation is ignored";
-
-				return "unknown error";
+				return zerror(m_error);
 			}
 
 		private:
@@ -431,22 +388,12 @@ namespace zkclass
 		/* 
 		// ===  FUNCTION  ======================================================================
 		//         Name:  get_children
-		//  Description:  Return the list of the children of the node of the given path.
-		//   Parameters:  
-		//  ReturnValue:  
-		// =====================================================================================
-//		*/
-		ZooKeeper::Error get_children(const std::string path, std::vector<std::string> &path_list, bool watch);
-
-		/* 
-		// ===  FUNCTION  ======================================================================
-		//         Name:  get_children
-		//  Description:  Return the list of the children of the node of the given path.
+		//  Description:  For the given znode path return the stat and children list.
 		//   Parameters:  
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper::Error get_children(const std::string path, std::vector<std::string> &path_list, Watcher &watcher);
+		ZooKeeper::Error get_children(const std::string path, std::vector<std::string> *children);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -456,7 +403,27 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper::Error get_children(const std::string path, std::vector<std::string> &path_list, bool watch, Stat &stat);
+		ZooKeeper::Error get_children(const std::string path, std::vector<std::string> *children, Stat *stat);
+
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  get_children
+		//  Description:  Return the list of the children of the node of the given path.
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+		ZooKeeper::Error get_children(const std::string path, std::vector<std::string> *children, bool watch);
+
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  get_children
+		//  Description:  Return the list of the children of the node of the given path.
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+		ZooKeeper::Error get_children(const std::string path, std::vector<std::string> *children, Watcher *watcher);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -466,7 +433,17 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper::Error get_children(const std::string path, std::vector<std::string> &path_list, Watcher &watcher, Stat &stat);
+		ZooKeeper::Error get_children(const std::string path, std::vector<std::string> *children, bool watch, Stat *stat);
+
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  get_children
+		//  Description:  For the given znode path return the stat and children list.
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+		ZooKeeper::Error get_children(const std::string path, std::vector<std::string> *children, Watcher *watcher, Stat *stat);
 
 		/* 
 		// ===  FUNCTION  ======================================================================

@@ -69,6 +69,17 @@ namespace zkclass
 					return "ZOO_NOTWATCHING_EVENT";
 			}
 
+			// ====================  OPERATORS     =======================================
+			bool operator==(int value)
+			{
+				return m_event == value;
+			}
+
+			bool operator!=(int value)
+			{
+				return m_event != value;
+			}
+
 		private:
 			// ==================== PRIVATE METHOD =======================================
 
@@ -114,6 +125,17 @@ namespace zkclass
 					return "ZOO_CONNECTED_STATE";
 
 				return "ZOO_UNKNOWN_STATE";
+			}
+
+			// ====================  OPERATORS     =======================================
+			bool operator==(int value)
+			{
+				return m_state == value;
+			}
+
+			bool operator!=(int value)
+			{
+				return m_state != value;
 			}
 
 		private:
