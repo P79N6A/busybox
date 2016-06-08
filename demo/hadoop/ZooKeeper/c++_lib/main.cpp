@@ -130,30 +130,30 @@ static void test_create_and_remove()
 	std::string path("/zkclass_test_create");
 	Stat stat;
 	std::vector<ACL> acl = {{ZOO_PERM_ALL, ZOO_ANYONE_ID_UNSAFE}};
-	assert(zk.exists(path, true, &stat).value() == ZNONODE);	// true表示使用init时注册的global watcher进行监听
-	assert(zk.exists(path, true, &stat).value() == ZNONODE);	// 同一个path，同一个watcher，即使多次注册，也只监听1次
-	assert(zk.exists(path, &pwatcher, &stat).value() == ZNONODE);	// 除了使用global watcher，也可以自己指定watcher
+	assert(zk.exists(path, true).value() == ZNONODE);	// true表示使用init时注册的global watcher进行监听
+	assert(zk.exists(path, true).value() == ZNONODE);	// 同一个path，同一个watcher，即使多次注册，也只监听1次
+	assert(zk.exists(path, &pwatcher).value() == ZNONODE);	// 除了使用global watcher，也可以自己指定watcher
 	assert(zk.create(path, std::string("root node"), acl).value() == ZOK);
-	assert(zk.exists(path, false, &stat).value() == ZOK);	// global watcher也是一次性监听，如果需要则每次设置
-	assert(zk.exists(path, &pwatcher, &stat).value() == ZOK);	// 同一个path，同一个watcher，即使多次注册，也只监听1次
-	assert(zk.exists(path, &pwatcher, &stat).value() == ZOK);
+	assert(zk.exists(path).value() == ZOK);	// global watcher也是一次性监听，如果需要则每次设置
+	assert(zk.exists(path, &pwatcher).value() == ZOK);	// 同一个path，同一个watcher，即使多次注册，也只监听1次
+	assert(zk.exists(path, &pwatcher).value() == ZOK);
 	assert(zk.exists(path, &pwatcher2, &stat).value() == ZOK);	// 相同path，不同watcher，作为两个不同的监听，会依次触发
+	assert(zk.exists(path, &stat).value() == ZOK);
 	assert(zk.remove(path, stat.version).value() == ZOK);
-	assert(zk.exists(path, false, &stat).value() == ZNONODE);
-	assert(zk.exists(path, &pwatcher, &stat).value() == ZNONODE);
+	assert(zk.exists(path).value() == ZNONODE);
 
 	// 测试临时节点
 	std::string path_ephemeral("/zkclass_test_ephemeral");
-	assert(zk.exists(path_ephemeral, false, &stat).value() == ZNONODE);
+	assert(zk.exists(path_ephemeral).value() == ZNONODE);
 	assert(zk.create(path_ephemeral, std::string("ephemeral node"), acl, ZOO_EPHEMERAL).value() == ZOK);
-	assert(zk.exists(path_ephemeral, false, &stat).value() == ZOK);
+	assert(zk.exists(path_ephemeral).value() == ZOK);
 
 	// 测试临时顺序节点
 	std::string path_sequence("/zkclass_test_sequence");
 	std::string new_path;
-	assert(zk.exists(path_sequence, false, &stat).value() == ZNONODE);
+	assert(zk.exists(path_sequence).value() == ZNONODE);
 	assert(zk.create(path_sequence, std::string("sequence node"), acl, ZOO_EPHEMERAL|ZOO_SEQUENCE, &new_path).value() == ZOK);
-	assert(zk.exists(new_path, false, &stat).value() == ZOK);
+	assert(zk.exists(new_path).value() == ZOK);
 	std::cout << new_path << std::endl;
 
 	std::cout << "\e[32mTest: test_create_and_remove() OK\e[0m" << std::endl;
@@ -178,7 +178,7 @@ static void test_set_and_get()
 	std::string data;
 	assert(zk.get_data(path, &data, true, nullptr).value() == ZNONODE);	// get_data并不能监听到create事件，且在节点创建之前，对节点内容的监听都是无效的
 	assert(zk.create(path, std::string(), acl, ZOO_EPHEMERAL).value() == ZOK);
-	assert(zk.exists(path, false, &stat).value() == ZOK);	// global watcher也是一次性监听，如果需要则每次设置
+	assert(zk.exists(path).value() == ZOK);
 	assert(zk.get_data(path, &data, true, nullptr).value() == ZOK);
 	assert(data.size() == 0);
 	assert(zk.get_data(path, &data, &pwatcher, &stat).value() == ZOK);

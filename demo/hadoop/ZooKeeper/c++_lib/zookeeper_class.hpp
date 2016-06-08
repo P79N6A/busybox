@@ -292,7 +292,47 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
+		ZooKeeper::Error exists(const std::string &path);
+
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  exists
+		//  Description:  Return the stat of the node of the given path.
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+		ZooKeeper::Error exists(const std::string &path, Stat *stat);
+
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  exists
+		//  Description:  Return the stat of the node of the given path.
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+		ZooKeeper::Error exists(const std::string &path, bool watch);
+
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  exists
+		//  Description:  Return the stat of the node of the given path.
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
 		ZooKeeper::Error exists(const std::string &path, bool watch, Stat *stat);
+
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  exists
+		//  Description:  Return the stat of the node of the given path.
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+		ZooKeeper::Error exists(const std::string &path, Watcher *watcher);
 
 		/* 
 		// ===  FUNCTION  ======================================================================

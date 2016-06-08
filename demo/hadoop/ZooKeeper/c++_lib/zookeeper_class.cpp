@@ -88,9 +88,29 @@ namespace zkclass
 		return ZooKeeper::Error(zoo_delete(m_zhandler, path.c_str(), version));
 	}		// -----  end of method ZooKeeper::remove  -----
 
+	ZooKeeper::Error ZooKeeper::exists(const std::string &path)
+	{
+		return exists(path, false, nullptr);
+	}		// -----  end of method ZooKeeper::exists  -----
+
+	ZooKeeper::Error ZooKeeper::exists(const std::string &path, Stat *stat)
+	{
+		return exists(path, false, stat);
+	}		// -----  end of method ZooKeeper::exists  -----
+
+	ZooKeeper::Error ZooKeeper::exists(const std::string &path, bool watch)
+	{
+		return exists(path, watch, nullptr);
+	}		// -----  end of method ZooKeeper::exists  -----
+
 	ZooKeeper::Error ZooKeeper::exists(const std::string &path, bool watch, Stat *stat)
 	{
 		return ZooKeeper::Error(zoo_exists(m_zhandler, path.c_str(), watch?1:0, stat));
+	}		// -----  end of method ZooKeeper::exists  -----
+
+	ZooKeeper::Error ZooKeeper::exists(const std::string &path, Watcher *watcher)
+	{
+		return exists(path, watcher, nullptr);
 	}		// -----  end of method ZooKeeper::exists  -----
 
 	ZooKeeper::Error ZooKeeper::exists(const std::string &path, Watcher *watcher, Stat *stat)
