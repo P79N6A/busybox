@@ -96,7 +96,7 @@ nmap	<silent> mn3	yiw:3match none<cr>
 
 nmap	<silent> <C-m>	<esc>:cw<cr>
 
-set pastetoggle=<C-P>	" 切换“输入/粘贴”模式
+set pastetoggle=<C-p>	" 切换“输入/粘贴”模式
 
 "--------------------------------------------------------------------------
 "	设置自定义颜色（不使用自动命令无法生效）
