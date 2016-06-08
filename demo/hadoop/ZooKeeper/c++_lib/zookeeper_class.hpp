@@ -252,7 +252,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper::Error create(const std::string &path, const std::string &data, std::vector<ACL> acl, int create_flag);
+		ZooKeeper::Error create(const std::string &path, const std::string &data, const std::vector<ACL> &acl);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -262,7 +262,17 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper::Error create(const std::string &path, const std::string &data, std::vector<ACL> acl, int create_flag, std::string *new_path);
+		ZooKeeper::Error create(const std::string &path, const std::string &data, const std::vector<ACL> &acl, int create_flag);
+
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  create
+		//  Description:  Create a node with the given path.
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+		ZooKeeper::Error create(const std::string &path, const std::string &data, const std::vector<ACL> &acl, int create_flag, std::string *new_path);
 
 		/* 
 		// ===  FUNCTION  ======================================================================

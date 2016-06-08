@@ -54,7 +54,19 @@ namespace zkclass
 	}		// -----  end of method ZooKeeper::close  -----
 
 	ZooKeeper::Error ZooKeeper::create(const std::string &path, const std::string &data,
-			std::vector<ACL> acl, int create_flag, std::string *new_path)
+			const std::vector<ACL> &acl)
+	{
+		return create(path, data, acl, 0, nullptr);
+	}		// -----  end of method ZooKeeper::create  -----
+
+	ZooKeeper::Error ZooKeeper::create(const std::string &path, const std::string &data,
+			const std::vector<ACL> &acl, int create_flag)
+	{
+		return create(path, data, acl, create_flag, nullptr);
+	}		// -----  end of method ZooKeeper::create  -----
+
+	ZooKeeper::Error ZooKeeper::create(const std::string &path, const std::string &data,
+			const std::vector<ACL> &acl, int create_flag, std::string *new_path)
 	{
 		ZooKeeper::Error error;
 		ACL_vector acl_vector = {0, NULL};
