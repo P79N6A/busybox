@@ -20,17 +20,17 @@
 #ifndef  _ZOOKEEPER_CLASS_HPP_
 #define  _ZOOKEEPER_CLASS_HPP_
 
+#include <string.h>
+
 #include <string>
 #include <vector>
 #include <memory>
+
 #include "zookeeper.h"
 
 #include "watcher_class.hpp"
 #include "watched_event_class.hpp"
 #include "async_callback_class.hpp"
-
-using std::string;
-using std::vector;
 
 namespace zkclass
 {
@@ -209,7 +209,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper(const string &connect_string, int session_timeout, Watcher *watcher);
+		ZooKeeper(const std::string &connect_string, int session_timeout, Watcher *watcher);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -221,7 +221,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper(const string &connect_string, int session_timeout, Watcher *watcher, clientid_t *clientid);
+		ZooKeeper(const std::string &connect_string, int session_timeout, Watcher *watcher, clientid_t *clientid);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -253,7 +253,17 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper::Error create(const string &path, const string &data, vector<ACL> acl, int create_flag, string *new_path);
+		ZooKeeper::Error create(const std::string &path, const std::string &data, std::vector<ACL> acl, int create_flag);
+
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  create
+		//  Description:  Create a node with the given path.
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+		ZooKeeper::Error create(const std::string &path, const std::string &data, std::vector<ACL> acl, int create_flag, std::string *new_path);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -263,7 +273,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper::Error remove(const string &path, int version);
+		ZooKeeper::Error remove(const std::string &path, int version);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -273,7 +283,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper::Error exists(const string &path, bool watch, Stat *stat);
+		ZooKeeper::Error exists(const std::string &path, bool watch, Stat *stat);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -283,7 +293,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper::Error exists(const string &path, Watcher *watcher, Stat *stat);
+		ZooKeeper::Error exists(const std::string &path, Watcher *watcher, Stat *stat);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -295,7 +305,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper::Error set_data(const string &path, const string &data, int version);
+		ZooKeeper::Error set_data(const std::string &path, const std::string &data, int version);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -307,7 +317,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper::Error set_data(const string &path, const string &data, int version, Stat *stat);
+		ZooKeeper::Error set_data(const std::string &path, const std::string &data, int version, Stat *stat);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -317,7 +327,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper::Error get_data(const string &path, string *data, bool watch, Stat *stat);
+		ZooKeeper::Error get_data(const std::string &path, std::string *data, bool watch, Stat *stat);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -327,7 +337,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper::Error get_data(const string &path, string *data, Watcher *watcher, Stat *stat);
+		ZooKeeper::Error get_data(const std::string &path, std::string *data, Watcher *watcher, Stat *stat);
 		
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -337,7 +347,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 //		*/
-		ZooKeeper::Error get_children(const string path, vector<string> &path_list, bool watch);
+		ZooKeeper::Error get_children(const std::string path, std::vector<std::string> &path_list, bool watch);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -347,7 +357,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper::Error get_children(const string path, vector<string> &path_list, Watcher &watcher);
+		ZooKeeper::Error get_children(const std::string path, std::vector<std::string> &path_list, Watcher &watcher);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -357,7 +367,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper::Error get_children(const string path, vector<string> &path_list, bool watch, Stat &stat);
+		ZooKeeper::Error get_children(const std::string path, std::vector<std::string> &path_list, bool watch, Stat &stat);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -367,7 +377,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		ZooKeeper::Error get_children(const string path, vector<string> &path_list, Watcher &watcher, Stat &stat);
+		ZooKeeper::Error get_children(const std::string path, std::vector<std::string> &path_list, Watcher &watcher, Stat &stat);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -377,7 +387,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		ZooKeeper::Error add_auth_info(string scheme, char auth[]);
+//		ZooKeeper::Error add_auth_info(std::string scheme, char auth[]);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -388,7 +398,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		Stat set_acl(string path, vector<ACL> acl, int version);
+//		Stat set_acl(std::string path, std::vector<ACL> acl, int version);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -398,7 +408,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		ZooKeeper::Error get_acl(string path, vector<ACL> *acl, Stat *stat);
+//		ZooKeeper::Error get_acl(std::string path, std::vector<ACL> *acl, Stat *stat);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -449,7 +459,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		void create(string path, char data[], vector<ACL> acl, int create_flag, AsyncCallback cb, void *ctx);
+//		void create(std::string path, char data[], std::vector<ACL> acl, int create_flag, AsyncCallback cb, void *ctx);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -459,7 +469,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		void remove(string path, int version, AsyncCallback cb, void *ctx);
+//		void remove(std::string path, int version, AsyncCallback cb, void *ctx);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -469,7 +479,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		void exists(string path, bool watch, AsyncCallback cb, void *ctx);
+//		void exists(std::string path, bool watch, AsyncCallback cb, void *ctx);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -479,7 +489,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		void exists(string path, Watcher watcher, AsyncCallback cb, void *ctx);
+//		void exists(std::string path, Watcher watcher, AsyncCallback cb, void *ctx);
 		
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -489,7 +499,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		void get_acl(string path, Stat stat, AsyncCallback cb, void *ctx);
+//		void get_acl(std::string path, Stat stat, AsyncCallback cb, void *ctx);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -499,7 +509,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		void get_children(string path, bool watch, AsyncCallback cb, void *ctx);
+//		void get_children(std::string path, bool watch, AsyncCallback cb, void *ctx);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -509,7 +519,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		void get_children(string path, Watcher watcher, AsyncCallback cb, void *ctx);
+//		void get_children(std::string path, Watcher watcher, AsyncCallback cb, void *ctx);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -519,7 +529,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		void get_data(string path, bool watch, AsyncCallback cb, void *ctx);
+//		void get_data(std::string path, bool watch, AsyncCallback cb, void *ctx);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -529,7 +539,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		void get_data(string path, Watcher watcher, AsyncCallback cb, void *ctx);
+//		void get_data(std::string path, Watcher watcher, AsyncCallback cb, void *ctx);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -539,7 +549,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		void set_acl(string path, vector<ACL> acl, int version, AsyncCallback cb, void *ctx);
+//		void set_acl(std::string path, std::vector<ACL> acl, int version, AsyncCallback cb, void *ctx);
 		
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -549,7 +559,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		void set_data(string path, char data[], int version, AsyncCallback cb, void *ctx);
+//		void set_data(std::string path, char data[], int version, AsyncCallback cb, void *ctx);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -559,7 +569,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-//		void sync(string path, AsyncCallback cb, void *ctx);
+//		void sync(std::string path, AsyncCallback cb, void *ctx);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -580,7 +590,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		void init(const string &connect_string, int session_timeout, Watcher *watcher, clientid_t *clientid);
+		void init(const std::string &connect_string, int session_timeout, Watcher *watcher, clientid_t *clientid);
 
 		/* 
 		// ===  FUNCTION  ======================================================================
@@ -591,7 +601,7 @@ namespace zkclass
 		// =====================================================================================
 		*/
 		template <class T>
-		inline std::unique_ptr<T[]> vector_to_array(vector<T> vec)
+		inline std::unique_ptr<T[]> vector_to_array(std::vector<T> vec)
 		{
 			std::unique_ptr<T[]> array(new T[vec.size()]);
 			for (int i=0; i<vec.size(); ++i) {

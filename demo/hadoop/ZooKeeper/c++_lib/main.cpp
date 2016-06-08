@@ -129,7 +129,7 @@ static void test_create_and_remove()
 	assert(zk.get_state().value() == ZOO_CONNECTED_STATE);
 	std::string path("/zkclass_test_create");
 	Stat stat;
-	vector<ACL> acl = {{ZOO_PERM_ALL, ZOO_ANYONE_ID_UNSAFE}};
+	std::vector<ACL> acl = {{ZOO_PERM_ALL, ZOO_ANYONE_ID_UNSAFE}};
 	assert(zk.exists(path, true, &stat).value() == ZNONODE);	// true表示使用init时注册的global watcher进行监听
 	assert(zk.exists(path, true, &stat).value() == ZNONODE);	// 同一个path，同一个watcher，即使多次注册，也只监听1次
 	assert(zk.exists(path, &pwatcher, &stat).value() == ZNONODE);	// 除了使用global watcher，也可以自己指定watcher
@@ -174,7 +174,7 @@ static void test_set_and_get()
 	assert(zk.get_state().value() == ZOO_CONNECTED_STATE);
 	std::string path("/zkclass_test_set_get");
 	Stat stat;
-	vector<ACL> acl = {{ZOO_PERM_ALL, ZOO_ANYONE_ID_UNSAFE}};
+	std::vector<ACL> acl = {{ZOO_PERM_ALL, ZOO_ANYONE_ID_UNSAFE}};
 	std::string data;
 	assert(zk.get_data(path, &data, true, nullptr).value() == ZNONODE);	// get_data并不能监听到create事件，且在节点创建之前，对节点内容的监听都是无效的
 	assert(zk.create(path, std::string(), acl, ZOO_EPHEMERAL, nullptr).value() == ZOK);
