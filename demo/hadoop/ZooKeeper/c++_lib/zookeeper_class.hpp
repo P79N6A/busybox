@@ -376,8 +376,48 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
+		ZooKeeper::Error get_data(const std::string &path, std::string *data);
+
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  get_data
+		//  Description:  Return the data and the stat of the node of the given path.
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+		ZooKeeper::Error get_data(const std::string &path, std::string *data, Stat *stat);
+
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  get_data
+		//  Description:  Return the data and the stat of the node of the given path.
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+		ZooKeeper::Error get_data(const std::string &path, std::string *data, bool watch);
+
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  get_data
+		//  Description:  Return the data and the stat of the node of the given path.
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
 		ZooKeeper::Error get_data(const std::string &path, std::string *data, bool watch, Stat *stat);
 
+		/* 
+		// ===  FUNCTION  ======================================================================
+		//         Name:  get_data
+		//  Description:  Return the data and the stat of the node of the given path.
+		//   Parameters:  
+		//  ReturnValue:  
+		// =====================================================================================
+		*/
+		ZooKeeper::Error get_data(const std::string &path, std::string *data, Watcher *watcher);
+		
 		/* 
 		// ===  FUNCTION  ======================================================================
 		//         Name:  get_data

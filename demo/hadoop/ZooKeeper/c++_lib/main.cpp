@@ -176,18 +176,18 @@ static void test_set_and_get()
 	Stat stat;
 	std::vector<ACL> acl = {{ZOO_PERM_ALL, ZOO_ANYONE_ID_UNSAFE}};
 	std::string data;
-	assert(zk.get_data(path, &data, true, nullptr).value() == ZNONODE);	// get_data并不能监听到create事件，且在节点创建之前，对节点内容的监听都是无效的
+	assert(zk.get_data(path, &data, true).value() == ZNONODE);	// get_data并不能监听到create事件，且在节点创建之前，对节点内容的监听都是无效的
 	assert(zk.create(path, std::string(), acl, ZOO_EPHEMERAL).value() == ZOK);
 	assert(zk.exists(path).value() == ZOK);
-	assert(zk.get_data(path, &data, true, nullptr).value() == ZOK);
+	assert(zk.get_data(path, &data, true).value() == ZOK);
 	assert(data.size() == 0);
 	assert(zk.get_data(path, &data, &pwatcher, &stat).value() == ZOK);
 	assert(data.size() == 0);
 	assert(zk.set_data(path, std::string("abcd"), stat.version).value() == ZOK);
-	assert(zk.get_data(path, &data, false, &stat).value() == ZOK);
+	assert(zk.get_data(path, &data).value() == ZOK);
 	assert(data.size() == 4);
 	assert(data == "abcd");
-	assert(zk.get_data(path, &data, false, &stat).value() == ZOK);
+	assert(zk.get_data(path, &data, &stat).value() == ZOK);
 	int version = stat.version;
 	assert(zk.set_data(path, std::string("abcde"), stat.version, &stat).value() == ZOK);
 	assert(stat.version == version + 1);

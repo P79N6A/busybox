@@ -132,6 +132,21 @@ namespace zkclass
 		return ZooKeeper::Error(zoo_set2(m_zhandler, path.c_str(), data.c_str(), data.size(), version, stat));
 	}		// -----  end of method ZooKeeper::set_data  -----
 
+	ZooKeeper::Error ZooKeeper::get_data(const std::string &path, std::string *data)
+	{
+		return get_data(path, data, false, nullptr);
+	}		// -----  end of method ZooKeeper::get_data  -----
+
+	ZooKeeper::Error ZooKeeper::get_data(const std::string &path, std::string *data, Stat *stat)
+	{
+		return get_data(path, data, false, stat);
+	}		// -----  end of method ZooKeeper::get_data  -----
+
+	ZooKeeper::Error ZooKeeper::get_data(const std::string &path, std::string *data, bool watch)
+	{
+		return get_data(path, data, watch, nullptr);
+	}		// -----  end of method ZooKeeper::get_data  -----
+
 	ZooKeeper::Error ZooKeeper::get_data(const std::string &path, std::string *data, bool watch, Stat *stat)
 	{
 		char buf[1048576];	// 1024*1024
@@ -143,6 +158,11 @@ namespace zkclass
 			data = nullptr;
 		}
 		return error;
+	}		// -----  end of method ZooKeeper::get_data  -----
+
+	ZooKeeper::Error ZooKeeper::get_data(const std::string &path, std::string *data, Watcher *watcher)
+	{
+		return get_data(path, data, watcher, nullptr);
 	}		// -----  end of method ZooKeeper::get_data  -----
 
 	ZooKeeper::Error ZooKeeper::get_data(const std::string &path, std::string *data, Watcher *watcher, Stat *stat)
