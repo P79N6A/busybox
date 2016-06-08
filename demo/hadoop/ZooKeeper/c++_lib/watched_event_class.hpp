@@ -23,8 +23,6 @@
 
 #include "watcher_class.hpp"
 
-using std::string;
-
 namespace zkclass
 {
 
@@ -36,7 +34,7 @@ namespace zkclass
 	{
 	public:
 		// ====================  LIFECYCLE     =======================================
-		WatchedEvent(const string &path, int type, int state)
+		WatchedEvent(const std::string &path, int type, int state)
 			: m_path(path), m_type(type), m_state(state)
 		{
 		}
@@ -55,7 +53,7 @@ namespace zkclass
 		//  ReturnValue:  
 		// =====================================================================================
 		*/
-		inline const string& path() const
+		inline const std::string& path() const
 		{
 			return m_path;
 		}		// -----  end of function path  -----
@@ -86,7 +84,7 @@ namespace zkclass
 		// ==================== PRIVATE METHOD =======================================
 
 		// ====================  DATA MEMBERS  =======================================
-		string m_path;
+		std::string m_path;
 		int m_type;
 		int m_state;
 

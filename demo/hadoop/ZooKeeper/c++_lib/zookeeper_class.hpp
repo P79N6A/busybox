@@ -30,7 +30,6 @@
 
 #include "watcher_class.hpp"
 #include "watched_event_class.hpp"
-#include "async_callback_class.hpp"
 
 namespace zkclass
 {
