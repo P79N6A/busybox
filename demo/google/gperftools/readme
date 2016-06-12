@@ -1,0 +1,12 @@
+学习使用tcmalloc以及Heap Profiler的用法
+
+源码路径：https://github.com/gperftools/gperftools.git
+git clone https://github.com/gperftools/gperftools.git
+
+编译安装：
+cd gperftools
+sh autogen.sh
+./configure --prefix=`pwd`
+make
+make insatll
+
