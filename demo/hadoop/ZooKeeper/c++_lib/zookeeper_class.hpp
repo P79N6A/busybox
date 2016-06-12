@@ -292,7 +292,7 @@ namespace zkclass
         //  ReturnValue:  error class
         // =====================================================================================
         */
-        ZooKeeper::Error exists(const std::string &path);
+        ZooKeeper::Error exists(const std::string &path) const;
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -303,7 +303,7 @@ namespace zkclass
         //  ReturnValue:  error class
         // =====================================================================================
         */
-        ZooKeeper::Error exists(const std::string &path, Stat *stat);
+        ZooKeeper::Error exists(const std::string &path, Stat *stat) const;
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -314,7 +314,7 @@ namespace zkclass
         //  ReturnValue:  error class
         // =====================================================================================
         */
-        ZooKeeper::Error exists(const std::string &path, bool watch);
+        ZooKeeper::Error exists(const std::string &path, bool watch) const;
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -326,7 +326,7 @@ namespace zkclass
         //  ReturnValue:  error class
         // =====================================================================================
         */
-        ZooKeeper::Error exists(const std::string &path, bool watch, Stat *stat);
+        ZooKeeper::Error exists(const std::string &path, bool watch, Stat *stat) const;
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -337,7 +337,7 @@ namespace zkclass
         //  ReturnValue:  error class
         // =====================================================================================
         */
-        ZooKeeper::Error exists(const std::string &path, Watcher *watcher);
+        ZooKeeper::Error exists(const std::string &path, Watcher *watcher) const;
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -349,7 +349,7 @@ namespace zkclass
         //  ReturnValue:  error class
         // =====================================================================================
         */
-        ZooKeeper::Error exists(const std::string &path, Watcher *watcher, Stat *stat);
+        ZooKeeper::Error exists(const std::string &path, Watcher *watcher, Stat *stat) const;
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -386,7 +386,7 @@ namespace zkclass
         //  ReturnValue:  error class
         // =====================================================================================
         */
-        ZooKeeper::Error get_data(const std::string &path, std::string *data);
+        ZooKeeper::Error get_data(const std::string &path, std::string *data) const;
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -398,7 +398,7 @@ namespace zkclass
         //  ReturnValue:  error class
         // =====================================================================================
         */
-        ZooKeeper::Error get_data(const std::string &path, std::string *data, Stat *stat);
+        ZooKeeper::Error get_data(const std::string &path, std::string *data, Stat *stat) const;
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -410,7 +410,7 @@ namespace zkclass
         //  ReturnValue:  error class
         // =====================================================================================
         */
-        ZooKeeper::Error get_data(const std::string &path, std::string *data, bool watch);
+        ZooKeeper::Error get_data(const std::string &path, std::string *data, bool watch) const;
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -424,7 +424,7 @@ namespace zkclass
         // =====================================================================================
         */
         ZooKeeper::Error get_data(const std::string &path, std::string *data,
-                bool watch, Stat *stat);
+                bool watch, Stat *stat) const;
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -436,7 +436,8 @@ namespace zkclass
         //  ReturnValue:  error class
         // =====================================================================================
         */
-        ZooKeeper::Error get_data(const std::string &path, std::string *data, Watcher *watcher);
+        ZooKeeper::Error get_data(const std::string &path, std::string *data,
+            Watcher *watcher) const;
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -450,7 +451,7 @@ namespace zkclass
         // =====================================================================================
         */
         ZooKeeper::Error get_data(const std::string &path, std::string *data,
-                Watcher *watcher, Stat *stat);
+                Watcher *watcher, Stat *stat) const;
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -461,7 +462,7 @@ namespace zkclass
         //  ReturnValue:  error class
         // =====================================================================================
         */
-        ZooKeeper::Error get_children(const std::string path, std::vector<std::string> *children);
+        ZooKeeper::Error get_children(const std::string path, std::vector<std::string> *children) const;
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -474,7 +475,7 @@ namespace zkclass
         // =====================================================================================
         */
         ZooKeeper::Error get_children(const std::string path, std::vector<std::string> *children,
-                Stat *stat);
+                Stat *stat) const;
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -487,7 +488,7 @@ namespace zkclass
         // =====================================================================================
         */
         ZooKeeper::Error get_children(const std::string path, std::vector<std::string> *children,
-                bool watch);
+                bool watch) const;
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -500,7 +501,7 @@ namespace zkclass
         // =====================================================================================
         */
         ZooKeeper::Error get_children(const std::string path, std::vector<std::string> *children,
-                Watcher *watcher);
+                Watcher *watcher) const;
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -514,7 +515,7 @@ namespace zkclass
         // =====================================================================================
         */
         ZooKeeper::Error get_children(const std::string path, std::vector<std::string> *children,
-                bool watch, Stat *stat);
+                bool watch, Stat *stat) const;
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -528,7 +529,7 @@ namespace zkclass
         // =====================================================================================
         */
         ZooKeeper::Error get_children(const std::string path, std::vector<std::string> *children,
-                Watcher *watcher, Stat *stat);
+                Watcher *watcher, Stat *stat) const;
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -562,7 +563,7 @@ namespace zkclass
         //  ReturnValue:  error class
         // =====================================================================================
         */
-        ZooKeeper::Error get_acl(const std::string path, std::vector<ACL> *acl);
+        ZooKeeper::Error get_acl(const std::string path, std::vector<ACL> *acl) const;
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -574,7 +575,7 @@ namespace zkclass
         //  ReturnValue:  error class
         // =====================================================================================
         */
-        ZooKeeper::Error get_acl(const std::string path, std::vector<ACL> *acl, Stat *stat);
+        ZooKeeper::Error get_acl(const std::string path, std::vector<ACL> *acl, Stat *stat) const;
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -594,7 +595,7 @@ namespace zkclass
         //  ReturnValue:  当前会话的clientid的指针
         // =====================================================================================
         */
-        const clientid_t* get_client_id();
+        const clientid_t* get_client_id() const;
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -604,7 +605,7 @@ namespace zkclass
         //  ReturnValue:  timeout
         // =====================================================================================
         */
-        int get_session_timeout();
+        int get_session_timeout() const;
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -614,7 +615,7 @@ namespace zkclass
         //  ReturnValue:  State class
         // =====================================================================================
         */
-        ZooKeeper::State get_state();
+        ZooKeeper::State get_state() const;
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -624,7 +625,7 @@ namespace zkclass
         //  ReturnValue:  true or false
         // =====================================================================================
         */
-        bool recoverable();
+        bool recoverable() const;
 
         /* 
         // ===  FUNCTION  ======================================================================

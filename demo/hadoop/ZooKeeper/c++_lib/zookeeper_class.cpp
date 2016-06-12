@@ -94,32 +94,32 @@ namespace zkclass
         return ZooKeeper::Error(zoo_delete(_zhandler, path.c_str(), version));
     }        // -----  end of method ZooKeeper::remove  -----
 
-    ZooKeeper::Error ZooKeeper::exists(const string &path)
+    ZooKeeper::Error ZooKeeper::exists(const string &path) const
     {
         return ZooKeeper::Error(exists(path, false, nullptr));
     }        // -----  end of method ZooKeeper::exists  -----
 
-    ZooKeeper::Error ZooKeeper::exists(const string &path, Stat *stat)
+    ZooKeeper::Error ZooKeeper::exists(const string &path, Stat *stat) const
     {
         return ZooKeeper::Error(exists(path, false, stat));
     }        // -----  end of method ZooKeeper::exists  -----
 
-    ZooKeeper::Error ZooKeeper::exists(const string &path, bool watch)
+    ZooKeeper::Error ZooKeeper::exists(const string &path, bool watch) const
     {
         return ZooKeeper::Error(exists(path, watch, nullptr));
     }        // -----  end of method ZooKeeper::exists  -----
 
-    ZooKeeper::Error ZooKeeper::exists(const string &path, bool watch, Stat *stat)
+    ZooKeeper::Error ZooKeeper::exists(const string &path, bool watch, Stat *stat) const
     {
         return ZooKeeper::Error(zoo_exists(_zhandler, path.c_str(), watch?1:0, stat));
     }        // -----  end of method ZooKeeper::exists  -----
 
-    ZooKeeper::Error ZooKeeper::exists(const string &path, Watcher *watcher)
+    ZooKeeper::Error ZooKeeper::exists(const string &path, Watcher *watcher) const
     {
         return ZooKeeper::Error(exists(path, watcher, nullptr));
     }        // -----  end of method ZooKeeper::exists  -----
 
-    ZooKeeper::Error ZooKeeper::exists(const string &path, Watcher *watcher, Stat *stat)
+    ZooKeeper::Error ZooKeeper::exists(const string &path, Watcher *watcher, Stat *stat) const
     {
         if (watcher == nullptr) {
             return ZooKeeper::Error(zoo_wexists(_zhandler, path.c_str(),
@@ -143,22 +143,23 @@ namespace zkclass
                     version, stat));
     }        // -----  end of method ZooKeeper::set_data  -----
 
-    ZooKeeper::Error ZooKeeper::get_data(const string &path, string *data)
+    ZooKeeper::Error ZooKeeper::get_data(const string &path, string *data) const
     {
         return ZooKeeper::Error(get_data(path, data, false, nullptr));
     }        // -----  end of method ZooKeeper::get_data  -----
 
-    ZooKeeper::Error ZooKeeper::get_data(const string &path, string *data, Stat *stat)
+    ZooKeeper::Error ZooKeeper::get_data(const string &path, string *data, Stat *stat) const
     {
         return ZooKeeper::Error(get_data(path, data, false, stat));
     }        // -----  end of method ZooKeeper::get_data  -----
 
-    ZooKeeper::Error ZooKeeper::get_data(const string &path, string *data, bool watch)
+    ZooKeeper::Error ZooKeeper::get_data(const string &path, string *data, bool watch) const
     {
         return ZooKeeper::Error(get_data(path, data, watch, nullptr));
     }        // -----  end of method ZooKeeper::get_data  -----
 
-    ZooKeeper::Error ZooKeeper::get_data(const string &path, string *data, bool watch, Stat *stat)
+    ZooKeeper::Error ZooKeeper::get_data(const string &path, string *data, bool watch,
+            Stat *stat) const
     {
         char buf[1048576];    // 1024*1024
         int len = 1048576;    // len is in-param and out-param
@@ -172,13 +173,13 @@ namespace zkclass
         return error;
     }        // -----  end of method ZooKeeper::get_data  -----
 
-    ZooKeeper::Error ZooKeeper::get_data(const string &path, string *data, Watcher *watcher)
+    ZooKeeper::Error ZooKeeper::get_data(const string &path, string *data, Watcher *watcher) const
     {
         return ZooKeeper::Error(get_data(path, data, watcher, nullptr));
     }        // -----  end of method ZooKeeper::get_data  -----
 
     ZooKeeper::Error ZooKeeper::get_data(const string &path, string *data,
-            Watcher *watcher, Stat *stat)
+            Watcher *watcher, Stat *stat) const
     {
         char buf[1048576];    // 1024*1024
         int len = 1048576;    // len is in-param and out-param
@@ -193,19 +194,19 @@ namespace zkclass
         return error;
     }        // -----  end of method ZooKeeper::get_data  -----
 
-    ZooKeeper::Error ZooKeeper::get_children(const string path, vector<string> *children)
+    ZooKeeper::Error ZooKeeper::get_children(const string path, vector<string> *children) const
     {
         return ZooKeeper::Error(get_children(path, children, false));
     }        // -----  end of method ZooKeeper::get_children  -----
 
     ZooKeeper::Error ZooKeeper::get_children(const string path, vector<string> *children,
-            Stat *stat)
+            Stat *stat) const
     {
         return ZooKeeper::Error(get_children(path, children, false, stat));
     }        // -----  end of method ZooKeeper::get_children  -----
 
     ZooKeeper::Error ZooKeeper::get_children(const string path, vector<string> *children,
-            bool watch)
+            bool watch) const
     {
         struct String_vector str_vector;
         ZooKeeper::Error error(zoo_get_children(_zhandler, path.c_str(), watch, &str_vector));
@@ -216,7 +217,7 @@ namespace zkclass
     }        // -----  end of method ZooKeeper::get_children  -----
 
     ZooKeeper::Error ZooKeeper::get_children(const string path, vector<string> *children,
-            Watcher *watcher)
+            Watcher *watcher) const
     {
         struct String_vector str_vector;
         ZooKeeper::Error error(zoo_wget_children(_zhandler, path.c_str(),
@@ -228,7 +229,7 @@ namespace zkclass
     }        // -----  end of method ZooKeeper::get_children  -----
 
     ZooKeeper::Error ZooKeeper::get_children(const string path, vector<string> *children,
-            bool watch, Stat *stat)
+            bool watch, Stat *stat) const
     {
         struct String_vector str_vector;
         ZooKeeper::Error error(zoo_get_children2(_zhandler, path.c_str(),
@@ -240,7 +241,7 @@ namespace zkclass
     }        // -----  end of method ZooKeeper::get_children  -----
 
     ZooKeeper::Error ZooKeeper::get_children(const string path, vector<string> *children,
-            Watcher *watcher, Stat *stat)
+            Watcher *watcher, Stat *stat) const
     {
         struct String_vector str_vector;
         ZooKeeper::Error error(zoo_wget_children2(_zhandler, path.c_str(),
@@ -266,12 +267,12 @@ namespace zkclass
         return ZooKeeper::Error(zoo_set_acl(_zhandler, path.c_str(), version, &acl_vector));
     }        // -----  end of method ZooKeeper::set_acl  -----
 
-    ZooKeeper::Error ZooKeeper::get_acl(const string path, vector<ACL> *acl)
+    ZooKeeper::Error ZooKeeper::get_acl(const string path, vector<ACL> *acl) const
     {
         return ZooKeeper::Error(get_acl(path, acl, nullptr));
     }        // -----  end of method ZooKeeper::get_acl  -----
 
-    ZooKeeper::Error ZooKeeper::get_acl(const string path, vector<ACL> *acl, Stat *stat)
+    ZooKeeper::Error ZooKeeper::get_acl(const string path, vector<ACL> *acl, Stat *stat) const
     {
         ACL_vector acl_vector;
         ZooKeeper::Error error(zoo_get_acl(_zhandler, path.c_str(), &acl_vector, stat));
@@ -288,26 +289,25 @@ namespace zkclass
         zoo_set_context(_zhandler, watcher);
     }        // -----  end of method ZooKeeper::register_watcher  -----
 
-    const clientid_t* ZooKeeper::get_client_id()
+    const clientid_t* ZooKeeper::get_client_id() const
     {
         return zoo_client_id(_zhandler);
     }        // -----  end of method ZooKeeper::get_client_id  -----
 
-    int ZooKeeper::get_session_timeout()
+    int ZooKeeper::get_session_timeout() const
     {
         return zoo_recv_timeout(_zhandler);
     }        // -----  end of method ZooKeeper::get_session_timeout  -----
 
-    ZooKeeper::State ZooKeeper::get_state()
+    ZooKeeper::State ZooKeeper::get_state() const
     {
         return ZooKeeper::State(zoo_state(_zhandler));
     }        // -----  end of method ZooKeeper::get_state  -----
 
-    bool ZooKeeper::recoverable()
+    bool ZooKeeper::recoverable() const
     {
         return is_unrecoverable(_zhandler) == ZINVALIDSTATE ? false : true;
     }        // -----  end of method ZooKeeper::recoverable  -----
-
 
     // ==================== PRIVATE METHOD =======================================
 

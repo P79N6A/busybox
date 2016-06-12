@@ -39,13 +39,9 @@ namespace zkclass
         {
         public:
             // ====================  LIFECYCLE     =======================================
-            Event(int event) : _event(event)
-            {
-            }
+            Event(int event) : _event(event) {}
 
-            ~Event()
-            {
-            }
+            ~Event() {}
 
             // ====================  INTERFACE     =======================================
             int value()
@@ -73,6 +69,7 @@ namespace zkclass
                 if (_event == ZOO_NOTWATCHING_EVENT) {
                     return "ZOO_NOTWATCHING_EVENT";
                 }
+        return "ZOO_UNKNOWN_EVENT";
             }
 
             // ====================  OPERATORS     =======================================
@@ -102,14 +99,9 @@ namespace zkclass
         {
         public:
             // ====================  LIFECYCLE     =======================================
-            State(int state)
-            {
-                _state = state;
-            }
+            State(int state) : _state(state) {}
 
-            ~State()
-            {
-            }
+            ~State() {}
 
             // ====================  INTERFACE     =======================================
             int value()
@@ -134,7 +126,6 @@ namespace zkclass
                 if (_state == ZOO_CONNECTED_STATE) {
                     return "ZOO_CONNECTED_STATE";
                 }
-
                 return "ZOO_UNKNOWN_STATE";
             }
 
