@@ -32,54 +32,54 @@ using zkclass::ZooKeeper;
 using zkclass::Watcher;
 using zkclass::WatchedEvent;
 
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
+static pthread_mutex_t s_mutex = PTHREAD_MUTEX_INITIALIZER;
+static pthread_cond_t s_cond = PTHREAD_COND_INITIALIZER;
 
 #define wait_watcher() \
-    pthread_mutex_lock(&mutex);\
-    global_watcher_trigger = 0; \
-    path_watcher_trigger = 0; \
-    while (!(global_watcher_trigger | path_watcher_trigger)) { \
-        pthread_cond_wait(&cond, &mutex); \
+    pthread_mutex_lock(&s_mutex);\
+    s_global_watcher_trigger = 0; \
+    s_path_watcher_trigger = 0; \
+    while (!(s_global_watcher_trigger | s_path_watcher_trigger)) { \
+        pthread_cond_wait(&s_cond, &s_mutex); \
     } \
-    pthread_mutex_unlock(&mutex);
+    pthread_mutex_unlock(&s_mutex);
 
 static const std::string server = "localhost:2181";
 
-static int global_watcher_trigger = 0;
-static int path_watcher_trigger = 0;
+static int s_global_watcher_trigger = 0;
+static int s_path_watcher_trigger = 0;
 
-class global_watcher : public Watcher
+class GlobalWatcher : public Watcher
 {
     void process(const WatchedEvent &event)
     {
-        std::cout << "global_watcher is triggered: " << "\t";
+        std::cout << "GlobalWatcher is triggered: " << "\t";
         std::cout << "event.path[" << event.path() << "]\t";
         std::cout << "event.type[" << event.type().desc() << "]\t";
         std::cout << "event.state[" << event.state().desc() << "]" << std::endl;
         if (event.type() == ZOO_SESSION_EVENT) {
-            pthread_mutex_lock(&mutex);
-            global_watcher_trigger = 1;
-            pthread_cond_signal(&cond);
-            pthread_mutex_unlock(&mutex);
+            pthread_mutex_lock(&s_mutex);
+            s_global_watcher_trigger = 1;
+            pthread_cond_signal(&s_cond);
+            pthread_mutex_unlock(&s_mutex);
         }
     }
 };
 
-class path_watcher : public Watcher
+class PathWatcher : public Watcher
 {
     void process(const WatchedEvent &event)
     {
-        ++path_watcher_trigger;
-        std::cout << "path_watcher is triggered: " << "\t";
+        ++s_path_watcher_trigger;
+        std::cout << "PathWatcher is triggered: " << "\t";
         std::cout << "event.path[" << event.path() << "]\t";
         std::cout << "event.type[" << event.type().desc() << "]\t";
         std::cout << "event.state[" << event.state().desc() << "]" << std::endl;
         if (event.type() == ZOO_SESSION_EVENT) {
-            pthread_mutex_lock(&mutex);
-            path_watcher_trigger = 1;
-            pthread_cond_signal(&cond);
-            pthread_mutex_unlock(&mutex);
+            pthread_mutex_lock(&s_mutex);
+            s_path_watcher_trigger = 1;
+            pthread_cond_signal(&s_cond);
+            pthread_mutex_unlock(&s_mutex);
         }
     }
 };
@@ -135,11 +135,11 @@ TEST_F(TestZooKeeperClass, test_connect_and_close)
     EXPECT_NE(zk2.get_state(), ZOO_CONNECTED_STATE);
 
     // case3：有watcher，无old session
-    global_watcher watcher3;
+    GlobalWatcher watcher3;
     ZooKeeper zk3(server, 1024, &watcher3);
     wait_watcher();
     EXPECT_EQ(zk3.get_state(), ZOO_CONNECTED_STATE);
-    EXPECT_EQ(global_watcher_trigger, 1);
+    EXPECT_EQ(s_global_watcher_trigger, 1);
     clientid_t id3 = *zk3.get_client_id();
     EXPECT_NE(id3.client_id, 0);
     EXPECT_NE(id3.passwd[0], 0);
@@ -147,7 +147,7 @@ TEST_F(TestZooKeeperClass, test_connect_and_close)
     EXPECT_EQ(zk3.close(), ZOK);
 
     // case4：有watcher，有old session
-    global_watcher watcher4;
+    GlobalWatcher watcher4;
     ZooKeeper zk4(server, 1024, &watcher4, &id3);
     wait_watcher();
     // 通过watcher可以发现，close并没有使zk3的session过期，而重用session id使得zk3的session过期
@@ -164,9 +164,9 @@ TEST_F(TestZooKeeperClass, test_connect_and_close)
 */
 TEST_F(TestZooKeeperClass, test_create_and_remove)
 {
-    global_watcher gwatcher;
-    path_watcher pwatcher;
-    path_watcher pwatcher2;
+    GlobalWatcher gwatcher;
+    PathWatcher pwatcher;
+    PathWatcher pwatcher2;
 
     // 测试普通节点
     ZooKeeper zk(server, 1024, &gwatcher);
@@ -211,8 +211,8 @@ TEST_F(TestZooKeeperClass, test_create_and_remove)
 */
 TEST_F(TestZooKeeperClass, test_set_and_get)
 {
-    global_watcher gwatcher;
-    path_watcher pwatcher;
+    GlobalWatcher gwatcher;
+    PathWatcher pwatcher;
     ZooKeeper zk(server, 1024, &gwatcher);
     wait_watcher();
     EXPECT_EQ(zk.get_state(), ZOO_CONNECTED_STATE);
@@ -246,8 +246,8 @@ TEST_F(TestZooKeeperClass, test_set_and_get)
 */
 TEST_F(TestZooKeeperClass, test_get_children)
 {
-    global_watcher gwatcher;
-    path_watcher pwatcher;
+    GlobalWatcher gwatcher;
+    PathWatcher pwatcher;
     ZooKeeper zk(server, 1024, &gwatcher);
     wait_watcher();
     EXPECT_EQ(zk.get_state(), ZOO_CONNECTED_STATE);
@@ -286,7 +286,7 @@ TEST_F(TestZooKeeperClass, test_get_children)
 */
 TEST_F(TestZooKeeperClass, test_acl)
 {
-    global_watcher gwatcher;
+    GlobalWatcher gwatcher;
     std::vector<ACL> acl = {{ZOO_PERM_ALL&~ZOO_PERM_WRITE, ZOO_ANYONE_ID_UNSAFE}};
     Stat stat;
     ZooKeeper zk(server, 1024, &gwatcher);
@@ -322,12 +322,12 @@ TEST_F(TestZooKeeperClass, test_acl)
 */
 TEST_F(TestZooKeeperClass, test_watcher)
 {
-    global_watcher gwatcher;
-    path_watcher pwatcher;
+    GlobalWatcher gwatcher;
+    PathWatcher pwatcher;
     ZooKeeper zk(server, 1024, &gwatcher);
     zk.register_watcher(&pwatcher);
     wait_watcher();
-    EXPECT_EQ(global_watcher_trigger, 0);
-    EXPECT_EQ(path_watcher_trigger, 1);
+    EXPECT_EQ(s_global_watcher_trigger, 0);
+    EXPECT_EQ(s_path_watcher_trigger, 1);
 }
 
