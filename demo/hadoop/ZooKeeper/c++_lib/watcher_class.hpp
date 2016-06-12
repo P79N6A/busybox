@@ -80,7 +80,7 @@ namespace zkclass
 
             bool operator!=(int value)
             {
-                return _event != value;
+                return !this->operator==(value);
             }
 
         private:
@@ -137,7 +137,7 @@ namespace zkclass
 
             bool operator!=(int value)
             {
-                return _state != value;
+                return !this->operator==(value);
             }
 
         private:
