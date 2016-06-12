@@ -7,11 +7,11 @@
 // 
 //        Version:  1.0
 //        Created:  06/06/2016 03:56:59 PM
-//       Revision:  none
+//       Revision:  All Rights Reserved
 //       Compiler:  g++
 // 
-//         Author:  Elwin.Gao (elwin), elwin.gao4444@gmail.com
-//        Company:  
+//         Author:  gaowei08@baidu.com
+//        Company:  Baidu.com, Inc.
 // 
 // =====================================================================================
 */
