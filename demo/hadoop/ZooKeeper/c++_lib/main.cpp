@@ -75,8 +75,8 @@ class global_watcher : public Watcher
     {
         std::cout << "global_watcher is triggered: " << "\t";
         std::cout << "event.path[" << event.path() << "]\t";
-        std::cout << "event.type[" << event.type().c_str() << "]\t";
-        std::cout << "event.state[" << event.state().c_str() << "]" << std::endl;
+        std::cout << "event.type[" << event.type().desc() << "]\t";
+        std::cout << "event.state[" << event.state().desc() << "]" << std::endl;
         if (event.type() == ZOO_SESSION_EVENT) {
             pthread_mutex_lock(&mutex);
             global_watcher_trigger = 1;
@@ -93,8 +93,8 @@ class path_watcher : public Watcher
         ++path_watcher_trigger;
         std::cout << "path_watcher is triggered: " << "\t";
         std::cout << "event.path[" << event.path() << "]\t";
-        std::cout << "event.type[" << event.type().c_str() << "]\t";
-        std::cout << "event.state[" << event.state().c_str() << "]" << std::endl;
+        std::cout << "event.type[" << event.type().desc() << "]\t";
+        std::cout << "event.state[" << event.state().desc() << "]" << std::endl;
         if (event.type() == ZOO_SESSION_EVENT) {
             pthread_mutex_lock(&mutex);
             path_watcher_trigger = 1;

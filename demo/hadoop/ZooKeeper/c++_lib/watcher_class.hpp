@@ -47,31 +47,31 @@ public:
             return _event;
         }
 
-        const char* c_str() {
+        const char* desc() {
             if (_event == ZOO_CREATED_EVENT) {
-                return "ZOO_CREATED_EVENT";
+                return "zookeeper created event";
             }
             if (_event == ZOO_DELETED_EVENT) {
-                return "ZOO_DELETED_EVENT";
+                return "zookeeper deleted event";
             }
             if (_event == ZOO_CHANGED_EVENT) {
-                return "ZOO_CHANGED_EVENT";
+                return "zookeeper changed event";
             }
             if (_event == ZOO_CHILD_EVENT) {
-                return "ZOO_CHILD_EVENT";
+                return "zookeeper child event";
             }
             if (_event == ZOO_SESSION_EVENT) {
-                return "ZOO_SESSION_EVENT";
+                return "zookeeper session event";
             }
             if (_event == ZOO_NOTWATCHING_EVENT) {
-                return "ZOO_NOTWATCHING_EVENT";
+                return "zookeeper not watching event";
             }
-            return "ZOO_UNKNOWN_EVENT";
+            return "zookeeper unknown event";
         }
 
         // ====================  OPERATORS     =======================================
         Event& operator=(int value) {
-            _event == value;
+            _event = value;
             return *this;
         }
 
@@ -107,23 +107,23 @@ public:
             return _state;
         }
 
-        const char* c_str() {
+        const char* desc() {
             if (_state == ZOO_EXPIRED_SESSION_STATE) {
-                return "ZOO_EXPIRED_SESSION_STATE";
+                return "zookeeper expired session state";
             }
             if (_state == ZOO_AUTH_FAILED_STATE) {
-                return "ZOO_AUTH_FAILED_STATE";
+                return "zookeeper auth failed state";
             }
             if (_state == ZOO_CONNECTING_STATE) {
-                return "ZOO_CONNECTING_STATE";
+                return "zookeeper connecting state";
             }
             if (_state == ZOO_ASSOCIATING_STATE) {
-                return "ZOO_ASSOCIATING_STATE";
+                return "zookeeper associating state";
             }
             if (_state == ZOO_CONNECTED_STATE) {
-                return "ZOO_CONNECTED_STATE";
+                return "zookeeper connected state";
             }
-            return "ZOO_UNKNOWN_STATE";
+            return "zookeeper unknown state";
         }
 
         // ====================  OPERATORS     =======================================
