@@ -39,7 +39,7 @@ namespace zkclass
         {
         public:
             // ====================  LIFECYCLE     =======================================
-            Event(int event) : _event(event) {}
+            explicit Event(int event) : _event(event) {}
 
             ~Event() {}
 
@@ -73,6 +73,12 @@ namespace zkclass
             }
 
             // ====================  OPERATORS     =======================================
+            Event& operator=(int value)
+            {
+                _event == value;
+        return *this;
+            }
+
             bool operator==(int value)
             {
                 return _event == value;
@@ -99,7 +105,7 @@ namespace zkclass
         {
         public:
             // ====================  LIFECYCLE     =======================================
-            State(int state) : _state(state) {}
+            explicit State(int state) : _state(state) {}
 
             ~State() {}
 
@@ -130,6 +136,12 @@ namespace zkclass
             }
 
             // ====================  OPERATORS     =======================================
+            State& operator=(int value)
+            {
+                _state = value;
+        return *this;
+            }
+
             bool operator==(int value)
             {
                 return _state == value;

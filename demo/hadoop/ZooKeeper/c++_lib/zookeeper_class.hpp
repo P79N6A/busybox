@@ -52,11 +52,17 @@ namespace zkclass
             // ====================  LIFECYCLE     =======================================
             Error() : _error(ZOK) {}
 
-            Error(int error) : _error(error) {}
+            explicit Error(int error) : _error(error) {}
 
             ~Error() {}
 
             // ====================  OPERATORS     =======================================
+            Error& operator=(int value)
+            {
+                _error = value;
+        return *this;
+            }
+
             bool operator==(int value)
             {
                 return _error == value;
