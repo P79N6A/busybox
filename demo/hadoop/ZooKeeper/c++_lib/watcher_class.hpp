@@ -57,22 +57,22 @@ namespace zkclass
             {
                 if (_event == ZOO_CREATED_EVENT) {
                     return "ZOO_CREATED_EVENT";
-		}
+                }
                 if (_event == ZOO_DELETED_EVENT) {
                     return "ZOO_DELETED_EVENT";
-		}
+                }
                 if (_event == ZOO_CHANGED_EVENT) {
                     return "ZOO_CHANGED_EVENT";
-		}
+                }
                 if (_event == ZOO_CHILD_EVENT) {
                     return "ZOO_CHILD_EVENT";
-		}
+                }
                 if (_event == ZOO_SESSION_EVENT) {
                     return "ZOO_SESSION_EVENT";
-		}
+                }
                 if (_event == ZOO_NOTWATCHING_EVENT) {
                     return "ZOO_NOTWATCHING_EVENT";
-		}
+                }
             }
 
             // ====================  OPERATORS     =======================================
@@ -121,19 +121,19 @@ namespace zkclass
             {
                 if (_state == ZOO_EXPIRED_SESSION_STATE) {
                     return "ZOO_EXPIRED_SESSION_STATE";
-		}
+                }
                 if (_state == ZOO_AUTH_FAILED_STATE) {
                     return "ZOO_AUTH_FAILED_STATE";
-		}
+                }
                 if (_state == ZOO_CONNECTING_STATE) {
                     return "ZOO_CONNECTING_STATE";
-		}
+                }
                 if (_state == ZOO_ASSOCIATING_STATE) {
                     return "ZOO_ASSOCIATING_STATE";
-		}
+                }
                 if (_state == ZOO_CONNECTED_STATE) {
                     return "ZOO_CONNECTED_STATE";
-		}
+                }
 
                 return "ZOO_UNKNOWN_STATE";
             }

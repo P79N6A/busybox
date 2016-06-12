@@ -50,17 +50,11 @@ namespace zkclass
         {
         public:
             // ====================  LIFECYCLE     =======================================
-            Error() : _error(ZOK)
-            {
-            }
+            Error() : _error(ZOK) {}
 
-            Error(int error) : _error(error)
-            {
-            }
+            Error(int error) : _error(error) {}
 
-            ~Error()
-            {
-            }
+            ~Error() {}
 
             // ====================  OPERATORS     =======================================
             bool operator==(int value)
@@ -84,80 +78,80 @@ namespace zkclass
                 /* Everything is OK */
                 if (_error == ZOK) {
                     return "ZOK";
-        }
+                }
 
                 /* System and server-side errors */
                 if (_error == ZSYSTEMERROR) {
                     return "ZSYSTEMERROR";
-        }
+                }
                 if (_error == ZRUNTIMEINCONSISTENCY) {
                     return "ZRUNTIMEINCONSISTENCY";
-        }
+                }
                 if (_error == ZDATAINCONSISTENCY) {
                     return "ZDATAINCONSISTENCY";
-        }
+                }
                 if (_error == ZCONNECTIONLOSS) {
                     return "ZCONNECTIONLOSS";
-        }
+                }
                 if (_error == ZMARSHALLINGERROR) {
                     return "ZMARSHALLINGERROR";
-        }
+                }
                 if (_error == ZUNIMPLEMENTED) {
                     return "ZUNIMPLEMENTED";
-        }
+                }
                 if (_error == ZOPERATIONTIMEOUT) {
                     return "ZOPERATIONTIMEOUT";
-        }
+                }
                 if (_error == ZBADARGUMENTS) {
                     return "ZBADARGUMENTS";
-        }
+                }
                 if (_error == ZINVALIDSTATE) {
                     return "ZINVALIDSTATE";
-        }
+                }
 
                 /* API errors */
                 if (_error == ZAPIERROR) {
                     return "ZAPIERROR";
-        }
+                }
                 if (_error == ZNONODE) {
                     return "ZNONODE";
-        }
+                }
                 if (_error == ZNOAUTH) {
                     return "ZNOAUTH";
-        }
+                }
                 if (_error == ZBADVERSION) {
                     return "ZBADVERSION";
-        }
+                }
                 if (_error == ZNOCHILDRENFOREPHEMERALS) {
                     return "ZNOCHILDRENFOREPHEMERALS";
-        }
+                }
                 if (_error == ZNODEEXISTS) {
                     return "ZNODEEXISTS";
-        }
+                }
                 if (_error == ZNOTEMPTY) {
                     return "ZNOTEMPTY";
-        }
+                }
                 if (_error == ZSESSIONEXPIRED) {
                     return "ZSESSIONEXPIRED";
-        }
+                }
                 if (_error == ZINVALIDCALLBACK) {
                     return "ZINVALIDCALLBACK";
-        }
+                }
                 if (_error == ZINVALIDACL) {
                     return "ZINVALIDACL";
-        }
+                }
                 if (_error == ZAUTHFAILED) {
                     return "ZAUTHFAILED";
-        }
+                }
                 if (_error == ZCLOSING) {
                     return "ZCLOSING";
-        }
+                }
                 if (_error == ZNOTHING) {
                     return "ZNOTHING";
-        }
+                }
                 if (_error == ZSESSIONMOVED) {
                     return "ZSESSIONMOVED";
-        }
+                }
 
                 return "ZUNKNOWNERROR";
             }
@@ -184,15 +178,15 @@ namespace zkclass
         //         Name:  ZooKeeper
         //  Description:  构造函数，负责创建ZooKeeper的连接，并建立Session
         //   Parameters:  connect_string: 连接字符串必须符合“host:port”格式
-    //
-    //                session_timeout: 超时时间。ZooKeeper的超时时间并不是设置多少就是多少，
-    //                而是client和server协商的结果，这里的session_timeout只是client的建议值，
-    //                而不是最终的使用值，最终使用值需要在ZooKeeper在建立Session完毕之后，由
-    //
-    //                get_session_timeout()接口查询获取
-    //
-    //                Watcher: 这里应该是Watcher接口的实现类的指针，用于注册ZooKeeper的监视器
-    //
+        //
+        //                session_timeout: 超时时间。ZooKeeper的超时时间并不是设置多少就是多少，
+        //                而是client和server协商的结果，这里的session_timeout只是client的建议值，
+        //                而不是最终的使用值，最终使用值需要在ZooKeeper在建立Session完毕之后，由
+        //
+        //                get_session_timeout()接口查询获取
+        //
+        //                Watcher: 这里应该是Watcher接口的实现类的指针，用于注册ZooKeeper的监视器
+        //
         //  ReturnValue:  void 执行结果无返回值，连接状态可通过get_state()接口查询
         // =====================================================================================
         */
@@ -203,22 +197,22 @@ namespace zkclass
         //         Name:  ZooKeeper
         //  Description:  构造函数，负责创建ZooKeeper的连接，并建立Session
         //   Parameters:  connect_string: 连接字符串必须符合“host:port”格式
-    //
-    //                session_timeout: 超时时间。ZooKeeper的超时时间并不是设置多少就是多少，
-    //                而是client和server协商的结果，这里的session_timeout只是client的建议值，
-    //                而不是最终的使用值，最终使用值需要在ZooKeeper在建立Session完毕之后，由
-    //                get_session_timeout()接口查询获取
-    //
-    //                Watcher: 这里应该是Watcher接口的实现类的指针，用于注册ZooKeeper的监视器
-    //
-    //                clientid: 使用指定的clientid进行重连，重连之前建议使用recoverable()接口
-    //                来查询session是否有恢复的可能
-    //
+        //
+        //                session_timeout: 超时时间。ZooKeeper的超时时间并不是设置多少就是多少，
+        //                而是client和server协商的结果，这里的session_timeout只是client的建议值，
+        //                而不是最终的使用值，最终使用值需要在ZooKeeper在建立Session完毕之后，由
+        //                get_session_timeout()接口查询获取
+        //
+        //                Watcher: 这里应该是Watcher接口的实现类的指针，用于注册ZooKeeper的监视器
+        //
+        //                clientid: 使用指定的clientid进行重连，重连之前建议使用recoverable()接口
+        //                来查询session是否有恢复的可能
+        //
         //  ReturnValue:  void 执行结果无返回值，连接状态可通过get_state()接口查询
         // =====================================================================================
         */
         ZooKeeper(const std::string &connect_string, int session_timeout, Watcher *watcher,
-            clientid_t *clientid);
+                clientid_t *clientid);
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -243,48 +237,48 @@ namespace zkclass
         //         Name:  create
         //  Description:  创建一个指定节点
         //   Parameters:  path: 节点路径（无法递归创建新节点）
-    //                data: 节点内容
-    //                acl: 节点权限
+        //                data: 节点内容
+        //                acl: 节点权限
         //  ReturnValue:  error class
         // =====================================================================================
         */
         ZooKeeper::Error create(const std::string &path, const std::string &data,
-            const std::vector<ACL> &acl);
+                const std::vector<ACL> &acl);
 
         /* 
         // ===  FUNCTION  ======================================================================
         //         Name:  create
         //  Description:  创建一个指定节点
         //   Parameters:  path: 节点路径（无法递归创建新节点）
-    //                data: 节点内容
-    //                acl: 节点权限
-    //                create_flag: 节点类型（ZOO_EPHEMERAL / ZOO_SEQUENCE）
+        //                data: 节点内容
+        //                acl: 节点权限
+        //                create_flag: 节点类型（ZOO_EPHEMERAL / ZOO_SEQUENCE）
         //  ReturnValue:  error class
         // =====================================================================================
         */
         ZooKeeper::Error create(const std::string &path, const std::string &data,
-            const std::vector<ACL> &acl, int create_flag);
+                const std::vector<ACL> &acl, int create_flag);
 
         /* 
         // ===  FUNCTION  ======================================================================
         //         Name:  create
         //   Parameters:  path: 节点路径（无法递归创建新节点）
-    //                data: 节点内容
-    //                acl: 节点权限
-    //                create_flag: 节点类型（ZOO_EPHEMERAL / ZOO_SEQUENCE）
-    //                new_path: 实际创建节点的名字，一般用于带有ZOO_SEQUENCE标记的创建过程
+        //                data: 节点内容
+        //                acl: 节点权限
+        //                create_flag: 节点类型（ZOO_EPHEMERAL / ZOO_SEQUENCE）
+        //                new_path: 实际创建节点的名字，一般用于带有ZOO_SEQUENCE标记的创建过程
         //  ReturnValue:  error class
         // =====================================================================================
         */
         ZooKeeper::Error create(const std::string &path, const std::string &data,
-            const std::vector<ACL> &acl, int create_flag, std::string *new_path);
+                const std::vector<ACL> &acl, int create_flag, std::string *new_path);
 
         /* 
         // ===  FUNCTION  ======================================================================
         //         Name:  remove
         //  Description:  删除节点
         //   Parameters:  path: 节点路径（无法递归删除指定节点）
-    //                version: 节点版本（-1为强制删除，无视版本）
+        //                version: 节点版本（-1为强制删除，无视版本）
         //  ReturnValue:  error class
         // =====================================================================================
         */
@@ -305,7 +299,7 @@ namespace zkclass
         //         Name:  exists
         //  Description:  检查指定节点是否存在
         //   Parameters:  path: 节点路径
-    //                stat: 出参：返回节点状态（如果存在的话）
+        //                stat: 出参：返回节点状态（如果存在的话）
         //  ReturnValue:  error class
         // =====================================================================================
         */
@@ -316,7 +310,7 @@ namespace zkclass
         //         Name:  exists
         //  Description:  检查指定节点是否存在
         //   Parameters:  path: 节点路径
-    //                watch: 设置是否注册到默认Watcher监控
+        //                watch: 设置是否注册到默认Watcher监控
         //  ReturnValue:  error class
         // =====================================================================================
         */
@@ -327,8 +321,8 @@ namespace zkclass
         //         Name:  exists
         //  Description:  检查指定节点是否存在
         //   Parameters:  path: 节点路径
-    //                watch: 设置是否注册到默认Watcher监控
-    //                stat: 出参：返回节点状态（如果存在的话）
+        //                watch: 设置是否注册到默认Watcher监控
+        //                stat: 出参：返回节点状态（如果存在的话）
         //  ReturnValue:  error class
         // =====================================================================================
         */
@@ -339,7 +333,7 @@ namespace zkclass
         //         Name:  exists
         //  Description:  检查指定节点是否存在
         //   Parameters:  path: 节点路径
-    //                watcher: 注册一个自定义的Watcher监控对象
+        //                watcher: 注册一个自定义的Watcher监控对象
         //  ReturnValue:  error class
         // =====================================================================================
         */
@@ -350,8 +344,8 @@ namespace zkclass
         //         Name:  exists
         //  Description:  检查指定节点是否存在
         //   Parameters:  path: 节点路径
-    //                watcher: 注册一个自定义的Watcher监控对象
-    //                stat: 出参：返回节点状态（如果存在的话）
+        //                watcher: 注册一个自定义的Watcher监控对象
+        //                stat: 出参：返回节点状态（如果存在的话）
         //  ReturnValue:  error class
         // =====================================================================================
         */
@@ -362,8 +356,8 @@ namespace zkclass
         //         Name:  set_data
         //  Description:  设置节点数据
         //   Parameters:  path: 节点路径
-    //                data: 节点数据
-    //                version: 节点版本号（-1为无视节点版本，强行修改）
+        //                data: 节点数据
+        //                version: 节点版本号（-1为无视节点版本，强行修改）
         //  ReturnValue:  error class
         // =====================================================================================
         */
@@ -374,21 +368,21 @@ namespace zkclass
         //         Name:  set_data
         //  Description:  设置节点数据
         //   Parameters:  path: 节点路径
-    //                data: 节点数据
-    //                version: 节点版本号（-1为无视节点版本，强行修改）
-    //                stat: 出参：返回节点状态（如果存在的话）
+        //                data: 节点数据
+        //                version: 节点版本号（-1为无视节点版本，强行修改）
+        //                stat: 出参：返回节点状态（如果存在的话）
         //  ReturnValue:  error class
         // =====================================================================================
         */
         ZooKeeper::Error set_data(const std::string &path, const std::string &data, int version,
-            Stat *stat);
+                Stat *stat);
 
         /* 
         // ===  FUNCTION  ======================================================================
         //         Name:  get_data
         //  Description:  获取节点数据
         //   Parameters:  path: 节点路径
-    //                data: 出参：节点数据
+        //                data: 出参：节点数据
         //  ReturnValue:  error class
         // =====================================================================================
         */
@@ -399,8 +393,8 @@ namespace zkclass
         //         Name:  get_data
         //  Description:  获取节点数据
         //   Parameters:  path: 节点路径
-    //                data: 出参：节点数据
-    //                stat: 出参：返回节点状态（如果存在的话）
+        //                data: 出参：节点数据
+        //                stat: 出参：返回节点状态（如果存在的话）
         //  ReturnValue:  error class
         // =====================================================================================
         */
@@ -411,8 +405,8 @@ namespace zkclass
         //         Name:  get_data
         //  Description:  获取节点数据
         //   Parameters:  path: 节点路径
-    //                data: 出参：节点数据
-    //                watch: 设置是否注册到默认Watcher监控
+        //                data: 出参：节点数据
+        //                watch: 设置是否注册到默认Watcher监控
         //  ReturnValue:  error class
         // =====================================================================================
         */
@@ -423,47 +417,47 @@ namespace zkclass
         //         Name:  get_data
         //  Description:  获取节点数据
         //   Parameters:  path: 节点路径
-    //                data: 出参：节点数据
-    //                watch: 设置是否注册到默认Watcher监控
-    //                stat: 出参：返回节点状态（如果存在的话）
+        //                data: 出参：节点数据
+        //                watch: 设置是否注册到默认Watcher监控
+        //                stat: 出参：返回节点状态（如果存在的话）
         //  ReturnValue:  error class
         // =====================================================================================
         */
         ZooKeeper::Error get_data(const std::string &path, std::string *data,
-            bool watch, Stat *stat);
+                bool watch, Stat *stat);
 
         /* 
         // ===  FUNCTION  ======================================================================
         //         Name:  get_data
         //  Description:  获取节点数据
         //   Parameters:  path: 节点路径
-    //                data: 出参：节点数据
-    //                watcher: 注册一个自定义的Watcher监控对象
+        //                data: 出参：节点数据
+        //                watcher: 注册一个自定义的Watcher监控对象
         //  ReturnValue:  error class
         // =====================================================================================
         */
         ZooKeeper::Error get_data(const std::string &path, std::string *data, Watcher *watcher);
-        
+
         /* 
         // ===  FUNCTION  ======================================================================
         //         Name:  get_data
         //  Description:  获取节点数据
         //   Parameters:  path: 节点路径
-    //                data: 出参：节点数据
-    //                watcher: 注册一个自定义的Watcher监控对象
-    //                stat: 出参：返回节点状态（如果存在的话）
+        //                data: 出参：节点数据
+        //                watcher: 注册一个自定义的Watcher监控对象
+        //                stat: 出参：返回节点状态（如果存在的话）
         //  ReturnValue:  error class
         // =====================================================================================
         */
         ZooKeeper::Error get_data(const std::string &path, std::string *data,
-            Watcher *watcher, Stat *stat);
-        
+                Watcher *watcher, Stat *stat);
+
         /* 
         // ===  FUNCTION  ======================================================================
         //         Name:  get_children
         //  Description:  获取指定节点的子节点列表
         //   Parameters:  path: 节点路径
-    //                children: 子节点列表
+        //                children: 子节点列表
         //  ReturnValue:  error class
         // =====================================================================================
         */
@@ -474,74 +468,74 @@ namespace zkclass
         //         Name:  get_children
         //  Description:  获取指定节点的子节点列表
         //   Parameters:  path: 节点路径
-    //                children: 子节点列表
-    //                stat: 出参：返回节点状态（如果存在的话）
+        //                children: 子节点列表
+        //                stat: 出参：返回节点状态（如果存在的话）
         //  ReturnValue:  error class
         // =====================================================================================
         */
         ZooKeeper::Error get_children(const std::string path, std::vector<std::string> *children,
-            Stat *stat);
+                Stat *stat);
 
         /* 
         // ===  FUNCTION  ======================================================================
         //         Name:  get_children
         //  Description:  获取指定节点的子节点列表
         //   Parameters:  path: 节点路径
-    //                children: 子节点列表
-    //                watch: 设置是否注册到默认Watcher监控
+        //                children: 子节点列表
+        //                watch: 设置是否注册到默认Watcher监控
         //  ReturnValue:  error class
         // =====================================================================================
         */
         ZooKeeper::Error get_children(const std::string path, std::vector<std::string> *children,
-            bool watch);
+                bool watch);
 
         /* 
         // ===  FUNCTION  ======================================================================
         //         Name:  get_children
         //  Description:  获取指定节点的子节点列表
         //   Parameters:  path: 节点路径
-    //                children: 子节点列表
-    //                watcher: 注册一个自定义的Watcher监控对象
+        //                children: 子节点列表
+        //                watcher: 注册一个自定义的Watcher监控对象
         //  ReturnValue:  error class
         // =====================================================================================
         */
         ZooKeeper::Error get_children(const std::string path, std::vector<std::string> *children,
-            Watcher *watcher);
+                Watcher *watcher);
 
         /* 
         // ===  FUNCTION  ======================================================================
         //         Name:  get_children
         //  Description:  获取指定节点的子节点列表
         //   Parameters:  path: 节点路径
-    //                children: 子节点列表
-    //                watch: 设置是否注册到默认Watcher监控
-    //                stat: 出参：返回节点状态（如果存在的话）
+        //                children: 子节点列表
+        //                watch: 设置是否注册到默认Watcher监控
+        //                stat: 出参：返回节点状态（如果存在的话）
         //  ReturnValue:  error class
         // =====================================================================================
         */
         ZooKeeper::Error get_children(const std::string path, std::vector<std::string> *children,
-            bool watch, Stat *stat);
+                bool watch, Stat *stat);
 
         /* 
         // ===  FUNCTION  ======================================================================
         //         Name:  get_children
         //  Description:  获取指定节点的子节点列表
         //   Parameters:  path: 节点路径
-    //                children: 子节点列表
-    //                watcher: 注册一个自定义的Watcher监控对象
-    //                stat: 出参：返回节点状态（如果存在的话）
+        //                children: 子节点列表
+        //                watcher: 注册一个自定义的Watcher监控对象
+        //                stat: 出参：返回节点状态（如果存在的话）
         //  ReturnValue:  error class
         // =====================================================================================
         */
         ZooKeeper::Error get_children(const std::string path, std::vector<std::string> *children,
-            Watcher *watcher, Stat *stat);
+                Watcher *watcher, Stat *stat);
 
         /* 
         // ===  FUNCTION  ======================================================================
         //         Name:  add_auth_info
         //  Description:  为当前连接增加权限
         //   Parameters:  scheme: 权限模式
-    //                cert: 具体权限
+        //                cert: 具体权限
         //  ReturnValue:  error class
         // =====================================================================================
         */
@@ -552,8 +546,8 @@ namespace zkclass
         //         Name:  set_acl
         //  Description:  设置节点的ACL权限
         //   Parameters:  path: 节点路径
-    //                acl: 节点的ACL权限列表
-    //                version: 节点版本（-1为强行设置，无视版本）
+        //                acl: 节点的ACL权限列表
+        //                version: 节点版本（-1为强行设置，无视版本）
         //  ReturnValue:  error class
         // =====================================================================================
         */
@@ -564,7 +558,7 @@ namespace zkclass
         //         Name:  get_acl
         //  Description:  获取节点ACL权限
         //   Parameters:  path: 节点路径
-    //                acl: 出参：节点的ACL权限列表
+        //                acl: 出参：节点的ACL权限列表
         //  ReturnValue:  error class
         // =====================================================================================
         */
@@ -575,8 +569,8 @@ namespace zkclass
         //         Name:  get_acl
         //  Description:  获取节点ACL权限
         //   Parameters:  path: 节点路径
-    //                acl: 出参：节点的ACL权限列表
-    //                stat: 出参：返回节点状态（如果存在的话）
+        //                acl: 出参：节点的ACL权限列表
+        //                stat: 出参：返回节点状态（如果存在的话）
         //  ReturnValue:  error class
         // =====================================================================================
         */
@@ -640,7 +634,7 @@ namespace zkclass
         //  ReturnValue:  
         // =====================================================================================
         */
-//        void create(std::string path, char data[], std::vector<ACL> acl, int create_flag, AsyncCallback cb, void *ctx);
+        //        void create(std::string path, char data[], std::vector<ACL> acl, int create_flag, AsyncCallback cb, void *ctx);
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -650,7 +644,7 @@ namespace zkclass
         //  ReturnValue:  
         // =====================================================================================
         */
-//        void remove(std::string path, int version, AsyncCallback cb, void *ctx);
+        //        void remove(std::string path, int version, AsyncCallback cb, void *ctx);
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -660,7 +654,7 @@ namespace zkclass
         //  ReturnValue:  
         // =====================================================================================
         */
-//        void exists(std::string path, bool watch, AsyncCallback cb, void *ctx);
+        //        void exists(std::string path, bool watch, AsyncCallback cb, void *ctx);
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -670,8 +664,8 @@ namespace zkclass
         //  ReturnValue:  
         // =====================================================================================
         */
-//        void exists(std::string path, Watcher watcher, AsyncCallback cb, void *ctx);
-        
+        //        void exists(std::string path, Watcher watcher, AsyncCallback cb, void *ctx);
+
         /* 
         // ===  FUNCTION  ======================================================================
         //         Name:  get_acl
@@ -680,7 +674,7 @@ namespace zkclass
         //  ReturnValue:  
         // =====================================================================================
         */
-//        void get_acl(std::string path, Stat stat, AsyncCallback cb, void *ctx);
+        //        void get_acl(std::string path, Stat stat, AsyncCallback cb, void *ctx);
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -690,7 +684,7 @@ namespace zkclass
         //  ReturnValue:  
         // =====================================================================================
         */
-//        void get_children(std::string path, bool watch, AsyncCallback cb, void *ctx);
+        //        void get_children(std::string path, bool watch, AsyncCallback cb, void *ctx);
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -700,7 +694,7 @@ namespace zkclass
         //  ReturnValue:  
         // =====================================================================================
         */
-//        void get_children(std::string path, Watcher watcher, AsyncCallback cb, void *ctx);
+        //        void get_children(std::string path, Watcher watcher, AsyncCallback cb, void *ctx);
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -710,7 +704,7 @@ namespace zkclass
         //  ReturnValue:  
         // =====================================================================================
         */
-//        void get_data(std::string path, bool watch, AsyncCallback cb, void *ctx);
+        //        void get_data(std::string path, bool watch, AsyncCallback cb, void *ctx);
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -720,7 +714,7 @@ namespace zkclass
         //  ReturnValue:  
         // =====================================================================================
         */
-//        void get_data(std::string path, Watcher watcher, AsyncCallback cb, void *ctx);
+        //        void get_data(std::string path, Watcher watcher, AsyncCallback cb, void *ctx);
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -730,8 +724,8 @@ namespace zkclass
         //  ReturnValue:  
         // =====================================================================================
         */
-//        void set_acl(std::string path, std::vector<ACL> acl, int version, AsyncCallback cb, void *ctx);
-        
+        //        void set_acl(std::string path, std::vector<ACL> acl, int version, AsyncCallback cb, void *ctx);
+
         /* 
         // ===  FUNCTION  ======================================================================
         //         Name:  set_data
@@ -740,7 +734,7 @@ namespace zkclass
         //  ReturnValue:  
         // =====================================================================================
         */
-//        void set_data(std::string path, char data[], int version, AsyncCallback cb, void *ctx);
+        //        void set_data(std::string path, char data[], int version, AsyncCallback cb, void *ctx);
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -750,7 +744,7 @@ namespace zkclass
         //  ReturnValue:  
         // =====================================================================================
         */
-//        void sync(std::string path, AsyncCallback cb, void *ctx);
+        //        void sync(std::string path, AsyncCallback cb, void *ctx);
 
         /* 
         // ===  FUNCTION  ======================================================================
@@ -758,7 +752,7 @@ namespace zkclass
         //  Description:   
         // =====================================================================================
         */
-//        void multi();
+        //        void multi();
 
     private:
         // ==================== PRIVATE METHOD =======================================
@@ -782,14 +776,14 @@ namespace zkclass
         // =====================================================================================
         */
         template <class T>
-        inline std::unique_ptr<T[]> vector_to_array(std::vector<T> vec)
-        {
-            std::unique_ptr<T[]> array(new T[vec.size()]);
-            for (int i=0; i<vec.size(); ++i) {
-                array[i] = vec[i];
-            }
-            return array;
-        }        // -----  end of template function vector_to_array  -----
+            inline std::unique_ptr<T[]> vector_to_array(std::vector<T> vec)
+            {
+                std::unique_ptr<T[]> array(new T[vec.size()]);
+                for (int i=0; i<vec.size(); ++i) {
+                    array[i] = vec[i];
+                }
+                return array;
+            }        // -----  end of template function vector_to_array  -----
 
         /* 
         // ===  FUNCTION  ======================================================================
