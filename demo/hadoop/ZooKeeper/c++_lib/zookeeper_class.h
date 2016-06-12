@@ -1,10 +1,10 @@
 /*
 // =====================================================================================
 // 
-//       Filename:  zookeeper_class.hpp
+//       Filename:  zookeeper_class.h
 // 
-//    Description:  zookeeperçš„å¯¹è±¡åŒ–å°è£…ï¼Œæ¨¡æ‹ŸJavaæ¥å£
-//                  æ¥å£è®¾è®¡å‚ç…§ï¼šhttps://zookeeper.apache.org/doc/r3.4.8/api/index.html
+//    Description:  zookeeperµÄ¶ÔÏó»¯·â×°£¬Ä£ÄâJava½Ó¿Ú
+//                  ½Ó¿ÚÉè¼Æ²ÎÕÕ£ºhttps://zookeeper.apache.org/doc/r3.4.8/api/index.html
 // 
 //        Version:  1.0
 //        Created:  06/03/2016 08:02:15 PM
@@ -17,8 +17,8 @@
 // =====================================================================================
 */
 
-#ifndef  _ZOOKEEPER_CLASS_HPP_
-#define  _ZOOKEEPER_CLASS_HPP_
+#ifndef  PS_SE_EDEN_COMMON_ZOOKEEPER_CLASS_H
+#define  PS_SE_EDEN_COMMON_ZOOKEEPER_CLASS_H
 
 #include <cstring>
 
@@ -28,8 +28,8 @@
 
 #include "zookeeper.h"
 
-#include "watcher_class.hpp"
-#include "watched_event_class.hpp"
+#include "watcher_class.h"
+#include "watched_event_class.h"
 
 namespace zkclass {
 
@@ -60,20 +60,33 @@ public:
             return *this;
         }
 
-        bool operator==(int value) {
+        Error& operator=(const Error &e) {
+            _error = e.value();
+            return *this;
+        }
+
+        bool operator==(int value) const {
             return _error == value;
         }
 
-        bool operator!=(int value) {
-            return _error != value;
+        bool operator==(const Error &e) const {
+            return _error == e.value();
+        }
+
+        bool operator!=(int value) const {
+            return !this->operator==(value);
+        }
+
+        bool operator!=(const Error &e) const {
+            return !this->operator==(e);
         }
 
         // ====================  INTERFACE     =======================================
-        int value() {
+        int value() const {
             return _error;
         }
 
-        const char* desc() {
+        const char* desc() const {
             return zerror(_error);
         }
 
@@ -92,18 +105,18 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  ZooKeeper
-    //  Description:  æ„é€ å‡½æ•°ï¼Œè´Ÿè´£åˆ›å»ºZooKeeperçš„è¿æ¥ï¼Œå¹¶å»ºç«‹Session
-    //   Parameters:  connect_string: è¿æ¥å­—ç¬¦ä¸²å¿…é¡»ç¬¦åˆâ€œhost:portâ€æ ¼å¼
+    //  Description:  ¹¹Ôìº¯Êı£¬¸ºÔğ´´½¨ZooKeeperµÄÁ¬½Ó£¬²¢½¨Á¢Session
+    //   Parameters:  connect_string: Á¬½Ó×Ö·û´®±ØĞë·ûºÏ¡°host:port¡±¸ñÊ½
     //
-    //                session_timeout: è¶…æ—¶æ—¶é—´ã€‚ZooKeeperçš„è¶…æ—¶æ—¶é—´å¹¶ä¸æ˜¯è®¾ç½®å¤šå°‘å°±æ˜¯å¤šå°‘ï¼Œ
-    //                è€Œæ˜¯clientå’Œserveråå•†çš„ç»“æœï¼Œè¿™é‡Œçš„session_timeoutåªæ˜¯clientçš„å»ºè®®å€¼ï¼Œ
-    //                è€Œä¸æ˜¯æœ€ç»ˆçš„ä½¿ç”¨å€¼ï¼Œæœ€ç»ˆä½¿ç”¨å€¼éœ€è¦åœ¨ZooKeeperåœ¨å»ºç«‹Sessionå®Œæ¯•ä¹‹åï¼Œç”±
+    //                session_timeout: ³¬Ê±Ê±¼ä¡£ZooKeeperµÄ³¬Ê±Ê±¼ä²¢²»ÊÇÉèÖÃ¶àÉÙ¾ÍÊÇ¶àÉÙ£¬
+    //                ¶øÊÇclientºÍserverĞ­ÉÌµÄ½á¹û£¬ÕâÀïµÄsession_timeoutÖ»ÊÇclientµÄ½¨ÒéÖµ£¬
+    //                ¶ø²»ÊÇ×îÖÕµÄÊ¹ÓÃÖµ£¬×îÖÕÊ¹ÓÃÖµĞèÒªÔÚZooKeeperÔÚ½¨Á¢SessionÍê±ÏÖ®ºó£¬ÓÉ
     //
-    //                get_session_timeout()æ¥å£æŸ¥è¯¢è·å–
+    //                get_session_timeout()½Ó¿Ú²éÑ¯»ñÈ¡
     //
-    //                Watcher: è¿™é‡Œåº”è¯¥æ˜¯Watcheræ¥å£çš„å®ç°ç±»çš„æŒ‡é’ˆï¼Œç”¨äºæ³¨å†ŒZooKeeperçš„ç›‘è§†å™¨
+    //                Watcher: ÕâÀïÓ¦¸ÃÊÇWatcher½Ó¿ÚµÄÊµÏÖÀàµÄÖ¸Õë£¬ÓÃÓÚ×¢²áZooKeeperµÄ¼àÊÓÆ÷
     //
-    //  ReturnValue:  void æ‰§è¡Œç»“æœæ— è¿”å›å€¼ï¼Œè¿æ¥çŠ¶æ€å¯é€šè¿‡get_state()æ¥å£æŸ¥è¯¢
+    //  ReturnValue:  void Ö´ĞĞ½á¹ûÎŞ·µ»ØÖµ£¬Á¬½Ó×´Ì¬¿ÉÍ¨¹ıget_state()½Ó¿Ú²éÑ¯
     // =====================================================================================
     */
     ZooKeeper(const std::string &connect_string, int session_timeout, Watcher *watcher);
@@ -111,20 +124,20 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  ZooKeeper
-    //  Description:  æ„é€ å‡½æ•°ï¼Œè´Ÿè´£åˆ›å»ºZooKeeperçš„è¿æ¥ï¼Œå¹¶å»ºç«‹Session
-    //   Parameters:  connect_string: è¿æ¥å­—ç¬¦ä¸²å¿…é¡»ç¬¦åˆâ€œhost:portâ€æ ¼å¼
+    //  Description:  ¹¹Ôìº¯Êı£¬¸ºÔğ´´½¨ZooKeeperµÄÁ¬½Ó£¬²¢½¨Á¢Session
+    //   Parameters:  connect_string: Á¬½Ó×Ö·û´®±ØĞë·ûºÏ¡°host:port¡±¸ñÊ½
     //
-    //                session_timeout: è¶…æ—¶æ—¶é—´ã€‚ZooKeeperçš„è¶…æ—¶æ—¶é—´å¹¶ä¸æ˜¯è®¾ç½®å¤šå°‘å°±æ˜¯å¤šå°‘ï¼Œ
-    //                è€Œæ˜¯clientå’Œserveråå•†çš„ç»“æœï¼Œè¿™é‡Œçš„session_timeoutåªæ˜¯clientçš„å»ºè®®å€¼ï¼Œ
-    //                è€Œä¸æ˜¯æœ€ç»ˆçš„ä½¿ç”¨å€¼ï¼Œæœ€ç»ˆä½¿ç”¨å€¼éœ€è¦åœ¨ZooKeeperåœ¨å»ºç«‹Sessionå®Œæ¯•ä¹‹åï¼Œç”±
-    //                get_session_timeout()æ¥å£æŸ¥è¯¢è·å–
+    //                session_timeout: ³¬Ê±Ê±¼ä¡£ZooKeeperµÄ³¬Ê±Ê±¼ä²¢²»ÊÇÉèÖÃ¶àÉÙ¾ÍÊÇ¶àÉÙ£¬
+    //                ¶øÊÇclientºÍserverĞ­ÉÌµÄ½á¹û£¬ÕâÀïµÄsession_timeoutÖ»ÊÇclientµÄ½¨ÒéÖµ£¬
+    //                ¶ø²»ÊÇ×îÖÕµÄÊ¹ÓÃÖµ£¬×îÖÕÊ¹ÓÃÖµĞèÒªÔÚZooKeeperÔÚ½¨Á¢SessionÍê±ÏÖ®ºó£¬ÓÉ
+    //                get_session_timeout()½Ó¿Ú²éÑ¯»ñÈ¡
     //
-    //                Watcher: è¿™é‡Œåº”è¯¥æ˜¯Watcheræ¥å£çš„å®ç°ç±»çš„æŒ‡é’ˆï¼Œç”¨äºæ³¨å†ŒZooKeeperçš„ç›‘è§†å™¨
+    //                Watcher: ÕâÀïÓ¦¸ÃÊÇWatcher½Ó¿ÚµÄÊµÏÖÀàµÄÖ¸Õë£¬ÓÃÓÚ×¢²áZooKeeperµÄ¼àÊÓÆ÷
     //
-    //                clientid: ä½¿ç”¨æŒ‡å®šçš„clientidè¿›è¡Œé‡è¿ï¼Œé‡è¿ä¹‹å‰å»ºè®®ä½¿ç”¨recoverable()æ¥å£
-    //                æ¥æŸ¥è¯¢sessionæ˜¯å¦æœ‰æ¢å¤çš„å¯èƒ½
+    //                clientid: Ê¹ÓÃÖ¸¶¨µÄclientid½øĞĞÖØÁ¬£¬ÖØÁ¬Ö®Ç°½¨ÒéÊ¹ÓÃrecoverable()½Ó¿Ú
+    //                À´²éÑ¯sessionÊÇ·ñÓĞ»Ö¸´µÄ¿ÉÄÜ
     //
-    //  ReturnValue:  void æ‰§è¡Œç»“æœæ— è¿”å›å€¼ï¼Œè¿æ¥çŠ¶æ€å¯é€šè¿‡get_state()æ¥å£æŸ¥è¯¢
+    //  ReturnValue:  void Ö´ĞĞ½á¹ûÎŞ·µ»ØÖµ£¬Á¬½Ó×´Ì¬¿ÉÍ¨¹ıget_state()½Ó¿Ú²éÑ¯
     // =====================================================================================
     */
     ZooKeeper(const std::string &connect_string, int session_timeout, Watcher *watcher,
@@ -133,7 +146,7 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  ~ZooKeeper
-    //  Description:  æå¤Ÿå‡½æ•°ï¼Œé‡Šæ”¾èµ„æº
+    //  Description:  Îö¹»º¯Êı£¬ÊÍ·Å×ÊÔ´
     // =====================================================================================
     */
     ~ZooKeeper();
@@ -143,7 +156,7 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  close
-    //  Description:  å…³é—­ZooKeeperè¿æ¥
+    //  Description:  ¹Ø±ÕZooKeeperÁ¬½Ó
     // =====================================================================================
     */
     ZooKeeper::Error close();
@@ -151,10 +164,10 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  create
-    //  Description:  åˆ›å»ºä¸€ä¸ªæŒ‡å®šèŠ‚ç‚¹
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„ï¼ˆæ— æ³•é€’å½’åˆ›å»ºæ–°èŠ‚ç‚¹ï¼‰
-    //                data: èŠ‚ç‚¹å†…å®¹
-    //                acl: èŠ‚ç‚¹æƒé™
+    //  Description:  ´´½¨Ò»¸öÖ¸¶¨½Úµã
+    //   Parameters:  path: ½ÚµãÂ·¾¶£¨ÎŞ·¨µİ¹é´´½¨ĞÂ½Úµã£©
+    //                data: ½ÚµãÄÚÈİ
+    //                acl: ½ÚµãÈ¨ÏŞ
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -164,11 +177,11 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  create
-    //  Description:  åˆ›å»ºä¸€ä¸ªæŒ‡å®šèŠ‚ç‚¹
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„ï¼ˆæ— æ³•é€’å½’åˆ›å»ºæ–°èŠ‚ç‚¹ï¼‰
-    //                data: èŠ‚ç‚¹å†…å®¹
-    //                acl: èŠ‚ç‚¹æƒé™
-    //                create_flag: èŠ‚ç‚¹ç±»å‹ï¼ˆZOO_EPHEMERAL / ZOO_SEQUENCEï¼‰
+    //  Description:  ´´½¨Ò»¸öÖ¸¶¨½Úµã
+    //   Parameters:  path: ½ÚµãÂ·¾¶£¨ÎŞ·¨µİ¹é´´½¨ĞÂ½Úµã£©
+    //                data: ½ÚµãÄÚÈİ
+    //                acl: ½ÚµãÈ¨ÏŞ
+    //                create_flag: ½ÚµãÀàĞÍ£¨ZOO_EPHEMERAL / ZOO_SEQUENCE£©
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -178,11 +191,11 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  create
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„ï¼ˆæ— æ³•é€’å½’åˆ›å»ºæ–°èŠ‚ç‚¹ï¼‰
-    //                data: èŠ‚ç‚¹å†…å®¹
-    //                acl: èŠ‚ç‚¹æƒé™
-    //                create_flag: èŠ‚ç‚¹ç±»å‹ï¼ˆZOO_EPHEMERAL / ZOO_SEQUENCEï¼‰
-    //                new_path: å®é™…åˆ›å»ºèŠ‚ç‚¹çš„åå­—ï¼Œä¸€èˆ¬ç”¨äºå¸¦æœ‰ZOO_SEQUENCEæ ‡è®°çš„åˆ›å»ºè¿‡ç¨‹
+    //   Parameters:  path: ½ÚµãÂ·¾¶£¨ÎŞ·¨µİ¹é´´½¨ĞÂ½Úµã£©
+    //                data: ½ÚµãÄÚÈİ
+    //                acl: ½ÚµãÈ¨ÏŞ
+    //                create_flag: ½ÚµãÀàĞÍ£¨ZOO_EPHEMERAL / ZOO_SEQUENCE£©
+    //                new_path: Êµ¼Ê´´½¨½ÚµãµÄÃû×Ö£¬Ò»°ãÓÃÓÚ´øÓĞZOO_SEQUENCE±ê¼ÇµÄ´´½¨¹ı³Ì
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -192,9 +205,9 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  remove
-    //  Description:  åˆ é™¤èŠ‚ç‚¹
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„ï¼ˆæ— æ³•é€’å½’åˆ é™¤æŒ‡å®šèŠ‚ç‚¹ï¼‰
-    //                version: èŠ‚ç‚¹ç‰ˆæœ¬ï¼ˆ-1ä¸ºå¼ºåˆ¶åˆ é™¤ï¼Œæ— è§†ç‰ˆæœ¬ï¼‰
+    //  Description:  É¾³ı½Úµã
+    //   Parameters:  path: ½ÚµãÂ·¾¶£¨ÎŞ·¨µİ¹éÉ¾³ıÖ¸¶¨½Úµã£©
+    //                version: ½Úµã°æ±¾£¨-1ÎªÇ¿ÖÆÉ¾³ı£¬ÎŞÊÓ°æ±¾£©
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -203,8 +216,8 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  exists
-    //  Description:  æ£€æŸ¥æŒ‡å®šèŠ‚ç‚¹æ˜¯å¦å­˜åœ¨
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„
+    //  Description:  ¼ì²éÖ¸¶¨½ÚµãÊÇ·ñ´æÔÚ
+    //   Parameters:  path: ½ÚµãÂ·¾¶
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -213,9 +226,9 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  exists
-    //  Description:  æ£€æŸ¥æŒ‡å®šèŠ‚ç‚¹æ˜¯å¦å­˜åœ¨
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„
-    //                stat: å‡ºå‚ï¼šè¿”å›èŠ‚ç‚¹çŠ¶æ€ï¼ˆå¦‚æœå­˜åœ¨çš„è¯ï¼‰
+    //  Description:  ¼ì²éÖ¸¶¨½ÚµãÊÇ·ñ´æÔÚ
+    //   Parameters:  path: ½ÚµãÂ·¾¶
+    //                stat: ³ö²Î£º·µ»Ø½Úµã×´Ì¬£¨Èç¹û´æÔÚµÄ»°£©
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -224,9 +237,9 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  exists
-    //  Description:  æ£€æŸ¥æŒ‡å®šèŠ‚ç‚¹æ˜¯å¦å­˜åœ¨
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„
-    //                watch: è®¾ç½®æ˜¯å¦æ³¨å†Œåˆ°é»˜è®¤Watcherç›‘æ§
+    //  Description:  ¼ì²éÖ¸¶¨½ÚµãÊÇ·ñ´æÔÚ
+    //   Parameters:  path: ½ÚµãÂ·¾¶
+    //                watch: ÉèÖÃÊÇ·ñ×¢²áµ½Ä¬ÈÏWatcher¼à¿Ø
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -235,10 +248,10 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  exists
-    //  Description:  æ£€æŸ¥æŒ‡å®šèŠ‚ç‚¹æ˜¯å¦å­˜åœ¨
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„
-    //                watch: è®¾ç½®æ˜¯å¦æ³¨å†Œåˆ°é»˜è®¤Watcherç›‘æ§
-    //                stat: å‡ºå‚ï¼šè¿”å›èŠ‚ç‚¹çŠ¶æ€ï¼ˆå¦‚æœå­˜åœ¨çš„è¯ï¼‰
+    //  Description:  ¼ì²éÖ¸¶¨½ÚµãÊÇ·ñ´æÔÚ
+    //   Parameters:  path: ½ÚµãÂ·¾¶
+    //                watch: ÉèÖÃÊÇ·ñ×¢²áµ½Ä¬ÈÏWatcher¼à¿Ø
+    //                stat: ³ö²Î£º·µ»Ø½Úµã×´Ì¬£¨Èç¹û´æÔÚµÄ»°£©
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -247,9 +260,9 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  exists
-    //  Description:  æ£€æŸ¥æŒ‡å®šèŠ‚ç‚¹æ˜¯å¦å­˜åœ¨
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„
-    //                watcher: æ³¨å†Œä¸€ä¸ªè‡ªå®šä¹‰çš„Watcherç›‘æ§å¯¹è±¡
+    //  Description:  ¼ì²éÖ¸¶¨½ÚµãÊÇ·ñ´æÔÚ
+    //   Parameters:  path: ½ÚµãÂ·¾¶
+    //                watcher: ×¢²áÒ»¸ö×Ô¶¨ÒåµÄWatcher¼à¿Ø¶ÔÏó
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -258,10 +271,10 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  exists
-    //  Description:  æ£€æŸ¥æŒ‡å®šèŠ‚ç‚¹æ˜¯å¦å­˜åœ¨
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„
-    //                watcher: æ³¨å†Œä¸€ä¸ªè‡ªå®šä¹‰çš„Watcherç›‘æ§å¯¹è±¡
-    //                stat: å‡ºå‚ï¼šè¿”å›èŠ‚ç‚¹çŠ¶æ€ï¼ˆå¦‚æœå­˜åœ¨çš„è¯ï¼‰
+    //  Description:  ¼ì²éÖ¸¶¨½ÚµãÊÇ·ñ´æÔÚ
+    //   Parameters:  path: ½ÚµãÂ·¾¶
+    //                watcher: ×¢²áÒ»¸ö×Ô¶¨ÒåµÄWatcher¼à¿Ø¶ÔÏó
+    //                stat: ³ö²Î£º·µ»Ø½Úµã×´Ì¬£¨Èç¹û´æÔÚµÄ»°£©
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -270,10 +283,10 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  set_data
-    //  Description:  è®¾ç½®èŠ‚ç‚¹æ•°æ®
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„
-    //                data: èŠ‚ç‚¹æ•°æ®
-    //                version: èŠ‚ç‚¹ç‰ˆæœ¬å·ï¼ˆ-1ä¸ºæ— è§†èŠ‚ç‚¹ç‰ˆæœ¬ï¼Œå¼ºè¡Œä¿®æ”¹ï¼‰
+    //  Description:  ÉèÖÃ½ÚµãÊı¾İ
+    //   Parameters:  path: ½ÚµãÂ·¾¶
+    //                data: ½ÚµãÊı¾İ
+    //                version: ½Úµã°æ±¾ºÅ£¨-1ÎªÎŞÊÓ½Úµã°æ±¾£¬Ç¿ĞĞĞŞ¸Ä£©
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -282,11 +295,11 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  set_data
-    //  Description:  è®¾ç½®èŠ‚ç‚¹æ•°æ®
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„
-    //                data: èŠ‚ç‚¹æ•°æ®
-    //                version: èŠ‚ç‚¹ç‰ˆæœ¬å·ï¼ˆ-1ä¸ºæ— è§†èŠ‚ç‚¹ç‰ˆæœ¬ï¼Œå¼ºè¡Œä¿®æ”¹ï¼‰
-    //                stat: å‡ºå‚ï¼šè¿”å›èŠ‚ç‚¹çŠ¶æ€ï¼ˆå¦‚æœå­˜åœ¨çš„è¯ï¼‰
+    //  Description:  ÉèÖÃ½ÚµãÊı¾İ
+    //   Parameters:  path: ½ÚµãÂ·¾¶
+    //                data: ½ÚµãÊı¾İ
+    //                version: ½Úµã°æ±¾ºÅ£¨-1ÎªÎŞÊÓ½Úµã°æ±¾£¬Ç¿ĞĞĞŞ¸Ä£©
+    //                stat: ³ö²Î£º·µ»Ø½Úµã×´Ì¬£¨Èç¹û´æÔÚµÄ»°£©
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -296,9 +309,9 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  get_data
-    //  Description:  è·å–èŠ‚ç‚¹æ•°æ®
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„
-    //                data: å‡ºå‚ï¼šèŠ‚ç‚¹æ•°æ®
+    //  Description:  »ñÈ¡½ÚµãÊı¾İ
+    //   Parameters:  path: ½ÚµãÂ·¾¶
+    //                data: ³ö²Î£º½ÚµãÊı¾İ
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -307,10 +320,10 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  get_data
-    //  Description:  è·å–èŠ‚ç‚¹æ•°æ®
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„
-    //                data: å‡ºå‚ï¼šèŠ‚ç‚¹æ•°æ®
-    //                stat: å‡ºå‚ï¼šè¿”å›èŠ‚ç‚¹çŠ¶æ€ï¼ˆå¦‚æœå­˜åœ¨çš„è¯ï¼‰
+    //  Description:  »ñÈ¡½ÚµãÊı¾İ
+    //   Parameters:  path: ½ÚµãÂ·¾¶
+    //                data: ³ö²Î£º½ÚµãÊı¾İ
+    //                stat: ³ö²Î£º·µ»Ø½Úµã×´Ì¬£¨Èç¹û´æÔÚµÄ»°£©
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -319,10 +332,10 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  get_data
-    //  Description:  è·å–èŠ‚ç‚¹æ•°æ®
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„
-    //                data: å‡ºå‚ï¼šèŠ‚ç‚¹æ•°æ®
-    //                watch: è®¾ç½®æ˜¯å¦æ³¨å†Œåˆ°é»˜è®¤Watcherç›‘æ§
+    //  Description:  »ñÈ¡½ÚµãÊı¾İ
+    //   Parameters:  path: ½ÚµãÂ·¾¶
+    //                data: ³ö²Î£º½ÚµãÊı¾İ
+    //                watch: ÉèÖÃÊÇ·ñ×¢²áµ½Ä¬ÈÏWatcher¼à¿Ø
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -331,11 +344,11 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  get_data
-    //  Description:  è·å–èŠ‚ç‚¹æ•°æ®
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„
-    //                data: å‡ºå‚ï¼šèŠ‚ç‚¹æ•°æ®
-    //                watch: è®¾ç½®æ˜¯å¦æ³¨å†Œåˆ°é»˜è®¤Watcherç›‘æ§
-    //                stat: å‡ºå‚ï¼šè¿”å›èŠ‚ç‚¹çŠ¶æ€ï¼ˆå¦‚æœå­˜åœ¨çš„è¯ï¼‰
+    //  Description:  »ñÈ¡½ÚµãÊı¾İ
+    //   Parameters:  path: ½ÚµãÂ·¾¶
+    //                data: ³ö²Î£º½ÚµãÊı¾İ
+    //                watch: ÉèÖÃÊÇ·ñ×¢²áµ½Ä¬ÈÏWatcher¼à¿Ø
+    //                stat: ³ö²Î£º·µ»Ø½Úµã×´Ì¬£¨Èç¹û´æÔÚµÄ»°£©
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -345,10 +358,10 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  get_data
-    //  Description:  è·å–èŠ‚ç‚¹æ•°æ®
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„
-    //                data: å‡ºå‚ï¼šèŠ‚ç‚¹æ•°æ®
-    //                watcher: æ³¨å†Œä¸€ä¸ªè‡ªå®šä¹‰çš„Watcherç›‘æ§å¯¹è±¡
+    //  Description:  »ñÈ¡½ÚµãÊı¾İ
+    //   Parameters:  path: ½ÚµãÂ·¾¶
+    //                data: ³ö²Î£º½ÚµãÊı¾İ
+    //                watcher: ×¢²áÒ»¸ö×Ô¶¨ÒåµÄWatcher¼à¿Ø¶ÔÏó
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -358,11 +371,11 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  get_data
-    //  Description:  è·å–èŠ‚ç‚¹æ•°æ®
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„
-    //                data: å‡ºå‚ï¼šèŠ‚ç‚¹æ•°æ®
-    //                watcher: æ³¨å†Œä¸€ä¸ªè‡ªå®šä¹‰çš„Watcherç›‘æ§å¯¹è±¡
-    //                stat: å‡ºå‚ï¼šè¿”å›èŠ‚ç‚¹çŠ¶æ€ï¼ˆå¦‚æœå­˜åœ¨çš„è¯ï¼‰
+    //  Description:  »ñÈ¡½ÚµãÊı¾İ
+    //   Parameters:  path: ½ÚµãÂ·¾¶
+    //                data: ³ö²Î£º½ÚµãÊı¾İ
+    //                watcher: ×¢²áÒ»¸ö×Ô¶¨ÒåµÄWatcher¼à¿Ø¶ÔÏó
+    //                stat: ³ö²Î£º·µ»Ø½Úµã×´Ì¬£¨Èç¹û´æÔÚµÄ»°£©
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -372,9 +385,9 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  get_children
-    //  Description:  è·å–æŒ‡å®šèŠ‚ç‚¹çš„å­èŠ‚ç‚¹åˆ—è¡¨
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„
-    //                children: å­èŠ‚ç‚¹åˆ—è¡¨
+    //  Description:  »ñÈ¡Ö¸¶¨½ÚµãµÄ×Ó½ÚµãÁĞ±í
+    //   Parameters:  path: ½ÚµãÂ·¾¶
+    //                children: ×Ó½ÚµãÁĞ±í
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -383,10 +396,10 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  get_children
-    //  Description:  è·å–æŒ‡å®šèŠ‚ç‚¹çš„å­èŠ‚ç‚¹åˆ—è¡¨
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„
-    //                children: å­èŠ‚ç‚¹åˆ—è¡¨
-    //                stat: å‡ºå‚ï¼šè¿”å›èŠ‚ç‚¹çŠ¶æ€ï¼ˆå¦‚æœå­˜åœ¨çš„è¯ï¼‰
+    //  Description:  »ñÈ¡Ö¸¶¨½ÚµãµÄ×Ó½ÚµãÁĞ±í
+    //   Parameters:  path: ½ÚµãÂ·¾¶
+    //                children: ×Ó½ÚµãÁĞ±í
+    //                stat: ³ö²Î£º·µ»Ø½Úµã×´Ì¬£¨Èç¹û´æÔÚµÄ»°£©
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -396,10 +409,10 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  get_children
-    //  Description:  è·å–æŒ‡å®šèŠ‚ç‚¹çš„å­èŠ‚ç‚¹åˆ—è¡¨
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„
-    //                children: å­èŠ‚ç‚¹åˆ—è¡¨
-    //                watch: è®¾ç½®æ˜¯å¦æ³¨å†Œåˆ°é»˜è®¤Watcherç›‘æ§
+    //  Description:  »ñÈ¡Ö¸¶¨½ÚµãµÄ×Ó½ÚµãÁĞ±í
+    //   Parameters:  path: ½ÚµãÂ·¾¶
+    //                children: ×Ó½ÚµãÁĞ±í
+    //                watch: ÉèÖÃÊÇ·ñ×¢²áµ½Ä¬ÈÏWatcher¼à¿Ø
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -409,10 +422,10 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  get_children
-    //  Description:  è·å–æŒ‡å®šèŠ‚ç‚¹çš„å­èŠ‚ç‚¹åˆ—è¡¨
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„
-    //                children: å­èŠ‚ç‚¹åˆ—è¡¨
-    //                watcher: æ³¨å†Œä¸€ä¸ªè‡ªå®šä¹‰çš„Watcherç›‘æ§å¯¹è±¡
+    //  Description:  »ñÈ¡Ö¸¶¨½ÚµãµÄ×Ó½ÚµãÁĞ±í
+    //   Parameters:  path: ½ÚµãÂ·¾¶
+    //                children: ×Ó½ÚµãÁĞ±í
+    //                watcher: ×¢²áÒ»¸ö×Ô¶¨ÒåµÄWatcher¼à¿Ø¶ÔÏó
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -422,11 +435,11 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  get_children
-    //  Description:  è·å–æŒ‡å®šèŠ‚ç‚¹çš„å­èŠ‚ç‚¹åˆ—è¡¨
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„
-    //                children: å­èŠ‚ç‚¹åˆ—è¡¨
-    //                watch: è®¾ç½®æ˜¯å¦æ³¨å†Œåˆ°é»˜è®¤Watcherç›‘æ§
-    //                stat: å‡ºå‚ï¼šè¿”å›èŠ‚ç‚¹çŠ¶æ€ï¼ˆå¦‚æœå­˜åœ¨çš„è¯ï¼‰
+    //  Description:  »ñÈ¡Ö¸¶¨½ÚµãµÄ×Ó½ÚµãÁĞ±í
+    //   Parameters:  path: ½ÚµãÂ·¾¶
+    //                children: ×Ó½ÚµãÁĞ±í
+    //                watch: ÉèÖÃÊÇ·ñ×¢²áµ½Ä¬ÈÏWatcher¼à¿Ø
+    //                stat: ³ö²Î£º·µ»Ø½Úµã×´Ì¬£¨Èç¹û´æÔÚµÄ»°£©
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -436,11 +449,11 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  get_children
-    //  Description:  è·å–æŒ‡å®šèŠ‚ç‚¹çš„å­èŠ‚ç‚¹åˆ—è¡¨
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„
-    //                children: å­èŠ‚ç‚¹åˆ—è¡¨
-    //                watcher: æ³¨å†Œä¸€ä¸ªè‡ªå®šä¹‰çš„Watcherç›‘æ§å¯¹è±¡
-    //                stat: å‡ºå‚ï¼šè¿”å›èŠ‚ç‚¹çŠ¶æ€ï¼ˆå¦‚æœå­˜åœ¨çš„è¯ï¼‰
+    //  Description:  »ñÈ¡Ö¸¶¨½ÚµãµÄ×Ó½ÚµãÁĞ±í
+    //   Parameters:  path: ½ÚµãÂ·¾¶
+    //                children: ×Ó½ÚµãÁĞ±í
+    //                watcher: ×¢²áÒ»¸ö×Ô¶¨ÒåµÄWatcher¼à¿Ø¶ÔÏó
+    //                stat: ³ö²Î£º·µ»Ø½Úµã×´Ì¬£¨Èç¹û´æÔÚµÄ»°£©
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -450,9 +463,9 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  add_auth_info
-    //  Description:  ä¸ºå½“å‰è¿æ¥å¢åŠ æƒé™
-    //   Parameters:  scheme: æƒé™æ¨¡å¼
-    //                cert: å…·ä½“æƒé™
+    //  Description:  Îªµ±Ç°Á¬½ÓÔö¼ÓÈ¨ÏŞ
+    //   Parameters:  scheme: È¨ÏŞÄ£Ê½
+    //                cert: ¾ßÌåÈ¨ÏŞ
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -461,10 +474,10 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  set_acl
-    //  Description:  è®¾ç½®èŠ‚ç‚¹çš„ACLæƒé™
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„
-    //                acl: èŠ‚ç‚¹çš„ACLæƒé™åˆ—è¡¨
-    //                version: èŠ‚ç‚¹ç‰ˆæœ¬ï¼ˆ-1ä¸ºå¼ºè¡Œè®¾ç½®ï¼Œæ— è§†ç‰ˆæœ¬ï¼‰
+    //  Description:  ÉèÖÃ½ÚµãµÄACLÈ¨ÏŞ
+    //   Parameters:  path: ½ÚµãÂ·¾¶
+    //                acl: ½ÚµãµÄACLÈ¨ÏŞÁĞ±í
+    //                version: ½Úµã°æ±¾£¨-1ÎªÇ¿ĞĞÉèÖÃ£¬ÎŞÊÓ°æ±¾£©
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -473,9 +486,9 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  get_acl
-    //  Description:  è·å–èŠ‚ç‚¹ACLæƒé™
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„
-    //                acl: å‡ºå‚ï¼šèŠ‚ç‚¹çš„ACLæƒé™åˆ—è¡¨
+    //  Description:  »ñÈ¡½ÚµãACLÈ¨ÏŞ
+    //   Parameters:  path: ½ÚµãÂ·¾¶
+    //                acl: ³ö²Î£º½ÚµãµÄACLÈ¨ÏŞÁĞ±í
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -484,10 +497,10 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  get_acl
-    //  Description:  è·å–èŠ‚ç‚¹ACLæƒé™
-    //   Parameters:  path: èŠ‚ç‚¹è·¯å¾„
-    //                acl: å‡ºå‚ï¼šèŠ‚ç‚¹çš„ACLæƒé™åˆ—è¡¨
-    //                stat: å‡ºå‚ï¼šè¿”å›èŠ‚ç‚¹çŠ¶æ€ï¼ˆå¦‚æœå­˜åœ¨çš„è¯ï¼‰
+    //  Description:  »ñÈ¡½ÚµãACLÈ¨ÏŞ
+    //   Parameters:  path: ½ÚµãÂ·¾¶
+    //                acl: ³ö²Î£º½ÚµãµÄACLÈ¨ÏŞÁĞ±í
+    //                stat: ³ö²Î£º·µ»Ø½Úµã×´Ì¬£¨Èç¹û´æÔÚµÄ»°£©
     //  ReturnValue:  error class
     // =====================================================================================
     */
@@ -496,8 +509,8 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  register_watcher
-    //  Description:  æ³¨å†Œï¼ˆæ›¿æ¢ï¼‰é»˜è®¤ç›‘è§†å™¨
-    //   Parameters:  watcher: è¿™é‡Œåº”è¯¥æ˜¯Watcheræ¥å£çš„å®ç°ç±»çš„æŒ‡é’ˆï¼Œç”¨äºæ³¨å†ŒZooKeeperçš„ç›‘è§†å™¨
+    //  Description:  ×¢²á£¨Ìæ»»£©Ä¬ÈÏ¼àÊÓÆ÷
+    //   Parameters:  watcher: ÕâÀïÓ¦¸ÃÊÇWatcher½Ó¿ÚµÄÊµÏÖÀàµÄÖ¸Õë£¬ÓÃÓÚ×¢²áZooKeeperµÄ¼àÊÓÆ÷
     //  ReturnValue:  void
     // =====================================================================================
     */
@@ -506,9 +519,9 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  get_client_id
-    //  Description:  è·å–å½“å‰ä¼šè¯çš„clientid
+    //  Description:  »ñÈ¡µ±Ç°»á»°µÄclientid
     //   Parameters:  
-    //  ReturnValue:  å½“å‰ä¼šè¯çš„clientidçš„æŒ‡é’ˆ
+    //  ReturnValue:  µ±Ç°»á»°µÄclientidµÄÖ¸Õë
     // =====================================================================================
     */
     const clientid_t* get_client_id() const;
@@ -516,7 +529,7 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  get_session_timeout
-    //  Description:  è·å–å½“å‰ä¼šè¯çš„timeout
+    //  Description:  »ñÈ¡µ±Ç°»á»°µÄtimeout
     //   Parameters:  
     //  ReturnValue:  timeout
     // =====================================================================================
@@ -526,7 +539,7 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  get_state
-    //  Description:  è·å–å½“å‰ZooKeeperçš„è¿æ¥çŠ¶æ€
+    //  Description:  »ñÈ¡µ±Ç°ZooKeeperµÄÁ¬½Ó×´Ì¬
     //   Parameters:  
     //  ReturnValue:  State class
     // =====================================================================================
@@ -536,140 +549,12 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  recoverable
-    //  Description:  æ£€æŸ¥å½“å‰zookeeperè¿æ¥æ˜¯å¦æ˜¯å¯æ¢å¤çš„
+    //  Description:  ¼ì²éµ±Ç°zookeeperÁ¬½ÓÊÇ·ñÊÇ¿É»Ö¸´µÄ
     //   Parameters:  
     //  ReturnValue:  true or false
     // =====================================================================================
     */
     bool recoverable() const;
-
-    /* 
-    // ===  FUNCTION  ======================================================================
-    //         Name:  create
-    //  Description:  The asynchronous version of create.
-    //   Parameters:  
-    //  ReturnValue:  
-    // =====================================================================================
-    */
-    //        void create(std::string path, char data[], std::vector<ACL> acl, int create_flag, AsyncCallback cb, void *ctx);
-
-    /* 
-    // ===  FUNCTION  ======================================================================
-    //         Name:  remove
-    //  Description:  The asynchronous version of remove.
-    //   Parameters:  
-    //  ReturnValue:  
-    // =====================================================================================
-    */
-    //        void remove(std::string path, int version, AsyncCallback cb, void *ctx);
-
-    /* 
-    // ===  FUNCTION  ======================================================================
-    //         Name:  exists
-    //  Description:  The asynchronous version of exists.
-    //   Parameters:  
-    //  ReturnValue:  
-    // =====================================================================================
-    */
-    //        void exists(std::string path, bool watch, AsyncCallback cb, void *ctx);
-
-    /* 
-    // ===  FUNCTION  ======================================================================
-    //         Name:  exists
-    //  Description:  The asynchronous version of exists.
-    //   Parameters:  
-    //  ReturnValue:  
-    // =====================================================================================
-    */
-    //        void exists(std::string path, Watcher watcher, AsyncCallback cb, void *ctx);
-
-    /* 
-    // ===  FUNCTION  ======================================================================
-    //         Name:  get_acl
-    //  Description:  The asynchronous version of get_acl.
-    //   Parameters:  
-    //  ReturnValue:  
-    // =====================================================================================
-    */
-    //        void get_acl(std::string path, Stat stat, AsyncCallback cb, void *ctx);
-
-    /* 
-    // ===  FUNCTION  ======================================================================
-    //         Name:  get_children
-    //  Description:  The asynchronous version of getChildren.
-    //   Parameters:  
-    //  ReturnValue:  
-    // =====================================================================================
-    */
-    //        void get_children(std::string path, bool watch, AsyncCallback cb, void *ctx);
-
-    /* 
-    // ===  FUNCTION  ======================================================================
-    //         Name:  get_children
-    //  Description:  The asynchronous version of getChildren.
-    //   Parameters:  
-    //  ReturnValue:  
-    // =====================================================================================
-    */
-    //        void get_children(std::string path, Watcher watcher, AsyncCallback cb, void *ctx);
-
-    /* 
-    // ===  FUNCTION  ======================================================================
-    //         Name:  get_data
-    //  Description:  The asynchronous version of getData.
-    //   Parameters:  
-    //  ReturnValue:  
-    // =====================================================================================
-    */
-    //        void get_data(std::string path, bool watch, AsyncCallback cb, void *ctx);
-
-    /* 
-    // ===  FUNCTION  ======================================================================
-    //         Name:  get_data
-    //  Description:  The asynchronous version of getData.
-    //   Parameters:  
-    //  ReturnValue:  
-    // =====================================================================================
-    */
-    //        void get_data(std::string path, Watcher watcher, AsyncCallback cb, void *ctx);
-
-    /* 
-    // ===  FUNCTION  ======================================================================
-    //         Name:  set_acl
-    //  Description:  The asynchronous version of setACL.
-    //   Parameters:  
-    //  ReturnValue:  
-    // =====================================================================================
-    */
-    //        void set_acl(std::string path, std::vector<ACL> acl, int version, AsyncCallback cb, void *ctx);
-
-    /* 
-    // ===  FUNCTION  ======================================================================
-    //         Name:  set_data
-    //  Description:  The asynchronous version of setData.
-    //   Parameters:  
-    //  ReturnValue:  
-    // =====================================================================================
-    */
-    //        void set_data(std::string path, char data[], int version, AsyncCallback cb, void *ctx);
-
-    /* 
-    // ===  FUNCTION  ======================================================================
-    //         Name:  sync
-    //  Description:  Asynchronous sync.
-    //   Parameters:  
-    //  ReturnValue:  
-    // =====================================================================================
-    */
-    //        void sync(std::string path, AsyncCallback cb, void *ctx);
-
-    /* 
-    // ===  FUNCTION  ======================================================================
-    //         Name:  multi
-    //  Description:   
-    // =====================================================================================
-    */
-    //        void multi();
 
 private:
     // ==================== PRIVATE METHOD =======================================
@@ -719,4 +604,4 @@ private:
 
 }    // ----- #namespace zkclass  -----
 
-#endif    // ----- #ifndef _ZOOKEEPER_CLASS_HPP_  -----
+#endif    // ----- #ifndef PS_SE_EDEN_COMMON_ZOOKEEPER_CLASS_H  -----

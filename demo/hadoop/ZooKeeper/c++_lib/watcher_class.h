@@ -1,7 +1,7 @@
 /*
 // =====================================================================================
 // 
-//       Filename:  watcher_class.hpp
+//       Filename:  watcher_class.h
 // 
 //    Description:  
 // 
@@ -16,8 +16,8 @@
 // =====================================================================================
 */
 
-#ifndef  _WATCHER_CLASS_HPP_
-#define  _WATCHER_CLASS_HPP_
+#ifndef  PS_SE_EDEN_COMMON_WATCHER_CLASS_H
+#define  PS_SE_EDEN_COMMON_WATCHER_CLASS_H
 
 namespace zkclass {
 
@@ -43,11 +43,11 @@ public:
         ~Event() {}
 
         // ====================  INTERFACE     =======================================
-        int value() {
+        int value() const {
             return _event;
         }
 
-        const char* desc() {
+        const char* desc() const {
             if (_event == ZOO_CREATED_EVENT) {
                 return "zookeeper created event";
             }
@@ -70,16 +70,29 @@ public:
         }
 
         // ====================  OPERATORS     =======================================
+        Event& operator=(const Event &e) {
+            _event = e.value();
+            return *this;
+        }
+
         Event& operator=(int value) {
             _event = value;
             return *this;
         }
 
-        bool operator==(int value) {
+        bool operator==(const Event &e) const {
+            return _event == e.value();
+        }
+
+        bool operator==(int value) const {
             return _event == value;
         }
 
-        bool operator!=(int value) {
+        bool operator!=(const Event &e) const {
+            return !this->operator==(e);
+        }
+
+        bool operator!=(int value) const {
             return !this->operator==(value);
         }
 
@@ -103,11 +116,11 @@ public:
         ~State() {}
 
         // ====================  INTERFACE     =======================================
-        int value() {
+        int value() const {
             return _state;
         }
 
-        const char* desc() {
+        const char* desc() const {
             if (_state == ZOO_EXPIRED_SESSION_STATE) {
                 return "zookeeper expired session state";
             }
@@ -127,16 +140,29 @@ public:
         }
 
         // ====================  OPERATORS     =======================================
+        State& operator=(const State &s) {
+            _state = s.value();
+            return *this;
+        }
+
         State& operator=(int value) {
             _state = value;
             return *this;
         }
 
-        bool operator==(int value) {
+        bool operator==(const State &s) const {
+            return _state == s.value();
+        }
+
+        bool operator==(int value) const {
             return _state == value;
         }
 
-        bool operator!=(int value) {
+        bool operator!=(const State &s) const {
+            return !this->operator==(s);
+        }
+
+        bool operator!=(int value) const {
             return !this->operator==(value);
         }
 
@@ -153,8 +179,8 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  process
-    //  Description:  Watcherçš„å›è°ƒæ¥å£
-    //   Parameters:  event: WatchedEventå¯¹è±¡çš„å¼•ç”¨ï¼Œç”¨äºè·å–Watcherè¢«è§¦å‘æ—¶çš„ç›¸å…³å‚æ•°
+    //  Description:  WatcherµÄ»Øµ÷½Ó¿Ú
+    //   Parameters:  event: WatchedEvent¶ÔÏóµÄÒıÓÃ£¬ÓÃÓÚ»ñÈ¡Watcher±»´¥·¢Ê±µÄÏà¹Ø²ÎÊı
     //  ReturnValue:  
     // =====================================================================================
     */
@@ -164,4 +190,4 @@ public:
 
 }    // ----- #namespace zkclass  -----
 
-#endif    // ----- #ifndef _WATCHER_CLASS_HPP_  -----
+#endif    // ----- #ifndef PS_SE_EDEN_COMMON_WATCHER_CLASS_H  -----

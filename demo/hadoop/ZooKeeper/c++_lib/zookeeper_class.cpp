@@ -16,7 +16,7 @@
 // =====================================================================================
 */
 
-#include "zookeeper_class.hpp"
+#include "zookeeper_class.h"
 
 using std::string;
 using std::vector;
@@ -144,7 +144,7 @@ ZooKeeper::Error ZooKeeper::get_data(const string &path, string *data, bool watc
     int len = 1048576;    // len is in-param and out-param
     ZooKeeper::Error error(zoo_get(_zhandler, path.c_str(), watch?1:0, buf, &len, stat));
     if (error == ZOK) {
-        data->string::~string();    // 重复placement new会导致内存泄漏
+        data->string::~string();    // �ظ�placement new�ᵼ���ڴ�й©
         new(data) string(buf, len);
     } else {
         data = nullptr;
@@ -163,7 +163,7 @@ ZooKeeper::Error ZooKeeper::get_data(const string &path, string *data,
     ZooKeeper::Error error(zoo_wget(_zhandler, path.c_str(),
                 watcher_callback, watcher, buf, &len, stat));
     if (error == ZOK) {
-        data->string::~string();    // 重复placement new会导致内存泄漏
+        data->string::~string();    // �ظ�placement new�ᵼ���ڴ�й©
         new(data) string(buf, len);
     } else {
         data = nullptr;

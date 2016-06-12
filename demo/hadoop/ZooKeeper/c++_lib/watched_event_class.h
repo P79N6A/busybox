@@ -1,7 +1,7 @@
 /*
 // =====================================================================================
 // 
-//       Filename:  watched_event_class.hpp
+//       Filename:  watched_event_class.h
 // 
 //    Description:  
 // 
@@ -16,12 +16,12 @@
 // =====================================================================================
 */
 
-#ifndef  _WATCHED_EVENT_CLASS_HPP_
-#define  _WATCHED_EVENT_CLASS_HPP_
+#ifndef  PS_SE_EDEN_COMMON_WATCHED_EVENT_CLASS_H
+#define  PS_SE_EDEN_COMMON_WATCHED_EVENT_CLASS_H
 
 #include <string>
 
-#include "watcher_class.hpp"
+#include "watcher_class.h"
 
 namespace zkclass {
 
@@ -42,7 +42,7 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  get_path
-    //  Description:  鑾峰彇褰撳墠鐩戞帶琚Е鍙戞椂鐨刾ath淇℃伅
+    //  Description:  获取当前监控被触发时的path信息
     // =====================================================================================
     */
     inline const std::string& path() const {
@@ -52,7 +52,7 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  get_type
-    //  Description:  鑾峰彇褰撳墠鐩戞帶琚Е鍙戞椂鐨則ype淇℃伅
+    //  Description:  获取当前监控被触发时的type信息
     // =====================================================================================
     */
     inline Watcher::Event type() const {
@@ -62,7 +62,7 @@ public:
     /* 
     // ===  FUNCTION  ======================================================================
     //         Name:  get_state
-    //  Description:  鑾峰彇褰撳墠鐩戞帶琚Е鍙戞椂鐨剆tate淇℃伅
+    //  Description:  获取当前监控被触发时的state信息
     // =====================================================================================
     */
     inline Watcher::State state() const {
@@ -81,5 +81,5 @@ private:
 
 }    // ----- #namespace zkclass  -----
 
-#endif    // ----- #ifndef _WATCHED_EVENT_CLASS_HPP_  -----
+#endif    // ----- #ifndef PS_SE_EDEN_COMMON_WATCHED_EVENT_CLASS_H  -----
 

@@ -27,8 +27,8 @@
 #include <openssl/evp.h>
 #include <openssl/buffer.h>
 
-#include "zookeeper_class.hpp"
-#include "watched_event_class.hpp"
+#include "zookeeper_class.h"
+#include "watched_event_class.h"
 using zkclass::ZooKeeper;
 using zkclass::Watcher;
 using zkclass::WatchedEvent;
