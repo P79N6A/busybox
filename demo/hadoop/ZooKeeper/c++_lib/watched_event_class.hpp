@@ -26,71 +26,69 @@
 namespace zkclass
 {
 
-	// =====================================================================================
-	//        Class:  WatchedEvent
-	//  Description:  
-	// =====================================================================================
-	class WatchedEvent
-	{
-	public:
-		// ====================  LIFECYCLE     =======================================
-		WatchedEvent(const std::string &path, int type, int state)
-			: m_path(path), m_type(type), m_state(state)
-		{
-		}
+    // =====================================================================================
+    //        Class:  WatchedEvent
+    //  Description:  
+    // =====================================================================================
+    class WatchedEvent
+    {
+    public:
+        // ====================  LIFECYCLE     =======================================
+        WatchedEvent(const std::string &path, int type, int state)
+            : _path(path), _type(type), _state(state)
+        {
+        }
 
-		~WatchedEvent()
-		{
-		}
+        ~WatchedEvent()
+        {
+        }
 
-		// ====================  INTERFACE     =======================================
+        // ====================  INTERFACE     =======================================
 
-		/* 
-		// ===  FUNCTION  ======================================================================
-		//         Name:  get_path
-		//  Description:   
-		//   Parameters:  
-		//  ReturnValue:  
-		// =====================================================================================
-		*/
-		inline const std::string& path() const
-		{
-			return m_path;
-		}		// -----  end of function path  -----
+        /* 
+        // ===  FUNCTION  ======================================================================
+        //         Name:  get_path
+        //  Description:  获取当前监控被触发时的path信息
+        // =====================================================================================
+        */
+        inline const std::string& path() const
+        {
+            return _path;
+        }        // -----  end of function path  -----
 
-		/* 
-		// ===  FUNCTION  ======================================================================
-		//         Name:  get_type
-		//  Description:   
-		// =====================================================================================
-		*/
-		inline Watcher::Event type() const
-		{
-			return Watcher::Event(m_type);
-		}		// -----  end of function type  -----
+        /* 
+        // ===  FUNCTION  ======================================================================
+        //         Name:  get_type
+        //  Description:  获取当前监控被触发时的type信息
+        // =====================================================================================
+        */
+        inline Watcher::Event type() const
+        {
+            return Watcher::Event(_type);
+        }        // -----  end of function type  -----
 
-		/* 
-		// ===  FUNCTION  ======================================================================
-		//         Name:  get_state
-		//  Description:   
-		// =====================================================================================
-		*/
-		inline Watcher::State state() const
-		{
-			return Watcher::State(m_state);
-		}		// -----  end of function state  -----
+        /* 
+        // ===  FUNCTION  ======================================================================
+        //         Name:  get_state
+        //  Description:  获取当前监控被触发时的state信息
+        // =====================================================================================
+        */
+        inline Watcher::State state() const
+        {
+            return Watcher::State(_state);
+        }        // -----  end of function state  -----
 
-	private:
-		// ==================== PRIVATE METHOD =======================================
+    private:
+        // ==================== PRIVATE METHOD =======================================
 
-		// ====================  DATA MEMBERS  =======================================
-		std::string m_path;
-		int m_type;
-		int m_state;
+        // ====================  DATA MEMBERS  =======================================
+        std::string _path;
+        int _type;
+        int _state;
 
-	};		// -----  end of class WatchedEvent  -----
+    };        // -----  end of class WatchedEvent  -----
 
-}	// ----- #namespace zkclass  -----
+}    // ----- #namespace zkclass  -----
 
-#endif	// ----- #ifndef _WATCHED_EVENT_CLASS_HPP_  -----
+#endif    // ----- #ifndef _WATCHED_EVENT_CLASS_HPP_  -----
 
