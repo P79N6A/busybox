@@ -24,12 +24,6 @@ link_directories(gperftools/lib/)
 aux_source_directory(. DIR_SRCS)
 
 # 指定生成目标
-#add_executable(test ${DIR_SRCS})
-##target_link_libraries(test libzookeeper_st.a)
-#target_link_libraries(test libzookeeper_mt.a)
-#target_link_libraries(test pthread)
-#target_link_libraries(test crypto)
-
 add_executable(test ${DIR_SRCS})
 target_link_libraries(test libzookeeper_mt.a)
 target_link_libraries(test libgtest.a)
