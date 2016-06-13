@@ -5,7 +5,7 @@ cmake_minimum_required (VERSION 2.8)
 project (gperftools)
 
 # 编译选项
-add_definitions(-std=c++11 -g3 -Wall)
+add_definitions(-std=c++11 -g3 -Wall -fno-omit-frame-pointer)
 
 # 为构建树添加包含路径
 include_directories(./gperftools/include)

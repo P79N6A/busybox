@@ -32,6 +32,7 @@ int main(int argc, char *argv[])
 		*p = i;
 	}
 	delete p;
+	int *q = new int(0);
 	return EXIT_SUCCESS;
 }				// ----------  end of function main  ----------
 
