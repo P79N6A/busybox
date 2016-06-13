@@ -31,6 +31,7 @@
 using zkclass::ZooKeeper;
 using zkclass::Watcher;
 using zkclass::WatchedEvent;
+using zkclass::ZKACL;
 
 static pthread_mutex_t s_mutex = PTHREAD_MUTEX_INITIALIZER;
 static pthread_cond_t s_cond = PTHREAD_COND_INITIALIZER;
@@ -174,7 +175,7 @@ TEST_F(TestZooKeeperClass, test_create_and_remove)
     EXPECT_EQ(zk.get_state(), ZOO_CONNECTED_STATE);
     std::string path("/zkclass_test_create");
     Stat stat;
-    std::vector<ACL> acl = {{ZOO_PERM_ALL, ZOO_ANYONE_ID_UNSAFE}};
+    std::vector<ZKACL> acl = {{ZOO_PERM_ALL, "world", "anyone"}};
     EXPECT_EQ(zk.exists(path, true), ZNONODE);    // true表示使用init时注册的global watcher进行监听
     EXPECT_EQ(zk.exists(path, true), ZNONODE);    // 同一个path，同一个watcher，即使多次注册，也只监听1次
     EXPECT_EQ(zk.exists(path, &pwatcher), ZNONODE);    // 除了使用global watcher，也可以自己指定watcher
@@ -218,7 +219,7 @@ TEST_F(TestZooKeeperClass, test_set_and_get)
     EXPECT_EQ(zk.get_state(), ZOO_CONNECTED_STATE);
     std::string path("/zkclass_test_set_get");
     Stat stat;
-    std::vector<ACL> acl = {{ZOO_PERM_ALL, ZOO_ANYONE_ID_UNSAFE}};
+    std::vector<ZKACL> acl = {{ZOO_PERM_ALL, "world", "anyone"}};
     std::string data;
     EXPECT_EQ(zk.get_data(path, &data, true), ZNONODE);    // get_data并不能监听到create事件，且在节点创建之前，对节点内容的监听都是无效的
     EXPECT_EQ(zk.create(path, std::string(), acl, ZOO_EPHEMERAL), ZOK);
@@ -250,10 +251,9 @@ TEST_F(TestZooKeeperClass, test_get_children)
     PathWatcher pwatcher;
     ZooKeeper zk(server, 1024, &gwatcher);
     wait_watcher();
-    EXPECT_EQ(zk.get_state(), ZOO_CONNECTED_STATE);
+    std::vector<ZKACL> acl = {{ZOO_PERM_ALL, "world", "anyone"}};
     std::string path("/zkclass_test_get_children");
     Stat stat;
-    std::vector<ACL> acl = {{ZOO_PERM_ALL, ZOO_ANYONE_ID_UNSAFE}};
     std::vector<std::string> list;
     EXPECT_EQ(zk.create(path, std::string(), acl), ZOK);    // 为什么这一行会导致valgrind内存泄漏：possibly lost
     EXPECT_EQ(zk.create(path+"/a", std::string(), acl, ZOO_EPHEMERAL), ZOK);
@@ -268,11 +268,11 @@ TEST_F(TestZooKeeperClass, test_get_children)
     EXPECT_EQ(list.size(), 3);
     EXPECT_EQ(zk.remove(path+"/b", -1), ZOK);
     list.clear();
-    EXPECT_EQ(zk.get_children(path, &list, &pwatcher), ZOK);	// tcmalloc检测内存泄漏
+    EXPECT_EQ(zk.get_children(path, &list, &pwatcher), ZOK);    // tcmalloc检测内存泄漏
     EXPECT_EQ(list.size(), 2);
     EXPECT_EQ(zk.remove(path+"/c", -1), ZOK);
     list.clear();
-    EXPECT_EQ(zk.get_children(path, &list, &pwatcher, &stat), ZOK);	// tcmalloc检测内存泄漏
+    EXPECT_EQ(zk.get_children(path, &list, &pwatcher, &stat), ZOK);    // tcmalloc检测内存泄漏
     EXPECT_EQ(list.size(), 1);
     EXPECT_EQ(zk.remove(path+"/d", -1), ZOK);
     EXPECT_EQ(zk.remove(path, -1), ZOK);    // 为什么这一行会导致valgrind内存泄漏？
@@ -287,27 +287,27 @@ TEST_F(TestZooKeeperClass, test_get_children)
 TEST_F(TestZooKeeperClass, test_acl)
 {
     GlobalWatcher gwatcher;
-    std::vector<ACL> acl = {{ZOO_PERM_ALL&~ZOO_PERM_WRITE, ZOO_ANYONE_ID_UNSAFE}};
+    std::vector<ZKACL> acl = {{(ZOO_PERM_ALL&~ZOO_PERM_WRITE), "world", "anyone"}};
     Stat stat;
     ZooKeeper zk(server, 1024, &gwatcher);
     std::string path("/zkclass_test_acl");
-    wait_watcher();	// tcmalloc检测内存泄漏
+    wait_watcher();    // tcmalloc检测内存泄漏
     EXPECT_EQ(zk.get_state(), ZOO_CONNECTED_STATE);
     EXPECT_EQ(zk.create(path, std::string("acl node"), acl), ZOK);    // 为什么这一行会导致valgrind内存泄漏：possibly lost
     acl.clear();
     EXPECT_EQ(zk.get_acl(path, &acl, &stat), ZOK);
     EXPECT_EQ(acl.size(), 1);
-    EXPECT_EQ(acl[0].perms, (ZOO_PERM_ALL&~ZOO_PERM_WRITE));
-    EXPECT_EQ(strcmp(acl[0].id.scheme, "world"), 0);
-    EXPECT_EQ(strcmp(acl[0].id.id, "anyone"), 0);
-    acl.push_back({ZOO_PERM_WRITE, {"digest", "test:V28q/NynI4JI3Rk54h0r8O5kMug="}});
+    EXPECT_EQ(acl[0].perms(), (ZOO_PERM_ALL&~ZOO_PERM_WRITE));
+    EXPECT_EQ(acl[0].scheme(), std::string("world"));
+    EXPECT_EQ(acl[0].id(), std::string("anyone"));
+    acl.push_back({ZOO_PERM_WRITE, "digest", "test:V28q/NynI4JI3Rk54h0r8O5kMug="});
     EXPECT_EQ(zk.set_acl(path, acl, stat.version), ZOK);
     acl.clear();
     EXPECT_EQ(zk.get_acl(path, &acl), ZOK);
-    EXPECT_EQ(acl.size(), 2);	// tcmalloc检测内存泄漏
-    EXPECT_EQ(acl[1].perms, ZOO_PERM_WRITE);
-    EXPECT_EQ(strcmp(acl[1].id.scheme, "digest"), 0);    // digest类型的id格式为："user:base64(sha1("user:passwd"))"
-    EXPECT_EQ(strcmp(acl[1].id.id, "test:V28q/NynI4JI3Rk54h0r8O5kMug="), 0);
+    EXPECT_EQ(acl.size(), 2);    // tcmalloc检测内存泄漏
+    EXPECT_EQ(acl[1].perms(), ZOO_PERM_WRITE);
+    EXPECT_EQ(acl[1].scheme(), std::string("digest"));    // digest类型的id格式为："user:base64(sha1("user:passwd"))"
+    EXPECT_EQ(acl[1].id(), std::string("test:V28q/NynI4JI3Rk54h0r8O5kMug="));
     EXPECT_EQ(zk.set_data(path, std::string("acl write"), -1), ZNOAUTH);
     EXPECT_EQ(zk.add_auth_info("digest", "test:test"), ZOK);
     EXPECT_EQ(zk.set_data(path, std::string("acl write"), -1), ZOK);
@@ -326,7 +326,7 @@ TEST_F(TestZooKeeperClass, test_watcher)
     PathWatcher pwatcher;
     ZooKeeper zk(server, 1024, &gwatcher);
     zk.register_watcher(&pwatcher);
-    wait_watcher();	// tcmalloc检测内存泄漏
+    wait_watcher();    // tcmalloc检测内存泄漏
     EXPECT_EQ(s_global_watcher_trigger, 0);
     EXPECT_EQ(s_path_watcher_trigger, 1);
 }

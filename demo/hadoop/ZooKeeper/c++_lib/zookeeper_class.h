@@ -30,6 +30,7 @@
 
 #include "watcher_class.h"
 #include "watched_event_class.h"
+#include "zkacl_class.h"
 
 namespace zkclass {
 
@@ -172,7 +173,7 @@ public:
     // =====================================================================================
     */
     ZooKeeper::Error create(const std::string &path, const std::string &data,
-            const std::vector<ACL> &acl);
+            const std::vector<ZKACL> &acl);
 
     /* 
     // ===  FUNCTION  ======================================================================
@@ -186,7 +187,7 @@ public:
     // =====================================================================================
     */
     ZooKeeper::Error create(const std::string &path, const std::string &data,
-            const std::vector<ACL> &acl, int create_flag);
+            const std::vector<ZKACL> &acl, int create_flag);
 
     /* 
     // ===  FUNCTION  ======================================================================
@@ -200,7 +201,7 @@ public:
     // =====================================================================================
     */
     ZooKeeper::Error create(const std::string &path, const std::string &data,
-            const std::vector<ACL> &acl, int create_flag, std::string *new_path);
+            const std::vector<ZKACL> &acl, int create_flag, std::string *new_path);
 
     /* 
     // ===  FUNCTION  ======================================================================
@@ -481,7 +482,7 @@ public:
     //  ReturnValue:  error class
     // =====================================================================================
     */
-    ZooKeeper::Error set_acl(const std::string path, std::vector<ACL> acl, int version);
+    ZooKeeper::Error set_acl(const std::string path, std::vector<ZKACL> acl, int version);
 
     /* 
     // ===  FUNCTION  ======================================================================
@@ -492,7 +493,7 @@ public:
     //  ReturnValue:  error class
     // =====================================================================================
     */
-    ZooKeeper::Error get_acl(const std::string path, std::vector<ACL> *acl) const;
+    ZooKeeper::Error get_acl(const std::string path, std::vector<ZKACL> *acl) const;
 
     /* 
     // ===  FUNCTION  ======================================================================
@@ -504,7 +505,7 @@ public:
     //  ReturnValue:  error class
     // =====================================================================================
     */
-    ZooKeeper::Error get_acl(const std::string path, std::vector<ACL> *acl, Stat *stat) const;
+    ZooKeeper::Error get_acl(const std::string path, std::vector<ZKACL> *acl, Stat *stat) const;
 
     /* 
     // ===  FUNCTION  ======================================================================
@@ -577,14 +578,15 @@ private:
     //  ReturnValue:  
     // =====================================================================================
     */
-    template <class T>
-        inline std::unique_ptr<T[]> vector_to_array(std::vector<T> vec) {
-            std::unique_ptr<T[]> array(new T[vec.size()]);
-            for (int i=0; i<vec.size(); ++i) {
-                array[i] = vec[i];
-            }
-            return array;
-        }        // -----  end of template function vector_to_array  -----
+    inline std::unique_ptr<ACL[]> vector_to_array(std::vector<ZKACL> vec) {
+	    std::unique_ptr<ACL[]> array(new ACL[vec.size()]);
+	    for (size_t i = 0; i < vec.size(); ++i) {
+		    array[i].perms = vec[i].perms();
+		    array[i].id.scheme = (char*)vec[i].scheme().c_str();
+		    array[i].id.id = (char*)vec[i].id().c_str();
+	    }
+	    return array;
+    }        // -----  end of template function vector_to_array  -----
 
     /* 
     // ===  FUNCTION  ======================================================================

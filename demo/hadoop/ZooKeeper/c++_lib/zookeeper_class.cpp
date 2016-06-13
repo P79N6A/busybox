@@ -53,20 +53,20 @@ ZooKeeper::Error ZooKeeper::close() {
 }        // -----  end of method ZooKeeper::close  -----
 
 ZooKeeper::Error ZooKeeper::create(const string &path, const string &data,
-        const vector<ACL> &acl) {
+        const vector<ZKACL> &acl) {
     return ZooKeeper::Error(create(path, data, acl, 0, nullptr));
 }        // -----  end of method ZooKeeper::create  -----
 
 ZooKeeper::Error ZooKeeper::create(const string &path, const string &data,
-        const vector<ACL> &acl, int create_flag) {
+        const vector<ZKACL> &acl, int create_flag) {
     return ZooKeeper::Error(create(path, data, acl, create_flag, nullptr));
 }        // -----  end of method ZooKeeper::create  -----
 
 ZooKeeper::Error ZooKeeper::create(const string &path, const string &data,
-        const vector<ACL> &acl, int create_flag, string *new_path) {
+        const vector<ZKACL> &acl, int create_flag, string *new_path) {
     ZooKeeper::Error error;
     ACL_vector acl_vector = {0, NULL};
-    std::unique_ptr<ACL[]> acl_array = vector_to_array<ACL>(acl);
+    std::unique_ptr<ACL[]> acl_array = vector_to_array(acl);
     acl_vector.data = acl_array.get();
     acl_vector.count = acl.size();
     if (new_path) {
@@ -184,8 +184,11 @@ ZooKeeper::Error ZooKeeper::get_children(const string path, vector<string> *chil
         bool watch) const {
     struct String_vector str_vector;
     ZooKeeper::Error error(zoo_get_children(_zhandler, path.c_str(), watch, &str_vector));
-    for (int i = 0; i < str_vector.count; ++i) {
-        children->emplace_back(string(str_vector.data[i]));
+    if (error == ZOK) {
+        for (int i = 0; i < str_vector.count; ++i) {
+            children->emplace_back(string(str_vector.data[i]));
+        }
+        deallocate_String_vector(&str_vector);
     }
     return error;
 }        // -----  end of method ZooKeeper::get_children  -----
@@ -195,8 +198,11 @@ ZooKeeper::Error ZooKeeper::get_children(const string path, vector<string> *chil
     struct String_vector str_vector;
     ZooKeeper::Error error(zoo_wget_children(_zhandler, path.c_str(),
                 watcher_callback, watcher, &str_vector));
-    for (int i = 0; i < str_vector.count; ++i) {
-        children->emplace_back(string(str_vector.data[i]));
+    if (error == ZOK) {
+        for (int i = 0; i < str_vector.count; ++i) {
+            children->emplace_back(string(str_vector.data[i]));
+        }
+        deallocate_String_vector(&str_vector);
     }
     return error;
 }        // -----  end of method ZooKeeper::get_children  -----
@@ -206,8 +212,11 @@ ZooKeeper::Error ZooKeeper::get_children(const string path, vector<string> *chil
     struct String_vector str_vector;
     ZooKeeper::Error error(zoo_get_children2(_zhandler, path.c_str(),
                 watch, &str_vector, stat));
-    for (int i = 0; i < str_vector.count; ++i) {
-        children->emplace_back(string(str_vector.data[i]));
+    if (error == ZOK) {
+        for (int i = 0; i < str_vector.count; ++i) {
+            children->emplace_back(string(str_vector.data[i]));
+        }
+        deallocate_String_vector(&str_vector);
     }
     return error;
 }        // -----  end of method ZooKeeper::get_children  -----
@@ -217,8 +226,11 @@ ZooKeeper::Error ZooKeeper::get_children(const string path, vector<string> *chil
     struct String_vector str_vector;
     ZooKeeper::Error error(zoo_wget_children2(_zhandler, path.c_str(),
                 watcher_callback, watcher, &str_vector, stat));
-    for (int i = 0; i < str_vector.count; ++i) {
-        children->emplace_back(string(str_vector.data[i]));
+    if (error == ZOK) {
+        for (int i = 0; i < str_vector.count; ++i) {
+            children->emplace_back(string(str_vector.data[i]));
+        }
+        deallocate_String_vector(&str_vector);
     }
     return error;
 }        // -----  end of method ZooKeeper::get_children  -----
@@ -228,25 +240,26 @@ ZooKeeper::Error ZooKeeper::add_auth_info(const string &scheme, const string &ce
                 cert.c_str(), cert.size(), nullptr, nullptr));
 }        // -----  end of method ZooKeeper::add_auth_info  -----
 
-ZooKeeper::Error ZooKeeper::set_acl(const string path, vector<ACL> acl, int version) {
+ZooKeeper::Error ZooKeeper::set_acl(const string path, vector<ZKACL> acl, int version) {
     ACL_vector acl_vector = {0, NULL};
-    std::unique_ptr<ACL[]> acl_array = vector_to_array<ACL>(acl);
+    std::unique_ptr<ACL[]> acl_array = vector_to_array(acl);
     acl_vector.data = acl_array.get();
     acl_vector.count = acl.size();
     return ZooKeeper::Error(zoo_set_acl(_zhandler, path.c_str(), version, &acl_vector));
 }        // -----  end of method ZooKeeper::set_acl  -----
 
-ZooKeeper::Error ZooKeeper::get_acl(const string path, vector<ACL> *acl) const {
+ZooKeeper::Error ZooKeeper::get_acl(const string path, vector<ZKACL> *acl) const {
     return ZooKeeper::Error(get_acl(path, acl, nullptr));
 }        // -----  end of method ZooKeeper::get_acl  -----
 
-ZooKeeper::Error ZooKeeper::get_acl(const string path, vector<ACL> *acl, Stat *stat) const {
+ZooKeeper::Error ZooKeeper::get_acl(const string path, vector<ZKACL> *acl, Stat *stat) const {
     ACL_vector acl_vector;
     ZooKeeper::Error error(zoo_get_acl(_zhandler, path.c_str(), &acl_vector, stat));
     if (error == ZOK) {
         for (int i = 0; i < acl_vector.count; ++i) {
-            acl->push_back(acl_vector.data[i]);
+            acl->emplace_back(ZKACL(acl_vector.data[i]));
         }
+    deallocate_ACL_vector(&acl_vector);
     }
     return error;
 }        // -----  end of method ZooKeeper::get_acl  -----
