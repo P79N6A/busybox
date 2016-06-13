@@ -12,17 +12,27 @@ include_directories(../zookeeper/src/c/include/)
 include_directories(../zookeeper/src/c/include/zookeeper)
 include_directories(../zookeeper/src/c/include/zookeeper/zookeeper)
 
+include_directories(googletest/googletest/include/)
+
 # 链接目录
 link_directories(../zookeeper/src/c/lib)
+link_directories(googletest/googletest)
+link_directories(gperftools/lib/)
 
 # 查找当前目录下的所有源文件
 # 并将名称保存到 DIR_SRCS 变量
 aux_source_directory(. DIR_SRCS)
 
 # 指定生成目标
+#add_executable(test ${DIR_SRCS})
+##target_link_libraries(test libzookeeper_st.a)
+#target_link_libraries(test libzookeeper_mt.a)
+#target_link_libraries(test pthread)
+#target_link_libraries(test crypto)
+
 add_executable(test ${DIR_SRCS})
-#target_link_libraries(test libzookeeper_st.a)
 target_link_libraries(test libzookeeper_mt.a)
+target_link_libraries(test libgtest.a)
 target_link_libraries(test pthread)
-target_link_libraries(test crypto)
+target_link_libraries(test tcmalloc)
 

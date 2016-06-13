@@ -54,4 +54,8 @@ zookeeper c api list: grep '^ZOOAPI' zookeeper.h
 
 ----------------------------------------------------------------------------------------------------
 C++模拟Java接口封装：c++_lib
+gtest+tcmalloc方式进行单元测试和内存检查：
+cd c++_lib
+git clone https://github.com/google/googletest.git && build gtest
+git clone https://github.com/gperftools/gperftools.git && build tcmalloc
 

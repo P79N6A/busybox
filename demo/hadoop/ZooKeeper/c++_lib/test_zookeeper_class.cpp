@@ -268,11 +268,11 @@ TEST_F(TestZooKeeperClass, test_get_children)
     EXPECT_EQ(list.size(), 3);
     EXPECT_EQ(zk.remove(path+"/b", -1), ZOK);
     list.clear();
-    EXPECT_EQ(zk.get_children(path, &list, &pwatcher), ZOK);
+    EXPECT_EQ(zk.get_children(path, &list, &pwatcher), ZOK);	// tcmalloc检测内存泄漏
     EXPECT_EQ(list.size(), 2);
     EXPECT_EQ(zk.remove(path+"/c", -1), ZOK);
     list.clear();
-    EXPECT_EQ(zk.get_children(path, &list, &pwatcher, &stat), ZOK);
+    EXPECT_EQ(zk.get_children(path, &list, &pwatcher, &stat), ZOK);	// tcmalloc检测内存泄漏
     EXPECT_EQ(list.size(), 1);
     EXPECT_EQ(zk.remove(path+"/d", -1), ZOK);
     EXPECT_EQ(zk.remove(path, -1), ZOK);    // 为什么这一行会导致valgrind内存泄漏？
@@ -291,7 +291,7 @@ TEST_F(TestZooKeeperClass, test_acl)
     Stat stat;
     ZooKeeper zk(server, 1024, &gwatcher);
     std::string path("/zkclass_test_acl");
-    wait_watcher();
+    wait_watcher();	// tcmalloc检测内存泄漏
     EXPECT_EQ(zk.get_state(), ZOO_CONNECTED_STATE);
     EXPECT_EQ(zk.create(path, std::string("acl node"), acl), ZOK);    // 为什么这一行会导致valgrind内存泄漏：possibly lost
     acl.clear();
@@ -304,7 +304,7 @@ TEST_F(TestZooKeeperClass, test_acl)
     EXPECT_EQ(zk.set_acl(path, acl, stat.version), ZOK);
     acl.clear();
     EXPECT_EQ(zk.get_acl(path, &acl), ZOK);
-    EXPECT_EQ(acl.size(), 2);
+    EXPECT_EQ(acl.size(), 2);	// tcmalloc检测内存泄漏
     EXPECT_EQ(acl[1].perms, ZOO_PERM_WRITE);
     EXPECT_EQ(strcmp(acl[1].id.scheme, "digest"), 0);    // digest类型的id格式为："user:base64(sha1("user:passwd"))"
     EXPECT_EQ(strcmp(acl[1].id.id, "test:V28q/NynI4JI3Rk54h0r8O5kMug="), 0);
@@ -326,7 +326,7 @@ TEST_F(TestZooKeeperClass, test_watcher)
     PathWatcher pwatcher;
     ZooKeeper zk(server, 1024, &gwatcher);
     zk.register_watcher(&pwatcher);
-    wait_watcher();
+    wait_watcher();	// tcmalloc检测内存泄漏
     EXPECT_EQ(s_global_watcher_trigger, 0);
     EXPECT_EQ(s_path_watcher_trigger, 1);
 }
