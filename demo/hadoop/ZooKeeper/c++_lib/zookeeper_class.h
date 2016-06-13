@@ -579,13 +579,13 @@ private:
     // =====================================================================================
     */
     inline std::unique_ptr<ACL[]> vector_to_array(std::vector<ZKACL> vec) {
-	    std::unique_ptr<ACL[]> array(new ACL[vec.size()]);
-	    for (size_t i = 0; i < vec.size(); ++i) {
-		    array[i].perms = vec[i].perms();
-		    array[i].id.scheme = (char*)vec[i].scheme().c_str();
-		    array[i].id.id = (char*)vec[i].id().c_str();
-	    }
-	    return array;
+        std::unique_ptr<ACL[]> array(new ACL[vec.size()]);
+        for (size_t i = 0; i < vec.size(); ++i) {
+            array[i].perms = vec[i].perms();
+            array[i].id.scheme = (char*)vec[i].scheme().c_str();
+            array[i].id.id = (char*)vec[i].id().c_str();
+        }
+        return array;
     }        // -----  end of template function vector_to_array  -----
 
     /* 
