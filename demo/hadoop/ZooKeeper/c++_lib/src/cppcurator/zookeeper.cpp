@@ -15,6 +15,8 @@
 // =====================================================================================
 */
 
+#include <iostream>
+
 #include "cppcurator/zookeeper.h"
 
 using std::string;
@@ -69,10 +71,10 @@ ZooKeeper::Error ZooKeeper::create(const string &path, const string &data,
     acl_vector.data = acl_array.get();
     acl_vector.count = acl.size();
     if (new_path) {
-        char new_path_buf[BUFSIZ];
+    resize_string_uninitialized(new_path, path_size_max);
         error = zoo_create(_zhandler, path.c_str(), data.c_str(), data.size(),
-                &acl_vector, create_flag, new_path_buf, BUFSIZ);
-        *new_path = new_path_buf;
+                &acl_vector, create_flag, const_cast<char*>(new_path->data()), path_size_max);
+    resize_string_uninitialized(new_path, strlen(new_path->data()));
     } else {
         error = zoo_create(_zhandler, path.c_str(), data.c_str(), data.size(),
                 &acl_vector, create_flag, NULL, 0);
@@ -139,13 +141,12 @@ ZooKeeper::Error ZooKeeper::get_data(const string &path, string *data, bool watc
 
 ZooKeeper::Error ZooKeeper::get_data(const string &path, string *data, bool watch,
         Stat *stat) const {
-    char buf[1048576];    // 1024*1024
+    resize_string_uninitialized(data, data_size_max);
     int len = 1048576;    // len is in-param and out-param
-    ZooKeeper::Error error(zoo_get(_zhandler, path.c_str(), watch?1:0, buf, &len, stat));
-    if (error == ZOK) {
-        data->string::~string();    // 重复placement new会导致内存泄漏
-        new(data) string(buf, len);
-    } else {
+    ZooKeeper::Error error(zoo_get(_zhandler, path.c_str(), watch?1:0,
+                const_cast<char*>(data->data()), &len, stat));
+    resize_string_uninitialized(data, strlen(data->data()));
+    if (error != ZOK) {
         data = nullptr;
     }
     return error;
@@ -157,14 +158,12 @@ ZooKeeper::Error ZooKeeper::get_data(const string &path, string *data, Watcher *
 
 ZooKeeper::Error ZooKeeper::get_data(const string &path, string *data,
         Watcher *watcher, Stat *stat) const {
-    char buf[1048576];    // 1024*1024
+    resize_string_uninitialized(data, data_size_max);
     int len = 1048576;    // len is in-param and out-param
     ZooKeeper::Error error(zoo_wget(_zhandler, path.c_str(),
-                watcher_callback, watcher, buf, &len, stat));
-    if (error == ZOK) {
-        data->string::~string();    // 重复placement new会导致内存泄漏
-        new(data) string(buf, len);
-    } else {
+                watcher_callback, watcher, const_cast<char*>(data->data()), &len, stat));
+    resize_string_uninitialized(data, strlen(data->data()));
+    if (error != ZOK) {
         data = nullptr;
     }
     return error;
@@ -307,6 +306,20 @@ void ZooKeeper::watcher_callback(zhandle_t *zh, int type,
     WatchedEvent event(path, type, state);
     watcher->process(event);
 }        // -----  end of method ZooKeeper::watcher_callback  -----
+
+std::string* ZooKeeper::resize_string_uninitialized(std::string *str, size_t size) const {
+    struct Rep {
+        std::string::size_type length;
+        std::string::size_type capacity;
+        _Atomic_word refcount;
+    };
+    str->reserve(std::max(size, str->capacity()));
+    char *base = const_cast<char*>(str->data());
+    reinterpret_cast<Rep*>(base)[-1].length = size;
+    base[size] = '\0';
+
+    return str;
+}        // -----  end of method ZooKeeper::resize_string_uninitialized  -----
 
 }    // ----- #namespace cppcurator  -----
 

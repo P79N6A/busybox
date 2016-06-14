@@ -584,8 +584,8 @@ private:
         std::unique_ptr<ACL[]> array(new ACL[vec.size()]);
         for (size_t i = 0; i < vec.size(); ++i) {
             array[i].perms = vec[i].perms();
-            array[i].id.scheme = (char*)vec[i].scheme().c_str();
-            array[i].id.id = (char*)vec[i].id().c_str();
+            array[i].id.scheme = const_cast<char*>(vec[i].scheme().c_str());
+            array[i].id.id = const_cast<char*>(vec[i].id().c_str());
         }
         return array;
     }        // -----  end of template function vector_to_array  -----
@@ -601,8 +601,21 @@ private:
     static void watcher_callback(zhandle_t *zh, int type,
             int state, const char *path,void *watcherCtx);
 
+    /* 
+     * ===  FUNCTION  ======================================================================
+     *         Name:  resize_string_uninitialized
+     *  Description:   
+     *   Parameters:  
+     *  ReturnValue:  
+     * =====================================================================================
+     */
+    std::string* resize_string_uninitialized(std::string *str, size_t size) const;
+
     // ====================  DATA MEMBERS  =======================================
     zhandle_t *_zhandler;
+
+    const size_t path_size_max = 1024;
+    const size_t data_size_max = 1024 * 1024;
 
 };        // -----  end of class ZooKeeper  -----
 

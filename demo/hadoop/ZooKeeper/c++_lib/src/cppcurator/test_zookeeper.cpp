@@ -228,13 +228,13 @@ TEST_F(TestZooKeeperClass, test_set_and_get)
     EXPECT_EQ(data.size(), 0);
     EXPECT_EQ(zk.get_data(path, &data, &pwatcher, &stat), ZOK);
     EXPECT_EQ(data.size(), 0);
-    EXPECT_EQ(zk.set_data(path, std::string("abcd"), stat.version), ZOK);
+    EXPECT_EQ(zk.set_data(path, std::string("abcdefghijklmnopqrstuvwxyz"), stat.version), ZOK);
     EXPECT_EQ(zk.get_data(path, &data), ZOK);
-    EXPECT_EQ(data.size(), 4);
-    EXPECT_EQ(data, "abcd");
+    EXPECT_EQ(data.size(), 26);
+    EXPECT_EQ(data, "abcdefghijklmnopqrstuvwxyz");
     EXPECT_EQ(zk.get_data(path, &data, &stat), ZOK);
     int version = stat.version;
-    EXPECT_EQ(zk.set_data(path, std::string("abcde"), stat.version, &stat), ZOK);
+    EXPECT_EQ(zk.set_data(path, std::string("abcdefghijklmnopqrstuvwxyz"), stat.version, &stat), ZOK);
     EXPECT_EQ(stat.version, version + 1);
     EXPECT_EQ(zk.remove(path, stat.version), ZOK);
 }
