@@ -185,6 +185,7 @@ ZooKeeper::Error ZooKeeper::get_children(const string path, vector<string> *chil
     struct String_vector str_vector;
     ZooKeeper::Error error(zoo_get_children(_zhandler, path.c_str(), watch, &str_vector));
     if (error == ZOK) {
+        children->reserve(str_vector.count);
         for (int i = 0; i < str_vector.count; ++i) {
             children->emplace_back(string(str_vector.data[i]));
         }
@@ -199,6 +200,7 @@ ZooKeeper::Error ZooKeeper::get_children(const string path, vector<string> *chil
     ZooKeeper::Error error(zoo_wget_children(_zhandler, path.c_str(),
                 watcher_callback, watcher, &str_vector));
     if (error == ZOK) {
+        children->reserve(str_vector.count);
         for (int i = 0; i < str_vector.count; ++i) {
             children->emplace_back(string(str_vector.data[i]));
         }
@@ -213,6 +215,7 @@ ZooKeeper::Error ZooKeeper::get_children(const string path, vector<string> *chil
     ZooKeeper::Error error(zoo_get_children2(_zhandler, path.c_str(),
                 watch, &str_vector, stat));
     if (error == ZOK) {
+        children->reserve(str_vector.count);
         for (int i = 0; i < str_vector.count; ++i) {
             children->emplace_back(string(str_vector.data[i]));
         }
@@ -227,6 +230,7 @@ ZooKeeper::Error ZooKeeper::get_children(const string path, vector<string> *chil
     ZooKeeper::Error error(zoo_wget_children2(_zhandler, path.c_str(),
                 watcher_callback, watcher, &str_vector, stat));
     if (error == ZOK) {
+        children->reserve(str_vector.count);
         for (int i = 0; i < str_vector.count; ++i) {
             children->emplace_back(string(str_vector.data[i]));
         }
@@ -256,10 +260,11 @@ ZooKeeper::Error ZooKeeper::get_acl(const string path, vector<ZKACL> *acl, Stat 
     ACL_vector acl_vector;
     ZooKeeper::Error error(zoo_get_acl(_zhandler, path.c_str(), &acl_vector, stat));
     if (error == ZOK) {
+        acl->reserve(acl_vector.count);
         for (int i = 0; i < acl_vector.count; ++i) {
             acl->emplace_back(ZKACL(acl_vector.data[i]));
         }
-    deallocate_ACL_vector(&acl_vector);
+        deallocate_ACL_vector(&acl_vector);
     }
     return error;
 }        // -----  end of method ZooKeeper::get_acl  -----
