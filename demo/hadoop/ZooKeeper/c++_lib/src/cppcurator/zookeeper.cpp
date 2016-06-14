@@ -1,8 +1,7 @@
 /*
 // =====================================================================================
 // 
-//       Filename:  zookeeper_class.cpp
-// 
+//       Filename:  zookeeper// 
 //    Description:  
 // 
 //        Version:  1.0
@@ -16,12 +15,12 @@
 // =====================================================================================
 */
 
-#include "zookeeper_class.h"
+#include "cppcurator/zookeeper.h"
 
 using std::string;
 using std::vector;
 
-namespace zkclass {
+namespace cppcurator {
 
 // ====================  LIFECYCLE     =======================================
 
@@ -309,5 +308,5 @@ void ZooKeeper::watcher_callback(zhandle_t *zh, int type,
     watcher->process(event);
 }        // -----  end of method ZooKeeper::watcher_callback  -----
 
-}    // ----- #namespace zkclass  -----
+}    // ----- #namespace cppcurator  -----
 

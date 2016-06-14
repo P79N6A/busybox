@@ -1,7 +1,7 @@
 /*
 // =====================================================================================
 // 
-//       Filename:  test_zookeeper_class.cpp
+//       Filename:  test_zookeeper.cpp
 // 
 //    Description:  
 // 
@@ -25,13 +25,13 @@
 
 #include <gtest/gtest.h>
 
-#include "zookeeper_class.h"
-#include "watched_event_class.h"
+#include "cppcurator/zookeeper.h"
+#include "cppcurator/watched_event.h"
 
-using zkclass::ZooKeeper;
-using zkclass::Watcher;
-using zkclass::WatchedEvent;
-using zkclass::ZKACL;
+using cppcurator::ZooKeeper;
+using cppcurator::Watcher;
+using cppcurator::WatchedEvent;
+using cppcurator::ZKACL;
 
 static pthread_mutex_t s_mutex = PTHREAD_MUTEX_INITIALIZER;
 static pthread_cond_t s_cond = PTHREAD_COND_INITIALIZER;

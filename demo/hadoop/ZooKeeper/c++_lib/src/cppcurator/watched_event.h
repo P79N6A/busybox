@@ -1,7 +1,7 @@
 /*
 // =====================================================================================
 // 
-//       Filename:  watched_event_class.h
+//       Filename:  watched_event.h
 // 
 //    Description:  
 // 
@@ -16,14 +16,14 @@
 // =====================================================================================
 */
 
-#ifndef  PS_SE_EDEN_COMMON_WATCHED_EVENT_CLASS_H
-#define  PS_SE_EDEN_COMMON_WATCHED_EVENT_CLASS_H
+#ifndef  PS_SE_EDEN_COMMON_WATCHED_EVENT_H
+#define  PS_SE_EDEN_COMMON_WATCHED_EVENT_H
 
 #include <string>
 
-#include "watcher_class.h"
+#include "cppcurator/watcher.h"
 
-namespace zkclass {
+namespace cppcurator {
 
 // =====================================================================================
 //        Class:  WatchedEvent
@@ -79,7 +79,7 @@ private:
 
 };        // -----  end of class WatchedEvent  -----
 
-}    // ----- #namespace zkclass  -----
+}    // ----- #namespace cppcurator  -----
 
-#endif    // ----- #ifndef PS_SE_EDEN_COMMON_WATCHED_EVENT_CLASS_H  -----
+#endif    // ----- #ifndef PS_SE_EDEN_COMMON_WATCHED_EVENT_H  -----
 

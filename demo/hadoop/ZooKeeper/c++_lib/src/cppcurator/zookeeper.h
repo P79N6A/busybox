@@ -1,7 +1,7 @@
 /*
 // =====================================================================================
 // 
-//       Filename:  zookeeper_class.h
+//       Filename:  zookeeper.h
 // 
 //    Description:  zookeeper的对象化封装，模拟Java接口
 //                  接口设计参照：https://zookeeper.apache.org/doc/r3.4.8/api/index.html
@@ -17,8 +17,8 @@
 // =====================================================================================
 */
 
-#ifndef  PS_SE_EDEN_COMMON_ZOOKEEPER_CLASS_H
-#define  PS_SE_EDEN_COMMON_ZOOKEEPER_CLASS_H
+#ifndef  PS_SE_EDEN_COMMON_ZOOKEEPER_H
+#define  PS_SE_EDEN_COMMON_ZOOKEEPER_H
 
 #include <cstring>
 
@@ -28,11 +28,11 @@
 
 #include "zookeeper.h"
 
-#include "watcher_class.h"
-#include "watched_event_class.h"
-#include "zkacl_class.h"
+#include "cppcurator/watcher.h"
+#include "cppcurator/watched_event.h"
+#include "cppcurator/zkacl.h"
 
-namespace zkclass {
+namespace cppcurator {
 
 // =====================================================================================
 //        Class:  ZooKeeper
@@ -606,6 +606,6 @@ private:
 
 };        // -----  end of class ZooKeeper  -----
 
-}    // ----- #namespace zkclass  -----
+}    // ----- #namespace cppcurator  -----
 
-#endif    // ----- #ifndef PS_SE_EDEN_COMMON_ZOOKEEPER_CLASS_H  -----
+#endif    // ----- #ifndef PS_SE_EDEN_COMMON_ZOOKEEPER_H  -----

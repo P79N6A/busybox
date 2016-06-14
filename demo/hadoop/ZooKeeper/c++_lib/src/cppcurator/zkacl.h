@@ -1,7 +1,7 @@
 /*
 // =====================================================================================
 // 
-//       Filename:  zkacl_class.h
+//       Filename:  zkacl.h
 // 
 //    Description:  
 // 
@@ -16,10 +16,10 @@
 // =====================================================================================
 */
 
-#ifndef  PS_SE_EDEN_COMMON_ZKACL_CLASS_H
-#define  PS_SE_EDEN_COMMON_ZKACL_CLASS_H
+#ifndef  PS_SE_EDEN_COMMON_ZKACL_H
+#define  PS_SE_EDEN_COMMON_ZKACL_H
 
-namespace zkclass {
+namespace cppcurator {
 
 // =====================================================================================
 //        Class:  ZKACL
@@ -29,6 +29,7 @@ class ZKACL {
 public:
     // ====================  LIFECYCLE     =======================================
     ZKACL(const ZKACL &acl) = default;
+
     ZKACL(ZKACL &&acl) = default;
 
     ZKACL(const ACL &acl) {
@@ -60,12 +61,7 @@ public:
     }        // -----  end of function id  -----
 
     // ====================  OPERATORS     =======================================
-    ZKACL& operator=(ZKACL &acl) {
-        _perms = acl.perms();
-        _scheme = acl.scheme();
-        _id = acl.id();
-        return *this;
-    }
+    ZKACL& operator=(ZKACL &acl) = default;
 
 private:
     // ==================== PRIVATE METHOD =======================================
@@ -77,7 +73,7 @@ private:
 
 };        // -----  end of class ZKACL  -----
 
-}    // ----- #namespace zkclass  -----
+}    // ----- #namespace cppcurator  -----
 
-#endif    // ----- #ifndef PS_SE_EDEN_COMMON_ZKACL_CLASS_H  -----
+#endif    // ----- #ifndef PS_SE_EDEN_COMMON_ZKACL_H  -----
 

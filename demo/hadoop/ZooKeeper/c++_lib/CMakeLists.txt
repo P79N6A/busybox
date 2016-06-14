@@ -11,17 +11,17 @@ add_definitions(-std=c++11 -g3 -Wall)
 include_directories(../zookeeper/src/c/include/)
 include_directories(../zookeeper/src/c/include/zookeeper)
 include_directories(../zookeeper/src/c/include/zookeeper/zookeeper)
-
-include_directories(googletest/googletest/include/)
+include_directories(./googletest/googletest/include/)
+include_directories(./src)
 
 # 链接目录
 link_directories(../zookeeper/src/c/lib)
-link_directories(googletest/googletest)
-link_directories(gperftools/lib/)
+link_directories(./googletest/googletest)
+link_directories(./gperftools/lib/)
 
 # 查找当前目录下的所有源文件
 # 并将名称保存到 DIR_SRCS 变量
-aux_source_directory(. DIR_SRCS)
+aux_source_directory(./src/cppcurator DIR_SRCS)
 
 # 指定生成目标
 add_executable(test ${DIR_SRCS})

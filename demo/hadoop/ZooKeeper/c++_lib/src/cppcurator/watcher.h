@@ -1,7 +1,7 @@
 /*
 // =====================================================================================
 // 
-//       Filename:  watcher_class.h
+//       Filename:  watcher.h
 // 
 //    Description:  
 // 
@@ -16,10 +16,12 @@
 // =====================================================================================
 */
 
-#ifndef  PS_SE_EDEN_COMMON_WATCHER_CLASS_H
-#define  PS_SE_EDEN_COMMON_WATCHER_CLASS_H
+#ifndef  PS_SE_EDEN_COMMON_WATCHER_H
+#define  PS_SE_EDEN_COMMON_WATCHER_H
 
-namespace zkclass {
+#include <zookeeper.h>
+
+namespace cppcurator {
 
 class WatchedEvent;
 
@@ -70,15 +72,7 @@ public:
         }
 
         // ====================  OPERATORS     =======================================
-        Event& operator=(const Event &e) {
-            _event = e.value();
-            return *this;
-        }
-
-        Event& operator=(int value) {
-            _event = value;
-            return *this;
-        }
+        Event& operator=(const Event &e) = default;
 
         bool operator==(const Event &e) const {
             return _event == e.value();
@@ -140,15 +134,7 @@ public:
         }
 
         // ====================  OPERATORS     =======================================
-        State& operator=(const State &s) {
-            _state = s.value();
-            return *this;
-        }
-
-        State& operator=(int value) {
-            _state = value;
-            return *this;
-        }
+        State& operator=(const State &s) = default;
 
         bool operator==(const State &s) const {
             return _state == s.value();
@@ -188,6 +174,6 @@ public:
 
 };        // -----  end of class Watcher  -----
 
-}    // ----- #namespace zkclass  -----
+}    // ----- #namespace cppcurator  -----
 
-#endif    // ----- #ifndef PS_SE_EDEN_COMMON_WATCHER_CLASS_H  -----
+#endif    // ----- #ifndef PS_SE_EDEN_COMMON_WATCHER_H  -----
