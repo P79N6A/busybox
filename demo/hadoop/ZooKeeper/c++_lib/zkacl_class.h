@@ -28,13 +28,10 @@ namespace zkclass {
 class ZKACL {
 public:
     // ====================  LIFECYCLE     =======================================
-    ZKACL(ACL &&acl) {
-        _perms = acl.perms;
-        _scheme = acl.id.scheme;
-        _id = acl.id.id;
-    }
+    ZKACL(const ZKACL &acl) = default;
+    ZKACL(ZKACL &&acl) = default;
 
-    ZKACL(ACL &acl) {
+    ZKACL(const ACL &acl) {
         _perms = acl.perms;
         _scheme = acl.id.scheme;
         _id = acl.id.id;
