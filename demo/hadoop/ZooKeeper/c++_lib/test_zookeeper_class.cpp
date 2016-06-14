@@ -103,39 +103,39 @@ public:
 */
 TEST_F(TestZooKeeperClass, test_connect_and_close)
 {
-    // case0ï¼šæµ‹è¯•hostå¼‚å¸¸
+    // case0£º²âÊÔhostÒì³£
     ZooKeeper zk_error1("invalid string", 1024, nullptr);
-    usleep(100*1000);    // ç”±äºè¿™é‡Œæ²¡æœ‰watcherç›‘æ§çŠ¶æ€ï¼Œæ‰€ä»¥åªèƒ½åç­‰sessionå»ºç«‹å®Œæˆ
+    usleep(100*1000);    // ÓÉÓÚÕâÀïÃ»ÓĞwatcher¼à¿Ø×´Ì¬£¬ËùÒÔÖ»ÄÜ×øµÈsession½¨Á¢Íê³É
     EXPECT_NE(zk_error1.get_state(), ZOO_CONNECTED_STATE);
 
     ZooKeeper zk_error2("localhost:65535", 1024, nullptr);
-    usleep(100*1000);    // ç”±äºè¿™é‡Œæ²¡æœ‰watcherç›‘æ§çŠ¶æ€ï¼Œæ‰€ä»¥åªèƒ½åç­‰sessionå»ºç«‹å®Œæˆ
+    usleep(100*1000);    // ÓÉÓÚÕâÀïÃ»ÓĞwatcher¼à¿Ø×´Ì¬£¬ËùÒÔÖ»ÄÜ×øµÈsession½¨Á¢Íê³É
     EXPECT_NE(zk_error2.get_state(), ZOO_CONNECTED_STATE);
 
-    // case1ï¼šæ— watcherï¼Œæ— old session
+    // case1£ºÎŞwatcher£¬ÎŞold session
     ZooKeeper zk1(server, 1024, nullptr);
-    usleep(100*1000);    // ç”±äºè¿™é‡Œæ²¡æœ‰watcherç›‘æ§çŠ¶æ€ï¼Œæ‰€ä»¥åªèƒ½åç­‰sessionå»ºç«‹å®Œæˆ
+    usleep(100*1000);    // ÓÉÓÚÕâÀïÃ»ÓĞwatcher¼à¿Ø×´Ì¬£¬ËùÒÔÖ»ÄÜ×øµÈsession½¨Á¢Íê³É
     EXPECT_EQ(zk1.get_state(), ZOO_CONNECTED_STATE);
     clientid_t id1 = *zk1.get_client_id();
     EXPECT_NE(id1.client_id, 0);
     EXPECT_NE(id1.passwd[0], 0);
-    EXPECT_TRUE(zk1.get_session_timeout() >= 4000 && zk1.get_session_timeout() <= 40000);    // 4s - 40sæ˜¯zkçš„é»˜è®¤é…ç½®
+    EXPECT_TRUE(zk1.get_session_timeout() >= 4000 && zk1.get_session_timeout() <= 40000);    // 4s - 40sÊÇzkµÄÄ¬ÈÏÅäÖÃ
 
-    // case2ï¼šæ— watcherï¼Œæœ‰old session
+    // case2£ºÎŞwatcher£¬ÓĞold session
     ZooKeeper zk2(server, 1024, nullptr, &id1);
-    usleep(100*1000);    // ç”±äºè¿™é‡Œæ²¡æœ‰watcherç›‘æ§çŠ¶æ€ï¼Œæ‰€ä»¥åªèƒ½åç­‰sessionå»ºç«‹å®Œæˆ
+    usleep(100*1000);    // ÓÉÓÚÕâÀïÃ»ÓĞwatcher¼à¿Ø×´Ì¬£¬ËùÒÔÖ»ÄÜ×øµÈsession½¨Á¢Íê³É
     EXPECT_EQ(zk2.get_state(), ZOO_CONNECTED_STATE);
-    EXPECT_NE(zk1.get_state(), ZOO_CONNECTED_STATE);    // sessioné‡è¿ä¼šå¯¼è‡´ä¹‹å‰çš„sessionå¤±æ•ˆ
+    EXPECT_NE(zk1.get_state(), ZOO_CONNECTED_STATE);    // sessionÖØÁ¬»áµ¼ÖÂÖ®Ç°µÄsessionÊ§Ğ§
     clientid_t id2 = *zk2.get_client_id();
     EXPECT_NE(id2.client_id, 0);
     EXPECT_NE(id2.passwd[0], 0);
-    EXPECT_TRUE(zk2.get_session_timeout() >= 4000 && zk2.get_session_timeout() <= 40000);    // 4s - 40sæ˜¯zkçš„é»˜è®¤é…ç½®
+    EXPECT_TRUE(zk2.get_session_timeout() >= 4000 && zk2.get_session_timeout() <= 40000);    // 4s - 40sÊÇzkµÄÄ¬ÈÏÅäÖÃ
     EXPECT_EQ(zk2.close(), ZOK);
 
-    EXPECT_NE(zk1.get_state(), ZOO_CONNECTED_STATE);    // sessioné‡è¿ä¼šå¯¼è‡´ä¹‹å‰çš„sessionå¤±æ•ˆ
+    EXPECT_NE(zk1.get_state(), ZOO_CONNECTED_STATE);    // sessionÖØÁ¬»áµ¼ÖÂÖ®Ç°µÄsessionÊ§Ğ§
     EXPECT_NE(zk2.get_state(), ZOO_CONNECTED_STATE);
 
-    // case3ï¼šæœ‰watcherï¼Œæ— old session
+    // case3£ºÓĞwatcher£¬ÎŞold session
     GlobalWatcher watcher3;
     ZooKeeper zk3(server, 1024, &watcher3);
     wait_watcher();
@@ -144,16 +144,16 @@ TEST_F(TestZooKeeperClass, test_connect_and_close)
     clientid_t id3 = *zk3.get_client_id();
     EXPECT_NE(id3.client_id, 0);
     EXPECT_NE(id3.passwd[0], 0);
-    EXPECT_TRUE(zk3.get_session_timeout() >= 4000 && zk3.get_session_timeout() <= 40000);    // 4s - 40sæ˜¯zkçš„é»˜è®¤é…ç½®
+    EXPECT_TRUE(zk3.get_session_timeout() >= 4000 && zk3.get_session_timeout() <= 40000);    // 4s - 40sÊÇzkµÄÄ¬ÈÏÅäÖÃ
     EXPECT_EQ(zk3.close(), ZOK);
 
-    // case4ï¼šæœ‰watcherï¼Œæœ‰old session
+    // case4£ºÓĞwatcher£¬ÓĞold session
     GlobalWatcher watcher4;
     ZooKeeper zk4(server, 1024, &watcher4, &id3);
     wait_watcher();
-    // é€šè¿‡watcherå¯ä»¥å‘ç°ï¼Œcloseå¹¶æ²¡æœ‰ä½¿zk3çš„sessionè¿‡æœŸï¼Œè€Œé‡ç”¨session idä½¿å¾—zk3çš„sessionè¿‡æœŸ
-    // zk3çš„ZOO_EXPIRED_SESSION_STATEçŠ¶æ€ä»…åœ¨watcherä¸­èƒ½çœ‹åˆ°ï¼Œç›´æ¥get_stateæ— æ³•æ£€æµ‹åˆ°
-    EXPECT_NE(zk4.get_state(), ZOO_CONNECTED_STATE);    // é”™è¯¯çš„client_idæ— æ³•å»ºç«‹è¿æ¥
+    // Í¨¹ıwatcher¿ÉÒÔ·¢ÏÖ£¬close²¢Ã»ÓĞÊ¹zk3µÄsession¹ıÆÚ£¬¶øÖØÓÃsession idÊ¹µÃzk3µÄsession¹ıÆÚ
+    // zk3µÄZOO_EXPIRED_SESSION_STATE×´Ì¬½öÔÚwatcherÖĞÄÜ¿´µ½£¬Ö±½Óget_stateÎŞ·¨¼ì²âµ½
+    EXPECT_NE(zk4.get_state(), ZOO_CONNECTED_STATE);    // ´íÎóµÄclient_idÎŞ·¨½¨Á¢Á¬½Ó
     EXPECT_EQ(zk4.close(), ZOK);
 }
 
@@ -169,32 +169,32 @@ TEST_F(TestZooKeeperClass, test_create_and_remove)
     PathWatcher pwatcher;
     PathWatcher pwatcher2;
 
-    // æµ‹è¯•æ™®é€šèŠ‚ç‚¹
+    // ²âÊÔÆÕÍ¨½Úµã
     ZooKeeper zk(server, 1024, &gwatcher);
     wait_watcher();
     EXPECT_EQ(zk.get_state(), ZOO_CONNECTED_STATE);
     std::string path("/zkclass_test_create");
     Stat stat;
     std::vector<ZKACL> acl = {{ZOO_PERM_ALL, "world", "anyone"}};
-    EXPECT_EQ(zk.exists(path, true), ZNONODE);    // trueè¡¨ç¤ºä½¿ç”¨initæ—¶æ³¨å†Œçš„global watcherè¿›è¡Œç›‘å¬
-    EXPECT_EQ(zk.exists(path, true), ZNONODE);    // åŒä¸€ä¸ªpathï¼ŒåŒä¸€ä¸ªwatcherï¼Œå³ä½¿å¤šæ¬¡æ³¨å†Œï¼Œä¹Ÿåªç›‘å¬1æ¬¡
-    EXPECT_EQ(zk.exists(path, &pwatcher), ZNONODE);    // é™¤äº†ä½¿ç”¨global watcherï¼Œä¹Ÿå¯ä»¥è‡ªå·±æŒ‡å®šwatcher
+    EXPECT_EQ(zk.exists(path, true), ZNONODE);    // true±íÊ¾Ê¹ÓÃinitÊ±×¢²áµÄglobal watcher½øĞĞ¼àÌı
+    EXPECT_EQ(zk.exists(path, true), ZNONODE);    // Í¬Ò»¸öpath£¬Í¬Ò»¸öwatcher£¬¼´Ê¹¶à´Î×¢²á£¬Ò²Ö»¼àÌı1´Î
+    EXPECT_EQ(zk.exists(path, &pwatcher), ZNONODE);    // ³ıÁËÊ¹ÓÃglobal watcher£¬Ò²¿ÉÒÔ×Ô¼ºÖ¸¶¨watcher
     EXPECT_EQ(zk.create(path, std::string("root node"), acl), ZOK);
-    EXPECT_EQ(zk.exists(path), ZOK);    // global watcherä¹Ÿæ˜¯ä¸€æ¬¡æ€§ç›‘å¬ï¼Œå¦‚æœéœ€è¦åˆ™æ¯æ¬¡è®¾ç½®
-    EXPECT_EQ(zk.exists(path, &pwatcher), ZOK);    // åŒä¸€ä¸ªpathï¼ŒåŒä¸€ä¸ªwatcherï¼Œå³ä½¿å¤šæ¬¡æ³¨å†Œï¼Œä¹Ÿåªç›‘å¬1æ¬¡
+    EXPECT_EQ(zk.exists(path), ZOK);    // global watcherÒ²ÊÇÒ»´ÎĞÔ¼àÌı£¬Èç¹ûĞèÒªÔòÃ¿´ÎÉèÖÃ
+    EXPECT_EQ(zk.exists(path, &pwatcher), ZOK);    // Í¬Ò»¸öpath£¬Í¬Ò»¸öwatcher£¬¼´Ê¹¶à´Î×¢²á£¬Ò²Ö»¼àÌı1´Î
     EXPECT_EQ(zk.exists(path, &pwatcher), ZOK);
-    EXPECT_EQ(zk.exists(path, &pwatcher2, &stat), ZOK);    // ç›¸åŒpathï¼Œä¸åŒwatcherï¼Œä½œä¸ºä¸¤ä¸ªä¸åŒçš„ç›‘å¬ï¼Œä¼šä¾æ¬¡è§¦å‘
+    EXPECT_EQ(zk.exists(path, &pwatcher2, &stat), ZOK);    // ÏàÍ¬path£¬²»Í¬watcher£¬×÷ÎªÁ½¸ö²»Í¬µÄ¼àÌı£¬»áÒÀ´Î´¥·¢
     EXPECT_EQ(zk.exists(path, &stat), ZOK);
     EXPECT_EQ(zk.remove(path, stat.version), ZOK);
     EXPECT_EQ(zk.exists(path), ZNONODE);
 
-    // æµ‹è¯•ä¸´æ—¶èŠ‚ç‚¹
+    // ²âÊÔÁÙÊ±½Úµã
     std::string path_ephemeral("/zkclass_test_ephemeral");
     EXPECT_EQ(zk.exists(path_ephemeral), ZNONODE);
     EXPECT_EQ(zk.create(path_ephemeral, std::string("ephemeral node"), acl, ZOO_EPHEMERAL), ZOK);
     EXPECT_EQ(zk.exists(path_ephemeral), ZOK);
 
-    // æµ‹è¯•ä¸´æ—¶é¡ºåºèŠ‚ç‚¹
+    // ²âÊÔÁÙÊ±Ë³Ğò½Úµã
     std::string path_sequence("/zkclass_test_sequence");
     std::string new_path;
     EXPECT_EQ(zk.exists(path_sequence), ZNONODE);
@@ -221,7 +221,7 @@ TEST_F(TestZooKeeperClass, test_set_and_get)
     Stat stat;
     std::vector<ZKACL> acl = {{ZOO_PERM_ALL, "world", "anyone"}};
     std::string data;
-    EXPECT_EQ(zk.get_data(path, &data, true), ZNONODE);    // get_dataå¹¶ä¸èƒ½ç›‘å¬åˆ°createäº‹ä»¶ï¼Œä¸”åœ¨èŠ‚ç‚¹åˆ›å»ºä¹‹å‰ï¼Œå¯¹èŠ‚ç‚¹å†…å®¹çš„ç›‘å¬éƒ½æ˜¯æ— æ•ˆçš„
+    EXPECT_EQ(zk.get_data(path, &data, true), ZNONODE);    // get_data²¢²»ÄÜ¼àÌıµ½createÊÂ¼ş£¬ÇÒÔÚ½Úµã´´½¨Ö®Ç°£¬¶Ô½ÚµãÄÚÈİµÄ¼àÌı¶¼ÊÇÎŞĞ§µÄ
     EXPECT_EQ(zk.create(path, std::string(), acl, ZOO_EPHEMERAL), ZOK);
     EXPECT_EQ(zk.exists(path), ZOK);
     EXPECT_EQ(zk.get_data(path, &data, true), ZOK);
@@ -255,7 +255,7 @@ TEST_F(TestZooKeeperClass, test_get_children)
     std::string path("/zkclass_test_get_children");
     Stat stat;
     std::vector<std::string> list;
-    EXPECT_EQ(zk.create(path, std::string(), acl), ZOK);    // ä¸ºä»€ä¹ˆè¿™ä¸€è¡Œä¼šå¯¼è‡´valgrindå†…å­˜æ³„æ¼ï¼špossibly lost
+    EXPECT_EQ(zk.create(path, std::string(), acl), ZOK);    // ÎªÊ²Ã´ÕâÒ»ĞĞ»áµ¼ÖÂvalgrindÄÚ´æĞ¹Â©£ºpossibly lost
     EXPECT_EQ(zk.create(path+"/a", std::string(), acl, ZOO_EPHEMERAL), ZOK);
     EXPECT_EQ(zk.create(path+"/b", std::string(), acl, ZOO_EPHEMERAL), ZOK);
     EXPECT_EQ(zk.create(path+"/c", std::string(), acl, ZOO_EPHEMERAL), ZOK);
@@ -268,14 +268,14 @@ TEST_F(TestZooKeeperClass, test_get_children)
     EXPECT_EQ(list.size(), 3);
     EXPECT_EQ(zk.remove(path+"/b", -1), ZOK);
     list.clear();
-    EXPECT_EQ(zk.get_children(path, &list, &pwatcher), ZOK);    // tcmallocæ£€æµ‹å†…å­˜æ³„æ¼
+    EXPECT_EQ(zk.get_children(path, &list, &pwatcher), ZOK);    // tcmalloc¼ì²âÄÚ´æĞ¹Â©
     EXPECT_EQ(list.size(), 2);
     EXPECT_EQ(zk.remove(path+"/c", -1), ZOK);
     list.clear();
-    EXPECT_EQ(zk.get_children(path, &list, &pwatcher, &stat), ZOK);    // tcmallocæ£€æµ‹å†…å­˜æ³„æ¼
+    EXPECT_EQ(zk.get_children(path, &list, &pwatcher, &stat), ZOK);    // tcmalloc¼ì²âÄÚ´æĞ¹Â©
     EXPECT_EQ(list.size(), 1);
     EXPECT_EQ(zk.remove(path+"/d", -1), ZOK);
-    EXPECT_EQ(zk.remove(path, -1), ZOK);    // ä¸ºä»€ä¹ˆè¿™ä¸€è¡Œä¼šå¯¼è‡´valgrindå†…å­˜æ³„æ¼ï¼Ÿ
+    EXPECT_EQ(zk.remove(path, -1), ZOK);    // ÎªÊ²Ã´ÕâÒ»ĞĞ»áµ¼ÖÂvalgrindÄÚ´æĞ¹Â©£¿
 }
 
 /* 
@@ -291,9 +291,9 @@ TEST_F(TestZooKeeperClass, test_acl)
     Stat stat;
     ZooKeeper zk(server, 1024, &gwatcher);
     std::string path("/zkclass_test_acl");
-    wait_watcher();    // tcmallocæ£€æµ‹å†…å­˜æ³„æ¼
+    wait_watcher();    // tcmalloc¼ì²âÄÚ´æĞ¹Â©
     EXPECT_EQ(zk.get_state(), ZOO_CONNECTED_STATE);
-    EXPECT_EQ(zk.create(path, std::string("acl node"), acl), ZOK);    // ä¸ºä»€ä¹ˆè¿™ä¸€è¡Œä¼šå¯¼è‡´valgrindå†…å­˜æ³„æ¼ï¼špossibly lost
+    EXPECT_EQ(zk.create(path, std::string("acl node"), acl), ZOK);    // ÎªÊ²Ã´ÕâÒ»ĞĞ»áµ¼ÖÂvalgrindÄÚ´æĞ¹Â©£ºpossibly lost
     acl.clear();
     EXPECT_EQ(zk.get_acl(path, &acl, &stat), ZOK);
     EXPECT_EQ(acl.size(), 1);
@@ -304,14 +304,14 @@ TEST_F(TestZooKeeperClass, test_acl)
     EXPECT_EQ(zk.set_acl(path, acl, stat.version), ZOK);
     acl.clear();
     EXPECT_EQ(zk.get_acl(path, &acl), ZOK);
-    EXPECT_EQ(acl.size(), 2);    // tcmallocæ£€æµ‹å†…å­˜æ³„æ¼
+    EXPECT_EQ(acl.size(), 2);    // tcmalloc¼ì²âÄÚ´æĞ¹Â©
     EXPECT_EQ(acl[1].perms(), ZOO_PERM_WRITE);
-    EXPECT_EQ(acl[1].scheme(), std::string("digest"));    // digestç±»å‹çš„idæ ¼å¼ä¸ºï¼š"user:base64(sha1("user:passwd"))"
+    EXPECT_EQ(acl[1].scheme(), std::string("digest"));    // digestÀàĞÍµÄid¸ñÊ½Îª£º"user:base64(sha1("user:passwd"))"
     EXPECT_EQ(acl[1].id(), std::string("test:V28q/NynI4JI3Rk54h0r8O5kMug="));
     EXPECT_EQ(zk.set_data(path, std::string("acl write"), -1), ZNOAUTH);
     EXPECT_EQ(zk.add_auth_info("digest", "test:test"), ZOK);
     EXPECT_EQ(zk.set_data(path, std::string("acl write"), -1), ZOK);
-    EXPECT_EQ(zk.remove(path, -1), ZOK);    // ä¸ºä»€ä¹ˆè¿™ä¸€è¡Œä¼šå¯¼è‡´valgrindå†…å­˜æ³„æ¼ï¼Ÿ
+    EXPECT_EQ(zk.remove(path, -1), ZOK);    // ÎªÊ²Ã´ÕâÒ»ĞĞ»áµ¼ÖÂvalgrindÄÚ´æĞ¹Â©£¿
 }
 
 /* 
@@ -326,7 +326,7 @@ TEST_F(TestZooKeeperClass, test_watcher)
     PathWatcher pwatcher;
     ZooKeeper zk(server, 1024, &gwatcher);
     zk.register_watcher(&pwatcher);
-    wait_watcher();    // tcmallocæ£€æµ‹å†…å­˜æ³„æ¼
+    wait_watcher();    // tcmalloc¼ì²âÄÚ´æĞ¹Â©
     EXPECT_EQ(s_global_watcher_trigger, 0);
     EXPECT_EQ(s_path_watcher_trigger, 1);
 }
