@@ -32,7 +32,7 @@ public:
 
     ZKACL(ZKACL &&acl) = default;
 
-    ZKACL(const ACL &acl) {
+    explicit ZKACL(const ACL &acl) {
         _perms = acl.perms;
         _scheme = acl.id.scheme;
         _id = acl.id.id;

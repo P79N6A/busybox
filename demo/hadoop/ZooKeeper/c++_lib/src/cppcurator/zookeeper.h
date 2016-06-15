@@ -394,7 +394,7 @@ public:
     //  ReturnValue:  error class
     // =====================================================================================
     */
-    ZooKeeper::Error get_children(const std::string path, std::vector<std::string> *children) const;
+    ZooKeeper::Error get_children(const std::string &path, std::vector<std::string> *children) const;
 
     /* 
     // ===  FUNCTION  ======================================================================
@@ -406,7 +406,7 @@ public:
     //  ReturnValue:  error class
     // =====================================================================================
     */
-    ZooKeeper::Error get_children(const std::string path, std::vector<std::string> *children,
+    ZooKeeper::Error get_children(const std::string &path, std::vector<std::string> *children,
             Stat *stat) const;
 
     /* 
@@ -419,7 +419,7 @@ public:
     //  ReturnValue:  error class
     // =====================================================================================
     */
-    ZooKeeper::Error get_children(const std::string path, std::vector<std::string> *children,
+    ZooKeeper::Error get_children(const std::string &path, std::vector<std::string> *children,
             bool watch) const;
 
     /* 
@@ -432,7 +432,7 @@ public:
     //  ReturnValue:  error class
     // =====================================================================================
     */
-    ZooKeeper::Error get_children(const std::string path, std::vector<std::string> *children,
+    ZooKeeper::Error get_children(const std::string &path, std::vector<std::string> *children,
             Watcher *watcher) const;
 
     /* 
@@ -446,7 +446,7 @@ public:
     //  ReturnValue:  error class
     // =====================================================================================
     */
-    ZooKeeper::Error get_children(const std::string path, std::vector<std::string> *children,
+    ZooKeeper::Error get_children(const std::string &path, std::vector<std::string> *children,
             bool watch, Stat *stat) const;
 
     /* 
@@ -460,7 +460,7 @@ public:
     //  ReturnValue:  error class
     // =====================================================================================
     */
-    ZooKeeper::Error get_children(const std::string path, std::vector<std::string> *children,
+    ZooKeeper::Error get_children(const std::string &path, std::vector<std::string> *children,
             Watcher *watcher, Stat *stat) const;
 
     /* 
@@ -484,7 +484,7 @@ public:
     //  ReturnValue:  error class
     // =====================================================================================
     */
-    ZooKeeper::Error set_acl(const std::string path, std::vector<ZKACL> acl, int version);
+    ZooKeeper::Error set_acl(const std::string &path, const std::vector<ZKACL> &acl, int version);
 
     /* 
     // ===  FUNCTION  ======================================================================
@@ -495,7 +495,7 @@ public:
     //  ReturnValue:  error class
     // =====================================================================================
     */
-    ZooKeeper::Error get_acl(const std::string path, std::vector<ZKACL> *acl) const;
+    ZooKeeper::Error get_acl(const std::string &path, std::vector<ZKACL> *acl) const;
 
     /* 
     // ===  FUNCTION  ======================================================================
@@ -507,7 +507,7 @@ public:
     //  ReturnValue:  error class
     // =====================================================================================
     */
-    ZooKeeper::Error get_acl(const std::string path, std::vector<ZKACL> *acl, Stat *stat) const;
+    ZooKeeper::Error get_acl(const std::string &path, std::vector<ZKACL> *acl, Stat *stat) const;
 
     /* 
     // ===  FUNCTION  ======================================================================
@@ -600,16 +600,6 @@ private:
     */
     static void watcher_callback(zhandle_t *zh, int type,
             int state, const char *path,void *watcherCtx);
-
-    /* 
-     * ===  FUNCTION  ======================================================================
-     *         Name:  resize_string_uninitialized
-     *  Description:   
-     *   Parameters:  
-     *  ReturnValue:  
-     * =====================================================================================
-     */
-    std::string* resize_string_uninitialized(std::string *str, size_t size) const;
 
     // ====================  DATA MEMBERS  =======================================
     zhandle_t *_zhandler;
