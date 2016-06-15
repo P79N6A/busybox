@@ -27,6 +27,7 @@ switch -- $machine {
 
 switch -- $screen {
 	"e" {set screen eden}
+	"b" {set screen busybox}
 }
 
 proc attach_screen { name } {
