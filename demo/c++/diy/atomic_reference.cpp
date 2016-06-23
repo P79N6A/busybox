@@ -74,7 +74,7 @@ public:
 	{
 		std::lock_guard<std::mutex> guard(_lock);
 		std::shared_ptr<T> tmp = *_pptr;
-		return tmp;
+		return std::move(tmp);
 	}
 
 //	std::shared_ptr<T> operator*() {return *_pptr;}
