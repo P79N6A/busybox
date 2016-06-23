@@ -62,7 +62,11 @@ public:
 	AtomicReference& operator=(T *ptr)
 	{
 		std::lock_guard<std::mutex> guard(_lock);
-		*_pptr.get() = std::shared_ptr<T>(ptr);
+		if (_pptr.get() == nullptr) {
+			_pptr = std::shared_ptr<std::shared_ptr<T>> (new std::shared_ptr<T>(ptr));
+		} else {
+			*_pptr = std::move(std::shared_ptr<T>(ptr));
+		}
 		return *this;
 	}
 
@@ -76,7 +80,6 @@ public:
 //	std::shared_ptr<T> operator*() {return *_pptr;}
 
 private:
-public:
 	// ==================== PRIVATE METHOD =======================================
 
 	// ====================  DATA MEMBERS  =======================================
@@ -93,17 +96,18 @@ public:
 int main(int argc, char *argv[])
 {
 	std::shared_ptr<std::shared_ptr<int>> p(new std::shared_ptr<int>(new int(3)));
-
 	std::cout << **p << std::endl;
+
+	AtomicReference<std::string> s0;
+	s0 = new std::string("x");
+	std::cout << s0->c_str() << std::endl;
 
 	AtomicReference<std::string> s1(new std::string("abc"));
 	AtomicReference<std::string> s2 = s1;
-
 	std::cout << s1->c_str() << std::endl;
 	std::cout << s2->c_str() << std::endl;
 
 	s1 = new std::string("bcd");
-
 	std::cout << s1->c_str() << std::endl;
 	std::cout << s2->c_str() << std::endl;
 
