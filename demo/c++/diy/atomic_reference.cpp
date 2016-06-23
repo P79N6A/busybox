@@ -23,43 +23,43 @@
 #include <mutex>
 
 // =====================================================================================
-//        Class:  AtomicReferencePtr
+//        Class:  AtomicReference
 //  Description:  
 // =====================================================================================
 
 template <typename T>
-class AtomicReferencePtr
+class AtomicReference
 {
 public:
 	// ====================  LIFECYCLE     =======================================
-	AtomicReferencePtr() = default;
+	AtomicReference() = default;
 
-	AtomicReferencePtr(const AtomicReferencePtr &obj)
+	AtomicReference(const AtomicReference &obj)
 	{
 		std::lock_guard<std::mutex> guard(_lock);
 		_pptr = obj._pptr;
 	}
 
 
-	AtomicReferencePtr(T *ptr) : _pptr(new std::shared_ptr<T>(ptr))
+	AtomicReference(T *ptr) : _pptr(new std::shared_ptr<T>(ptr))
 	{
 	}
 
-	~AtomicReferencePtr()
+	~AtomicReference()
 	{
 	}
 
 	// ====================  INTERFACE     =======================================
 
 	// ====================  OPERATORS     =======================================
-	AtomicReferencePtr& operator=(const AtomicReferencePtr &obj)
+	AtomicReference& operator=(const AtomicReference &obj)
 	{
 		std::lock_guard<std::mutex> guard(_lock);
 		_pptr = obj._pptr;
 		return *this;
 	}
 
-	AtomicReferencePtr& operator=(T *ptr)
+	AtomicReference& operator=(T *ptr)
 	{
 		std::lock_guard<std::mutex> guard(_lock);
 		*_pptr.get() = std::shared_ptr<T>(ptr);
@@ -82,7 +82,7 @@ public:
 	// ====================  DATA MEMBERS  =======================================
 	std::shared_ptr<std::shared_ptr<T>> _pptr;
 	std::mutex _lock;
-};		// -----  end of template class AtomicReferencePtr  -----
+};		// -----  end of template class AtomicReference  -----
 
 /* 
 // ===  FUNCTION  ======================================================================
@@ -96,8 +96,8 @@ int main(int argc, char *argv[])
 
 	std::cout << **p << std::endl;
 
-	AtomicReferencePtr<std::string> s1(new std::string("abc"));
-	AtomicReferencePtr<std::string> s2 = s1;
+	AtomicReference<std::string> s1(new std::string("abc"));
+	AtomicReference<std::string> s2 = s1;
 
 	std::cout << s1->c_str() << std::endl;
 	std::cout << s2->c_str() << std::endl;
