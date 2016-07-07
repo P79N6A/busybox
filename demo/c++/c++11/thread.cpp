@@ -22,9 +22,14 @@
 #include <thread>
 #include <mutex>
 #include <atomic>
+#include <condition_variable>
 #include <chrono>
 
 std::once_flag flag;
+
+std::mutex cond_mutex;
+std::condition_variable cond_v;
+std::condition_variable_any cond_va;
 
 void fun0()
 {
@@ -49,6 +54,30 @@ void fun()
 	std::cout << "core num: " << std::thread::hardware_concurrency() << std::endl;
 	// 当前现成睡眠10毫秒
 	std::this_thread::sleep_for(std::chrono::milliseconds(10));
+}
+
+void fun_cond1()
+{
+	bool rc;
+	std::unique_lock<std::mutex> guard(cond_mutex);
+	cond_v.wait(guard);	// std::condition_variable的wait参数只能是unique_lock
+	cond_v.wait(guard, [](){return true;});	// std::condition_variable还可以接一个函数，然而并没有返回值
+	cond_v.wait_for(guard, std::chrono::milliseconds(10));	// 等待指定时间超时
+	rc = cond_v.wait_for(guard, std::chrono::milliseconds(10), [](){return true;});	// wair_for的带函数版本
+	cond_v.wait_until(guard, std::chrono::steady_clock::now() + std::chrono::milliseconds(10));	// 等待到指定时间点超时
+	rc = cond_v.wait_until(guard, std::chrono::steady_clock::now() + std::chrono::milliseconds(10), [](){return true;});	// wair_until的带函数版本
+}
+
+void fun_cond2()
+{
+	bool rc;
+	std::lock_guard<std::mutex> guard(cond_mutex);
+	cond_va.wait(cond_mutex);	// condition_variable_any的参数可以是任意的锁类型
+	cond_va.wait(cond_mutex, [](){return true;});	// std::condition_variable_any还可以接一个函数，然而并没有返回值
+	cond_va.wait_for(cond_mutex, std::chrono::milliseconds(10));	// 等待指定时间超时
+	rc = cond_va.wait_for(cond_mutex, std::chrono::milliseconds(10), [](){return true;});	// wair_for的带函数版本
+	cond_va.wait_until(cond_mutex, std::chrono::steady_clock::now() + std::chrono::milliseconds(10));	// 等待到指定时间点超时
+	rc = cond_va.wait_until(cond_mutex, std::chrono::steady_clock::now() + std::chrono::milliseconds(10), [](){return true;});	// wair_until的带函数版本
 }
 
 /* 
@@ -128,6 +157,19 @@ int main(int argc, char *argv[])
 	std::atomic<int> i(0);	// 原子变量的使用和普通int类型一样，基本没有差别
 	std::atomic<int> j(1);
 	i=1; ++i; --i; i+=2; i+=j;
+
+	// 条件变量的用法：
+	std::thread t_cond1(fun_cond1);
+	std::thread t_cond2(fun_cond2);
+
+	cond_v.notify_one();
+	cond_v.notify_all();
+
+	cond_va.notify_one();
+	cond_va.notify_all();
+
+	t_cond1.join();
+	t_cond2.join();
 
 	std::cout << "Hello World" << std::endl;
 	return EXIT_SUCCESS;
