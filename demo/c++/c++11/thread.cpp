@@ -81,34 +81,49 @@ void fun_cond2()
 	rc = cond_va.wait_until(cond_mutex, std::chrono::steady_clock::now() + std::chrono::milliseconds(10), [](){return true;});	// wair_until的带函数版本
 }
 
-void fun_future()
+void fun_future_with_promise()
 {
-	std::packaged_task<int()> task([](){	// 定义一个返回值为int的无参函数的packaged_task
+	std::promise<int> pr;
+	std::future<int> f = pr.get_future();
+  	std::thread([](std::promise<int> &pr){
+			pr.set_value(1);
+			std::this_thread::sleep_for(std::chrono::seconds(10));
+			}, std::ref(pr)).detach();
+	std::cout << "promise: " << f.get() << std::endl;
+}
+
+void fun_future_with_package_task()
+{
+	// task必须分离出来单独使用，如果各个future共用一个package_task会出现莫名其妙的core
+
+	std::packaged_task<int()> task1([](){	// 定义一个返回值为int的无参函数的packaged_task
 			std::this_thread::sleep_for(std::chrono::milliseconds(10));
 			std::cout << "packaged_task is running" << std::endl;
 			return 1;
 			});	// 可调用对象的包装类，用于future的初始化
-	std::future<int> f = task.get_future();			// 获取task的future
+	std::future<int> f1 = task1.get_future();		// 获取task的future
+  	std::thread(std::move(task1)).detach();			// 运行task，并将线程分离
+  	f1.wait();						// 使用future等待，直到线程执行完成
 
-	std::thread(std::move(task)).detach();			// 运行task，并将线程分离
-	f.wait();						// 使用future等待，直到线程执行完成
+	std::packaged_task<int()> task2([](){	// 定义一个返回值为int的无参函数的packaged_task
+			std::this_thread::sleep_for(std::chrono::milliseconds(10));
+			std::cout << "packaged_task is running" << std::endl;
+			return 1;
+			});	// 可调用对象的包装类，用于future的初始化
+	std::future<int> f2 = task2.get_future();		// 获取task的future
+  	std::thread(std::move(task2)).detach();			// 运行task，并将线程分离
+  	std::cout << "future.get(): " << f2.get() << std::endl;	// 使用future等待，并返回对应的类型
 
-	return;
-
-	std::thread(std::move(task)).detach();			// 运行task，并将线程分离
-	std::cout << "future.get(): " << f.get() << std::endl;	// 使用future等待，并返回对应的类型
-
-	return;
-
-	std::future<int> future = std::async(std::launch::async, [](){ 
-			std::this_thread::sleep_for(std::chrono::seconds(3));
-			return 8;  
-			}); 
-
-	std::cout << "waiting...\n";
+	std::packaged_task<int()> task3([](){	// 定义一个返回值为int的无参函数的packaged_task
+			std::this_thread::sleep_for(std::chrono::milliseconds(10));
+			std::cout << "packaged_task is running" << std::endl;
+			return 1;
+			});	// 可调用对象的包装类，用于future的初始化
+	std::future<int> f3 = task3.get_future();		// 获取task的future
+	std::thread(std::move(task3)).detach();			// 运行task，并将线程分离
 	std::future_status status;
-	do {
-		status = future.wait_for(std::chrono::seconds(1));
+	do {	// 判断future_status的三种状态，知道线程结束为止
+		status = f3.wait_for(std::chrono::milliseconds(1));
 		if (status == std::future_status::deferred) {
 			std::cout << "deferred" << std::endl;
 		} else if (status == std::future_status::timeout) {
@@ -116,25 +131,25 @@ void fun_future()
 		} else if (status == std::future_status::ready) {
 			std::cout << "ready!" << std::endl;
 		}
-	} while (status != std::future_status::ready); 
+	} while (status != std::future_status::ready);
+}
 
-	std::cout << "result is " << future.get() << '\n';
-	return;
+void fun_future_with_async()
+{
+	std::future<int> f1 = std::async([](){
+			std::this_thread::sleep_for(std::chrono::milliseconds(10));
+			return 2;
+			});
+	std::cout << "async(default) future.get(): " << f1.get() << std::endl;
 
-//	std::thread(std::move(task)).detach();			// 运行task，并将线程分离
-//	std::future_status status;
-//	do {
-//		status = f.wait_for(std::chrono::milliseconds(1));
-//		if (status == std::future_status::deferred) {
-//			std::cout << "future_status: deferred" << std::endl;
-//		}
-//		if (status == std::future_status::timeout) {
-//			std::cout << "future_status: timeout" << std::endl;
-//		}
-//		if (status == std::future_status::ready) {
-//			std::cout << "future_status: ready" << std::endl;
-//		}
-//	} while (status != std::future_status::ready);
+	// std::async的第一个参数可以提供两种执行策略：
+	// 1、std::launch::async：立即创建线程（默认）
+	// 2、std::launch::deferred：调用时async时不创建线程，直到调用了future的get或wait时才创建
+	std::future<int> f2 = std::async(std::launch::async, [](){
+			std::this_thread::sleep_for(std::chrono::milliseconds(10));
+			return 2;
+			});
+	std::cout << "async(std::launch::async) future.get(): " << f2.get() << std::endl;
 }
 
 /* 
@@ -188,7 +203,7 @@ int main(int argc, char *argv[])
 	// std::defer_lock 	std::defer_lock_t 	不请求锁。
 	// std::try_to_lock 	std::try_to_lock_t 	尝试请求锁，但不阻塞线程，锁不可用时也会立即返回。
 	// std::adopt_lock 	std::adopt_lock_t 	假定当前线程已经获得互斥对象的所有权，所以不再请求锁。
-	// 
+	//
 	// 另外，unique_lock的另一种非常重要的用法是作为返回值将锁传递出去，这一点是lock_guard做不到的
 	std::mutex mtx_uniq;
 	std::unique_lock<std::mutex> uniq_lock(mtx_uniq, std::defer_lock);	//这是一种只创建，不加锁的初始化方式
@@ -228,8 +243,14 @@ int main(int argc, char *argv[])
 	t_cond1.join();
 	t_cond2.join();
 
-	// std::future的用法
-	fun_future();
+	// std::future与promise结合的用法
+	fun_future_with_promise();
+
+	// std::future与package_task结合的用法
+	fun_future_with_package_task();
+
+	// std::future与async结合的用法
+	fun_future_with_async();
 
 	std::cout << "Hello World" << std::endl;
 	return EXIT_SUCCESS;
