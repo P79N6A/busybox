@@ -21,6 +21,7 @@
 #include <iostream>
 #include <thread>
 #include <mutex>
+#include <future>
 #include <atomic>
 #include <condition_variable>
 #include <chrono>
@@ -78,6 +79,62 @@ void fun_cond2()
 	rc = cond_va.wait_for(cond_mutex, std::chrono::milliseconds(10), [](){return true;});	// wair_for的带函数版本
 	cond_va.wait_until(cond_mutex, std::chrono::steady_clock::now() + std::chrono::milliseconds(10));	// 等待到指定时间点超时
 	rc = cond_va.wait_until(cond_mutex, std::chrono::steady_clock::now() + std::chrono::milliseconds(10), [](){return true;});	// wair_until的带函数版本
+}
+
+void fun_future()
+{
+	std::packaged_task<int()> task([](){	// 定义一个返回值为int的无参函数的packaged_task
+			std::this_thread::sleep_for(std::chrono::milliseconds(10));
+			std::cout << "packaged_task is running" << std::endl;
+			return 1;
+			});	// 可调用对象的包装类，用于future的初始化
+	std::future<int> f = task.get_future();			// 获取task的future
+
+	std::thread(std::move(task)).detach();			// 运行task，并将线程分离
+	f.wait();						// 使用future等待，直到线程执行完成
+
+	return;
+
+	std::thread(std::move(task)).detach();			// 运行task，并将线程分离
+	std::cout << "future.get(): " << f.get() << std::endl;	// 使用future等待，并返回对应的类型
+
+	return;
+
+	std::future<int> future = std::async(std::launch::async, [](){ 
+			std::this_thread::sleep_for(std::chrono::seconds(3));
+			return 8;  
+			}); 
+
+	std::cout << "waiting...\n";
+	std::future_status status;
+	do {
+		status = future.wait_for(std::chrono::seconds(1));
+		if (status == std::future_status::deferred) {
+			std::cout << "deferred" << std::endl;
+		} else if (status == std::future_status::timeout) {
+			std::cout << "timeout" << std::endl;
+		} else if (status == std::future_status::ready) {
+			std::cout << "ready!" << std::endl;
+		}
+	} while (status != std::future_status::ready); 
+
+	std::cout << "result is " << future.get() << '\n';
+	return;
+
+//	std::thread(std::move(task)).detach();			// 运行task，并将线程分离
+//	std::future_status status;
+//	do {
+//		status = f.wait_for(std::chrono::milliseconds(1));
+//		if (status == std::future_status::deferred) {
+//			std::cout << "future_status: deferred" << std::endl;
+//		}
+//		if (status == std::future_status::timeout) {
+//			std::cout << "future_status: timeout" << std::endl;
+//		}
+//		if (status == std::future_status::ready) {
+//			std::cout << "future_status: ready" << std::endl;
+//		}
+//	} while (status != std::future_status::ready);
 }
 
 /* 
@@ -170,6 +227,9 @@ int main(int argc, char *argv[])
 
 	t_cond1.join();
 	t_cond2.join();
+
+	// std::future的用法
+	fun_future();
 
 	std::cout << "Hello World" << std::endl;
 	return EXIT_SUCCESS;
