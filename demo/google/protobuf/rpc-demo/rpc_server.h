@@ -59,7 +59,7 @@ public:
 	 */
 	bool Failed() const
 	{
-		return false;
+		return _failed_flag;
 	}		/* -----  end of function Failed  ----- */
 
 	/* 
@@ -70,7 +70,7 @@ public:
 	 */
 	std::string ErrorText() const
 	{
-		return std::string("none");
+		return _error_reasion;
 	}		/* -----  end of function ErrorText  ----- */
 
 	/* 
@@ -85,6 +85,7 @@ public:
 	 */
 	void StartCancel()
 	{
+		_cancel_flag = true;
 	}		/* -----  end of function StartCancel  ----- */
 
 	/* ====================  Server-side methods  ================================ */
@@ -100,6 +101,7 @@ public:
 	 */
 	void SetFailed(const std::string& reason)
 	{
+		_failed_flag = true;
 	}		/* -----  end of function SetFailed  ----- */
 
 	/* 
@@ -111,7 +113,7 @@ public:
 	 */
 	bool IsCanceled() const
 	{
-		return false;
+		return _cancel_flag;
 	}		/* -----  end of function IsCanceled  ----- */
 
 	/* 
@@ -133,7 +135,10 @@ private:
 	/* ==================== PRIVATE METHOD ======================================= */
 
 	/* ====================  DATA MEMBERS  ======================================= */
-
+	bool _failed_flag = false;
+	std::string _error_reasion;
+	
+	bool _cancel_flag = false;
 };		/* -----  end of class MyRPCController  ----- */
 
 /*
@@ -271,4 +276,39 @@ private:
 	MyRPCServer *_server;
 
 };		/* -----  end of class MyRPCChannel  ----- */
+
+/*
+ * =====================================================================================
+ *        Class:  MyClosure
+ *  Description:  
+ * =====================================================================================
+ */
+class MyClosure : public google::protobuf::Closure
+{
+public:
+	// ====================  LIFECYCLE     =======================================
+	MyClosure() {}
+	~MyClosure() {}
+
+	// ====================  INTERFACE     =======================================
+
+	/* 
+	// ===  FUNCTION  ======================================================================
+	//         Name:  Run
+	//  Description:   
+	//   Parameters:  
+	//  ReturnValue:  
+	// =====================================================================================
+	*/
+	void Run()
+	{
+		std::cout << "Closure::Run()" << std::endl;
+	}		// -----  end of function Run  -----
+
+private:
+	// ==================== PRIVATE METHOD =======================================
+
+	// ====================  DATA MEMBERS  =======================================
+
+};		// -----  end of class MyClosure  -----
 

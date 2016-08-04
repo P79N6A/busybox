@@ -25,41 +25,7 @@
 
 using google::protobuf::RpcChannel;
 using google::protobuf::RpcController;
-using google::protobuf::Closure;
 using example::EchoService;
-
-// =====================================================================================
-//        Class:  MyClosure
-//  Description:  
-// =====================================================================================
-class MyClosure : public Closure
-{
-public:
-	// ====================  LIFECYCLE     =======================================
-	MyClosure() {}
-	~MyClosure() {}
-
-	// ====================  INTERFACE     =======================================
-
-	/* 
-	// ===  FUNCTION  ======================================================================
-	//         Name:  Run
-	//  Description:   
-	//   Parameters:  
-	//  ReturnValue:  
-	// =====================================================================================
-	*/
-	void Run()
-	{
-		std::cout << "Closure::Run()" << std::endl;
-	}		// -----  end of function Run  -----
-
-private:
-	// ==================== PRIVATE METHOD =======================================
-
-	// ====================  DATA MEMBERS  =======================================
-
-};		// -----  end of class MyClosure  -----
 
 // =====================================================================================
 //        Class:  EchoServiceImpl
